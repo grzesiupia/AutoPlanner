@@ -37,8 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'BackendApi',
-    'rest_framework'
+    'BackendApi'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +81,7 @@ DATABASES = {
         'USER': 'uni',
         'PASSWORD': '123',
         'HOST': '185.66.213.128',
-        'PORT': '3360'
+        'PORT': '3306'
     }
 }
 
