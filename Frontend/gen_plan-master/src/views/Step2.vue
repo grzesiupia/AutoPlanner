@@ -13,13 +13,17 @@
       <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko"></p>
       <p><input id="Email" v-model="email" type="email" placeholder="Email"></p>
       <label style="float:left;">Prowadzone przedmioty</label>
-      <select name="cars" id="cars">
+      
+      <div v-for="index in subjectNumber" :key="index">
+      <select name="subjects" id="subjects">
         <option disabled selected value> -- wybierz przedmiot -- </option>
         <option value="Matematyka">Matematyka</option>
         <option value="Język polski">Język polski</option>
         <option value="Historia">Historia</option>
     </select>
-      <input class="buttonm btn btn-success mr-3" type="submit" value="Dodaj" >
+    </div>
+      <input class="buttond" type="submit" @click="addSubject" value="+" >
+      <input class="buttonf btn btn-success mr-3" type="submit" value="Dodaj" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     </a>
@@ -31,10 +35,20 @@
 import router from '../router/index.js'
 export default {
   name: 'Step2',
+   data: function() {
+    return {
+        subjectNumber: 1,
+    };
+  },
   methods: {
     handleSubmit() {
       router.push("/step/3")
     },
+    addSubject(e)
+    {
+      e.preventDefault();
+      this.subjectNumber=this.subjectNumber+1;
+    }
   }
 }
 </script>
@@ -71,9 +85,8 @@ width:18%;
 }
 .buttonc 
 {
-  position: absolute;
+  position:fixed; 
   bottom:20px;
-  margin-right:50%;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -81,7 +94,25 @@ width:18%;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  width:75%;
+  width:74%;
+}
+.buttond
+{
+  float:left;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+.buttonf
+{
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px 2px;
+  margin-bottom:100px;
+  cursor: pointer;
+  width:100%;
 }
 .row2 
 {
@@ -102,7 +133,6 @@ width:18%;
 {
   width: 75%;
   float: left;
-  display: block;
   color: black;
   text-align: center;
   padding: 14px 16px;

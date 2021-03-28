@@ -10,6 +10,20 @@
     <a>
     <form class=topform>
       <p><input id="Classroom" v-model="classroom" type="text" placeholder="Nazwa sali"></p>
+      <p style="margin-left:10px;"><input type="checkbox" v-model="preferedSubject" v-on:change="changePrefered"><label style="float:left;font-size:20px;">Preferowane przedmioty</label></p>
+      <div v-if="preferedSubject">
+      <div v-for="index in subjectNumber" :key="index" >
+      <select name="subjects" id="subjects">
+        <option disabled selected value> -- wybierz przedmiot -- </option>
+        <option value="Matematyka">Matematyka</option>
+        <option value="Język polski">Język polski</option>
+        <option value="Historia">Historia</option>
+    </select>
+    </div>
+    </div>
+      <div v-if="preferedSubject">
+      <input class="buttond" type="submit" @click="addSubject" value="+" >
+      </div>
       <input class="buttonm btn btn-success mr-3" type="submit" value="Dodaj" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
@@ -22,15 +36,48 @@
 import router from '../router/index.js'
 export default {
   name: 'Step3',
+  data: function() {
+    return {
+        preferedSubject:false,
+        subjectNumber: 0,
+    };
+  },
   methods: {
+    changePrefered()
+    {
+      if(this.preferedSubject==false)
+      {
+        this.subjectNumber=0;
+      }
+      else
+      {
+        this.subjectNumber=1;
+      }
+    },
     handleSubmit() {
       router.push("/step/4")
     },
+    addSubject(e)
+    {
+      e.preventDefault();
+      this.subjectNumber=this.subjectNumber+1;
+    }
   }
 }
 </script>
 
 <style scoped>
+input[type=checkbox]
+{
+  -ms-transform: scale(2); 
+  -moz-transform: scale(2); 
+  -webkit-transform: scale(2); 
+  -o-transform: scale(2); 
+  transform: scale(2);
+  margin-right:10px;
+  margin-top:5px;
+  float:left;
+}
 input[type=text],input[type=password],input[type=email], select 
 {
   padding: 15px 15px;
@@ -59,6 +106,12 @@ width:18%;
   margin: 4px 2px;
   cursor: pointer;
   width:100%;
+}
+.buttond
+{
+  float:left;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 .buttonc 
 {

@@ -15,7 +15,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <div v-if="!isLogged">
+      <div v-if="isLogged">
       <router-link to="/login">
         <button type="button" class="btn btn-success mr-3" >Logowanie</button>
       </router-link>

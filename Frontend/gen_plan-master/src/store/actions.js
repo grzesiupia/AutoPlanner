@@ -7,7 +7,7 @@ export const login = ({
 }, object) => {
     console.log(object.email, object.password)
     axios
-        .post("api/auth/signin/", {
+        .post("api/auth/signin", {
             password: object.password,
             email: object.email
         })
@@ -34,7 +34,7 @@ export const register = ({
 }, object) => {
     console.log(object.email,object.username, object.password)
     axios
-        .post("api/auth/signup/.", {
+        .post("api/auth/signup", {
             email: object.email,
             username: object.username,
             password: object.password,
