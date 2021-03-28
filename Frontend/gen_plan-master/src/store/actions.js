@@ -18,6 +18,7 @@ export const login = ({
             commit("SET_USERID", response.data.userId)
             commit("LOGIN_SUCCESS", true)
             router.push("/");
+            console.log(response.data)
         })
         .catch(function (error) {
             commit("LOGIN_SUCCESS", false)

@@ -17,9 +17,9 @@ def add_user(request):
         user = Users(login = username, password = dbpassword, email = dbemail)
         try:
             user.save(force_insert = True)
-            response = json.dumps([{'Sukces': 'Pomyslnie dodano uzytkownika'}])
+            response = json.dumps({'Sukces': 'Pomyslnie dodano uzytkownika'})
         except Exception as e:
-            response = json.dumps([{'message': str(e)}])
+            response = json.dumps({'message': str(e)})
     return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
@@ -30,9 +30,9 @@ def get_user(request):
         get_password = payload['password']
         try:
             user = Users.objects.get(email=get_email, password=get_password)
-            response = json.dumps([{'userId': user.email, 'accessToken': "test_token"}])
+            response = json.dumps({'userId': user.email, 'accessToken': "test_token"})
         except Exception as e:
-            response = json.dumps([{'message': str(e)}])
+            response = json.dumps({'message': str(e)})
     return HttpResponse(response, content_type='text/json')
     
         
