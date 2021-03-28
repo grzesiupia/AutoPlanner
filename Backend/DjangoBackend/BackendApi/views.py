@@ -2,6 +2,7 @@ from django.shortcuts import render
 from BackendApi.models import Users
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from rest_framework_jwt.settings import api_settings
 import json
 
 
@@ -30,7 +31,11 @@ def get_user(request):
         get_password = payload['password']
         try:
             user = Users.objects.get(email=get_email, password=get_password)
-            response = json.dumps({'userId': user.email, 'accessToken': "test_token"})
+            jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+            jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+            payload = jwt_payload_handler(request.user)
+            token = jwt_encode_handler(payload)
+            response = json.dumps({'userId': user.email, 'accessToken': format(token)})
         except Exception as e:
             response = json.dumps({'message': str(e)})
     return HttpResponse(response, content_type='text/json')
