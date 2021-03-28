@@ -21,6 +21,19 @@ def add_user(request):
         except Exception as e:
             response = json.dumps([{'Blad': str(e)}])
     return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def get_user(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        get_email = payload['email']
+        get_password = payload['password']
+        try:
+            user = Users.objects.get(email=get_email, password=get_password)
+            response = json.dumps([{'userId': user.email, 'accessToken': "test_token"}])
+        except Exception as e:
+            response = json.dumps([{'Blad': str(e)}])
+    return HttpResponse(response, content_type='text/json')
     
         
 

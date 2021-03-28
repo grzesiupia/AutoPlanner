@@ -21,4 +21,5 @@ from BackendApi import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/signup/', views.add_user),
+    path('api/auth/signin/', views.get_user),
 ]
