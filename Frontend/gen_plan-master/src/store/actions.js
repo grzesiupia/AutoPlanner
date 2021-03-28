@@ -7,7 +7,7 @@ export const login = ({
 }, object) => {
     console.log(object.email, object.password)
     axios
-        .post("api/auth/signin", {
+        .post("api/auth/signin/", {
             password: object.password,
             email: object.email
         })
@@ -35,7 +35,7 @@ export const register = ({
 }, object) => {
     console.log(object.email,object.username, object.password)
     axios
-        .post("api/auth/signup", {
+        .post("api/auth/signup/", {
             email: object.email,
             username: object.username,
             password: object.password,
@@ -61,7 +61,7 @@ export const verifyEmail = ({
 }, object) => {
     console.log(object.email, object.token)
     axios
-        .post("api/auth/verifyEmail", {
+        .post("api/auth/verifyEmail/", {
             email: object.email,
             token: object.token,
         })
@@ -84,7 +84,7 @@ export const resendToken = ({
 }, object) => {
     console.log(object.email)
     axios
-        .post("api/auth/resendEmailToken", {
+        .post("api/auth/resendEmailToken/", {
             email: object.email,
         })
         .then(function (response) {
@@ -106,7 +106,7 @@ export const recoverPassword = ({
 }, object) => {
     console.log(object.email)
     axios
-        .post("api/auth/recoverPassword", {
+        .post("api/auth/recoverPassword/", {
             email: object.email,
         })
         .then(function (response) {
@@ -129,7 +129,7 @@ export const resetPassword = ({
 }, object) => {
     console.log(object.token, object.password)
     axios
-        .post("api/auth/resetPassword", {
+        .post("api/auth/resetPassword/", {
             token: object.token,
             password: object.password
         })
