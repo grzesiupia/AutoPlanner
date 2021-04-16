@@ -1,5 +1,3 @@
-
-
 IB = {
     "matematyka": [8, "Marek Markowski", ""],
     "fizyka": [6, "Paulina Paulinowska", "308"],
@@ -10,7 +8,6 @@ IB = {
     "religia": [2, "Ksiądz Robak", ""]
 }
 
-
 IA = {
     "matematyka": [6, "Marcjanna Milik", ""],
     "fizyka": [2, "Paulina Paulinowska", "308"],
@@ -20,7 +17,6 @@ IA = {
     "wf": [4, "Włodzimierz Włodzimski", "Sala gimnastyczna"],
     "religia": [2, "Ksiądz Robak", ""]
 }
-
 
 ToughSubjects = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
 
@@ -34,12 +30,12 @@ class SchoolClass:
 
 
 def make_schedule(list_of_school_classes: SchoolClass, schedule):
-
     for school_class_object in list_of_school_classes:
         for day in schedule:
-            for lesson in day:
-                lesson.append(key for key in school_class_object.subjects)
-
+            for lesson in school_class_object.subjects:
+                while school_class_object.subjects[lesson][0] > 0:
+                    day.append([lesson, school_class_object.subjects[lesson]])
+                    school_class_object.subjects[lesson][0] -= 1
     print(schedule)
 
     return schedule
@@ -50,7 +46,7 @@ if __name__ == "__main__":
     schedule_for_week = []
 
     for _ in range(5):
-        schedule_for_week.append([[]])
+        schedule_for_week.append([])
 
     list_of_received_school_classes = [IB, IA]
     list_of_school_class_objects = []
