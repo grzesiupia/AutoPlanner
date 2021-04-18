@@ -1,3 +1,5 @@
+import json
+
 IB = {
     "matematyka": [8, "Marek Markowski", ""],
     "fizyka": [6, "Paulina Paulinowska", "308"],
@@ -56,11 +58,11 @@ if __name__ == "__main__":
     for _ in range(5):
         schedule_for_week.append([])
 
-    list_of_received_school_classes = [IB, IA]
+    list_of_received_school_classes = [('IB', IB), ('IA', IA)]
     list_of_school_class_objects = []
 
     for l in list_of_received_school_classes:
-        list_of_school_class_objects.append(SchoolClass(l, sum([l[x][0] for x in l])))
+        list_of_school_class_objects.append(SchoolClass(l[0], l[1], sum([l[1][x][0] for x in l[1]])))
 
     print_schedule(make_schedule(list_of_school_class_objects, schedule_for_week))
 

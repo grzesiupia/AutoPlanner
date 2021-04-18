@@ -1,0 +1,33 @@
+[[[["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
+  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
+  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
+  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
+  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
+  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]]],
+
+  [[["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "fizyka", [0, "Paulina Paulinowska", "308"]]],
+    [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "fizyka", [0, "Paulina Paulinowska", "308"]]],
+    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]],
+    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]],
+    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]],
+    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]]],
+
+  [[["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "biologia", [0, "Bogdan Bogdanowicz", "200"]]],
+    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "biologia", [0, "Bogdan Bogdanowicz", "200"]]],
+    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "chemia", [0, "Marianna Mania", "201"]]],
+    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
+    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
+    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
+
+  [[["IB", "biologia", [0, "Bogdan Bogdanowicz", "200"]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
+    [["IB", "biologia", [0, "Bogdan Bogdanowicz", "200"]], ["IA", "religia", [0, "Ksiadz Robak", ""]]],
+    [["IB", "chemia", [0, "Marianna Mania", "201"]], ["IA", "religia", [0, "Ksiadz Robak", ""]]],
+    [["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
+    [["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
+    [["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
+
+  [[["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
+  [["IB", "religia", [0, "Ksiadz Robak", ""]]], [["IB", "religia", [0, "Ksiadz Robak", ""]]],
+    [],
+    [],
+    []]]
