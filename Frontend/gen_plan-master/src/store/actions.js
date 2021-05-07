@@ -148,3 +148,147 @@ export const resetPassword = ({
         });
 }
 
+export const fetchSubjects = ({
+    commit
+}) => {
+    axios.get("api/get/all/subjects")
+        .then((response) => {
+            console.log(response)
+            commit("SET_SUBJECTS", response.data)
+        })
+        .catch((err) => console.log(err));
+}
+
+export const sendSubject = ({
+    commit
+}, object) => {
+    console.log(object.token, object.subject_name)
+    axios
+        .post("api/add/subject", {
+            token: object.token,
+            subject_name: object.subject_name
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("ADD_SUBJECT_SUCCESS", true)
+            router.push("/step/1");
+        })
+        .catch(function (error) {
+            commit("ADD_SUBJECT_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("ADD_SUBJECT_ERROR", error.response.data.message)
+            } else {
+                commit("ADD_SUBJECT_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const fetchTeachers = ({
+    commit
+}) => {
+    axios.get("api/get/all/teachers")
+        .then((response) => {
+            console.log(response)
+            commit("SET_TEACHERS", response.data)
+        })
+        .catch((err) => console.log(err));
+}
+
+export const sendTeacher = ({
+    commit
+}, object) => {
+    console.log(object.token, object.name, object.surname, object.email, object.list_of_subjects)
+    axios
+        .post("api/add/teacher", {
+            token: object.token,
+            name: object.name,
+            surname: object.surname,
+            email: object.email,
+            list_of_subjects: object.list_of_subjects
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("ADD_TEACHER_SUCCESS", true)
+            router.push("/step/2");
+        })
+        .catch(function (error) {
+            commit("ADD_TEACHER_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("ADD_TEACHER_ERROR", error.response.data.message)
+            } else {
+                commit("ADD_TEACHER_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const fetchClassrooms = ({
+    commit
+}) => {
+    axios.get("api/get/all/classrooms")
+        .then((response) => {
+            console.log(response)
+            commit("SET_CLASSROOMS", response.data)
+        })
+        .catch((err) => console.log(err));
+}
+
+export const sendClassroom = ({
+    commit
+}, object) => {
+    console.log(object.token, object.name, object.list_of_subjects)
+    axios
+        .post("api/add/classroom", {
+            token: object.token,
+            name: object.name,
+            list_of_subjects: object.list_of_subjects
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("ADD_CLASSROOM_SUCCESS", true)
+            router.push("/step/3");
+        })
+        .catch(function (error) {
+            commit("ADD_CLASSROOM_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("ADD_CLASSROOM_ERROR", error.response.data.message)
+            } else {
+                commit("ADD_CLASSROOM_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const fetchClasses = ({
+    commit
+}) => {
+    axios.get("api/get/all/classes")
+        .then((response) => {
+            console.log(response)
+            commit("SET_CLASSES", response.data)
+        })
+        .catch((err) => console.log(err));
+}
+
+export const sendClass = ({
+    commit
+}, object) => {
+    console.log(object.token, object.name, object.list_of_lessons)
+    axios
+        .post("api/add/class", {
+            token: object.token,
+            name: object.name,
+            list_of_lessons: object.list_of_subjects
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("ADD_CLASSES_SUCCESS", true)
+            router.push("/step/4");
+        })
+        .catch(function (error) {
+            commit("ADD_CLASSES_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("ADD_CLASSES_ERROR", error.response.data.message)
+            } else {
+                commit("ADD_CLASSES_ERROR", error.response.data.message)
+            }
+        });
+}

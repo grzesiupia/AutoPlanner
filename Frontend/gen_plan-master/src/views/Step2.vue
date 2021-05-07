@@ -3,9 +3,10 @@
     <label style="font-size:50px;display: block;text-align:center">Krok 2 - Dodaj nauczycieli</label>
     <hr style="border: 1px solid green;">
     <h1 class=row2><b><p class=mbuttons>
-    <br><input class="buttonm btn btn-success mr-3" value="Adam Adamski">
-    <input class="buttonm btn btn-success mr-3" value="Bartosz Bercik">
-    <input class="buttonm btn btn-success mr-3" value="Cezary Cebula">
+    <br>
+        <my-component v-for="teacher in teachers" :key="teacher.surname">
+          <input class="buttonm btn btn-success mr-3" v-model="teacher.surname">
+        </my-component>
     </p></b>
     <a>
     <form class=topform>
@@ -15,7 +16,7 @@
       <label style="float:left;">Prowadzone przedmioty</label>
       
       <div v-for="index in subjectNumber" :key="index">
-      <select name="subjects" id="subjects">
+      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
         <option value="Matematyka">Matematyka</option>
         <option value="Język polski">Język polski</option>
@@ -23,7 +24,7 @@
     </select>
     </div>
       <input class="buttond" type="submit" @click="addSubject" value="+" >
-      <input class="buttonf btn btn-success mr-3" type="submit" value="Dodaj" >
+      <input class="buttonf btn btn-success mr-3" @click="addTeacher" type="submit" value="Dodaj" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     </a>
@@ -35,9 +36,41 @@
 import router from '../router/index.js'
 export default {
   name: 'Step2',
+  computed: {
+    addSuccess(){
+      return this.$store.getters.getAddTeacherSuccess;
+    },
+    addError(){
+      return this.$store.getters.getAddTeacherError;
+    },
+    getSuccess(){
+      return this.$store.getters.getTeachersSuccess;
+    },
+    getError(){
+      return this.$store.getters.getTeachersError;
+    },
+    teachers(){
+      return this.$store.getters.getTeachers;
+    },
+    subjects(){
+      return this.$store.getters.getSubjects;
+    },
+    token() 
+    {
+      return this.$store.getters.getToken;
+    },
+  },
+  created(){
+    this.$store.dispatch("fetchTeachers");
+    this.$store.dispatch("fetchSubjects");
+  },
    data: function() {
     return {
         subjectNumber: 1,
+        name: "",
+        surname: "",
+        email: "",
+        list_of_subjects: [{"name":''}]
     };
   },
   methods: {
@@ -48,6 +81,21 @@ export default {
     {
       e.preventDefault();
       this.subjectNumber=this.subjectNumber+1;
+      this.list_of_subjects.push({"name":''})
+    },
+    addTeacher(e)
+    {
+       e.preventDefault();
+       this.$store.dispatch(
+        "sendTeacher",
+        {
+          token: this.token,
+          name: this.name,
+          surname: this.surname,
+          email: this.email,
+          list_of_subjects:this.list_of_subjects
+        }
+      )
     }
   }
 }
@@ -85,8 +133,7 @@ width:18%;
 }
 .buttonc 
 {
-  position:fixed; 
-  bottom:20px;
+  margin-right:50%;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -94,7 +141,7 @@ width:18%;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  width:74%;
+  width:100%;
 }
 .buttond
 {
@@ -110,7 +157,6 @@ width:18%;
   display: block;
   font-size: 16px;
   margin: 4px 2px;
-  margin-bottom:100px;
   cursor: pointer;
   width:100%;
 }
