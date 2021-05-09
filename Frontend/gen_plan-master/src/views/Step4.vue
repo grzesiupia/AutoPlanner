@@ -4,8 +4,8 @@
     <hr style="border: 1px solid green;">
     <h1 class=row2><b><p class=mbuttons>
     <br>
-        <my-component v-for="classroom in classrooms" :key="classroom.name">
-          <input class="buttonm btn btn-success mr-3" v-model="classroom.name">
+        <my-component v-for="clas in classes" :key="clas.name">
+          <input class="buttonm btn btn-success mr-3" v-model="clas.name">
         </my-component>
     </p></b>
     <a>
@@ -16,9 +16,9 @@
         <p style="border-left:2px solid green;border-right:2px solid green;border-bottom:2px solid green;border-top:2px solid green;">
           <select name="subjects" id="subjects" style="float:left;" v-model="list_of_lessons[index-1].name">
             <option disabled selected value> -- wybierz przedmiot -- </option>
-            <option value="Matematyka">Matematyka</option>
-            <option value="Język polski">Język polski</option>
-            <option value="Historia">Historia</option>
+            <option v-for="subject in subjects" v-bind:key="subject.name" >
+            {{ subject.name }}
+            </option>
           </select>
           <label style="font-size:16px;">Liczba godzin tygodniowo</label>
           <input type="text" class="inputsmall" style="width:20%;margin-left:10px;" placeholder="liczba godzin" v-model="list_of_lessons[index-1].number">
@@ -26,9 +26,9 @@
           <input type="checkbox" v-model="preferedSubject" v-on:change="changePrefered">
           <select name="teachers" id="teachers" style="width:80%;" v-model="list_of_lessons[index-1].teacher">
             <option disabled selected value> -- wybierz prowadzącego -- </option>
-            <option value="Adam Adamski">Adam Adamski</option>
-            <option value="Bartosz Bercik">Bartosz Bercik</option>
-            <option value="Cezary Cebula">Cezary Cebula</option>
+            <option v-for="teacher in teachers" v-bind:key="teacher.surname" >
+            {{ teacher.surname }}
+            </option>
           </select>
           </span>
         </p>

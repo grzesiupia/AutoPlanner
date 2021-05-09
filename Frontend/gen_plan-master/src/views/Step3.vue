@@ -16,9 +16,9 @@
       <div v-for="index in subjectNumber" :key="index" >
       <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
-        <option value="Matematyka">Matematyka</option>
-        <option value="Język polski">Język polski</option>
-        <option value="Historia">Historia</option>
+        <option v-for="subject in subjects" v-bind:key="subject.name" >
+        {{ subject.name }}
+        </option>
     </select>
     </div>
     </div>
