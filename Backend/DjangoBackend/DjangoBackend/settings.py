@@ -79,11 +79,14 @@ WSGI_APPLICATION = 'DjangoBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'TEST001',
+        'NAME': 'TEST002',
         'USER': 'uni',
         'PASSWORD': '123',
         'HOST': '185.66.213.128',
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+         "init_command": "SET foreign_key_checks = 0;",
+        },
     }
 }
 
