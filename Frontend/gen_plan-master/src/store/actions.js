@@ -171,7 +171,7 @@ export const sendSubject = ({
         .then(function (response) {
             console.log(response);
             commit("ADD_SUBJECT_SUCCESS", true)
-            router.push("/step/1");
+            router.go();
         })
         .catch(function (error) {
             commit("ADD_SUBJECT_SUCCESS", false)
@@ -209,7 +209,7 @@ export const sendTeacher = ({
         .then(function (response) {
             console.log(response);
             commit("ADD_TEACHER_SUCCESS", true)
-            router.push("/step/2");
+            router.go();
         })
         .catch(function (error) {
             commit("ADD_TEACHER_SUCCESS", false)
@@ -245,7 +245,7 @@ export const sendClassroom = ({
         .then(function (response) {
             console.log(response);
             commit("ADD_CLASSROOM_SUCCESS", true)
-            router.push("/step/3");
+            router.go();
         })
         .catch(function (error) {
             commit("ADD_CLASSROOM_SUCCESS", false)
@@ -281,7 +281,7 @@ export const sendClass = ({
         .then(function (response) {
             console.log(response);
             commit("ADD_CLASSES_SUCCESS", true)
-            router.push("/step/4");
+            router.go();
         })
         .catch(function (error) {
             commit("ADD_CLASSES_SUCCESS", false)

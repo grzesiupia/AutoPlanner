@@ -23,8 +23,8 @@
           <label style="font-size:16px;">Liczba godzin tygodniowo</label>
           <input type="text" class="inputsmall" style="width:20%;margin-left:10px;" placeholder="liczba godzin" v-model="list_of_lessons[index-1].number">
           <span style="float:right;">
-          <input type="checkbox" v-model="preferedSubject" v-on:change="changePrefered">
-          <select name="teachers" id="teachers" style="width:80%;" v-model="list_of_lessons[index-1].teacher">
+          <input type="checkbox" v-on:change="changePref(index)">
+          <select name="teachers" id="teachers" style="width:80%;" v-model="list_of_lessons[index-1].teacher" :disabled="disabled[index-1] == 1">
             <option disabled selected value> -- wybierz prowadzącego -- </option>
             <option v-for="teacher in teachers" v-bind:key="teacher.surname" >
             {{ teacher.surname }}
@@ -44,6 +44,7 @@
 
 
 <script>
+import Vue from 'vue';
 import router from '../router/index.js'
 export default {
   name: 'Step4',
@@ -83,7 +84,8 @@ export default {
     return {
         lessonsNumber: 1,
         classname: "",
-        list_of_lessons: [{"name":'',"number":'',"teacher":''}]
+        list_of_lessons: [{"name":'',"number":'',"teacher":''}],
+        disabled: [1],
     };
   },
   methods: {
@@ -95,6 +97,7 @@ export default {
        e.preventDefault();
       this.lessonsNumber=this.lessonsNumber+1;
       this.list_of_lessons.push({"name":'',"number":'',"teacher":''})
+      this.disabled.push(1)
     },
     addClass(e)
     {
@@ -107,6 +110,10 @@ export default {
           list_of_lessons: this.list_of_lessons
         }
       )
+    },
+    changePref(index)
+    {
+      Vue.set(this.disabled,[index-1],(this.disabled[index-1] + 1) % 2)
     }
   }
 }
