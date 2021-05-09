@@ -45,9 +45,77 @@ def get_user(request):
             token = jwt.encode(access_token_payload, settings.SECRET_KEY, algorithm='HS256').decode('utf-8')
 
             response = json.dumps({'userId': user.email, 'accessToken': format(token)})
+            return HttpResponse(response, content_type='text/json')
         except Exception as e:
             response = json.dumps({'message': str(e)})
-    return HttpResponse(response, content_type='text/json')
+            return HttpResponse(response, content_type='text/json', status = 403)
+
+@csrf_exempt
+def add_subject(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['subject_name']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            print(user_data['email'])
+
+            response=json.dumps({'message': user_data['email']})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+
+@csrf_exempt
+def add_teacher(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        surname = payload['surname']
+        email = payload['email']
+        token = payload['token']
+        sub_list = payload['list_of_subjects']
+        try:
+            user_data = jwt.decode(token, None, None)
+            print(user_data['email'])
+            response=json.dumps({'message': sub_list})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+
+@csrf_exempt
+def add_classroom(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        token = payload['token']
+        class_list = payload['list_of_subjects']
+        try:
+            user_data = jwt.decode(token, None, None)
+            print(user_data['email'])
+            response=json.dumps({'message': class_list})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+
+@csrf_exempt
+def add_class(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        token = payload['token']
+        lessons_list = payload['list_of_lessons']
+        try:
+            user_data = jwt.decode(token, None, None)
+            print(user_data['email'])
+            response=json.dumps({'message': lessons_list})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+
     
         
 

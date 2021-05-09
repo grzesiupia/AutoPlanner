@@ -22,4 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/signup/', views.add_user),
     path('api/auth/signin/', views.get_user),
+    path('api/add/subject', views.add_subject),
+    path('api/add/teacher', views.add_teacher),
+    path('api/add/classroom', views.add_classroom),
+    path('api/add/class', views.add_class)
 ]
