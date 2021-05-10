@@ -61,8 +61,8 @@ export default {
     },
   },
   created(){
-    this.$store.dispatch("fetchTeachers");
-    this.$store.dispatch("fetchSubjects");
+    this.$store.dispatch("fetchTeachers",{ token:this.token});
+    this.$store.dispatch("fetchSubjects",{ token:this.token});
   },
    data: function() {
     return {

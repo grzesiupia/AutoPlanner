@@ -76,9 +76,9 @@ export default {
     },
   },
   created(){
-    this.$store.dispatch("fetchClasses");
-    this.$store.dispatch("fetchSubjects");
-    this.$store.dispatch("fetchTeachers");
+    this.$store.dispatch("fetchClasses",{ token:this.token});
+    this.$store.dispatch("fetchSubjects",{ token:this.token});
+    this.$store.dispatch("fetchTeachers",{ token:this.token});
   },
    data: function() {
     return {

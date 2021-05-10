@@ -45,7 +45,7 @@ export default {
     },
   },
   created(){
-    this.$store.dispatch("fetchSubjects");
+    this.$store.dispatch("fetchSubjects",{ token:this.token});
   },
   data: function(){
     return{
