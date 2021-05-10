@@ -16,8 +16,8 @@
         <p style="border-left:2px solid green;border-right:2px solid green;border-bottom:2px solid green;border-top:2px solid green;">
           <select name="subjects" id="subjects" style="float:left;" v-model="list_of_lessons[index-1].name">
             <option disabled selected value> -- wybierz przedmiot -- </option>
-            <option v-for="subject in subjects" v-bind:key="subject.name" >
-            {{ subject.name }}
+            <option v-for="subject in subjects" v-bind:key="subject.subject_name" >
+            {{ subject.subject_name }}
             </option>
           </select>
           <label style="font-size:16px;">Liczba godzin tygodniowo</label>

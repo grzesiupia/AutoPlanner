@@ -16,9 +16,9 @@
       <label style="float:left;">Prowadzone przedmioty</label>
       
       <div v-for="index in subjectNumber" :key="index">
-      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].name">
+      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].subject_name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
-        <option v-for="subject in subjects" v-bind:key="subject.name" >
+        <option v-for="subject in subjects" v-bind:key="subject.subject_name" >
         {{ subject.name }}
         </option>
     </select>

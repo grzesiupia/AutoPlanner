@@ -150,8 +150,8 @@ export const resetPassword = ({
 
 export const fetchSubjects = ({
     commit
-}) => {
-    axios.get("api/get/all/subjects")
+},object) => {
+    axios.get("api/get/all/subjects",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_SUBJECTS", response.data)
@@ -185,8 +185,8 @@ export const sendSubject = ({
 
 export const fetchTeachers = ({
     commit
-}) => {
-    axios.get("api/get/all/teachers")
+},object) => {
+    axios.get("api/get/all/teachers",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_TEACHERS", response.data)
@@ -223,8 +223,8 @@ export const sendTeacher = ({
 
 export const fetchClassrooms = ({
     commit
-}) => {
-    axios.get("api/get/all/classrooms")
+},object) => {
+    axios.get("api/get/all/classrooms",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_CLASSROOMS", response.data)
@@ -259,8 +259,8 @@ export const sendClassroom = ({
 
 export const fetchClasses = ({
     commit
-}) => {
-    axios.get("api/get/all/classes")
+},object) => {
+    axios.get("api/get/all/classes",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_CLASSES", response.data)
