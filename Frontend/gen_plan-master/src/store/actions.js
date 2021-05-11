@@ -276,7 +276,7 @@ export const sendClass = ({
         .post("api/add/class", {
             token: object.token,
             name: object.name,
-            list_of_lessons: object.list_of_subjects
+            list_of_lessons: object.list_of_lessons
         })
         .then(function (response) {
             console.log(response);
