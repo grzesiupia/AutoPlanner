@@ -82,7 +82,7 @@ def add_teacher(request):
         try:
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
-            teacher = Teachers(email, name +" "+ surname)
+            teacher = Teachers(email, name +" "+ surname, user_data['email'])
             teacher.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano nauczyciela'})
             return HttpResponse(response, content_type='text/json')
@@ -101,9 +101,9 @@ def add_classroom(request):
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
             for i in class_list:
-                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = name)
+                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = i['name'])
                 lesson.classroom = name
-                lesson.save('classroom')
+                lesson.save()
             response=json.dumps({'message': class_list})
             return HttpResponse(response, content_type='text/json')
         except Exception as e:
@@ -116,33 +116,61 @@ def add_class(request):
         payload = json.loads(request.body)
         name = payload['name']
         token = payload['token']
-        lessons_list = payload['list_of_lessons']
-        if len(lessons_list) > 0:    
-            try:
-                user_data = jwt.decode(token, None, None)
-                print(user_data['email'])
-                response=json.dumps({'message': lessons_list})
-                return HttpResponse(response, content_type='text/json')
-            except Exception as e:
-                response = json.dumps({'message': str(e)})
-                return HttpResponse(response, content_type='text/json', status = 403)
+        lessons_list = payload['list_of_lessons'] 
+        try:
+            user_data = jwt.decode(token, None, None)
+            for i in lessons_list:
+                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = i['name'])
+                lesson.numbers_of_lesson = i['number']
+                teacher = Teachers.objects.get(teacher_name = i['teacher'])
+                lesson.teacher_email = teacher
+                lesson.class_name = name
+                lesson.save()
+            response=json.dumps({'message': lessons_list})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
 
 @csrf_exempt
 def get_subjects(request):
     if request.method == 'GET':
-        payload = json.loads(request.body)
-        token = payload['token']
+        payload = request.headers.get('x-access-token')
+        print(payload)
         try:
-            user_data = jwt.decode(token, None, None)
+            user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(email = user_data['email'])
+            print(user_data['email'])
             x = []
             for i in array:
-                x.append(i.lesson_name)
-            response=json.dumps({'message': x})
+                x.append({'subject_name': i.lesson_name})
+            print(x)
+            response=json.dumps(x)
+            #response.setHeader("Access-Control-Allow-Origin", "*")
             return HttpResponse(response, content_type='text/json')
         except Exception as e:
             response = json.dumps({'message': str(e)})
             return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def get_teachers(request):
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
+        print(payload)
+        try:
+            user_data = jwt.decode(payload, None, None)
+            array = Teachers.objects.filter(email = user_data['email'])
+            print(user_data['email'])
+            x = []
+            for i in array:
+                x.append({'surname': i.teacher_name})
+            print(x)
+            response=json.dumps(x)
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
 
     
         

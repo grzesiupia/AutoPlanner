@@ -9,6 +9,7 @@ class Lessons(models.Model):
     classroom = models.CharField(max_length=50, blank=True, null=True)
     lesson_pref = models.JSONField(blank=True, null=True)
     numbers_of_lesson = models.IntegerField(blank=True, null=True)
+    class_name = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -39,6 +40,7 @@ class Polls(models.Model):
 class Teachers(models.Model):
     teacher_email = models.CharField(primary_key=True, max_length=50)
     teacher_name = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = False

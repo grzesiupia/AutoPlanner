@@ -130,3 +130,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOW_HEADERS = ['x-access-token']
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'x-access-token',
+]
+
+
