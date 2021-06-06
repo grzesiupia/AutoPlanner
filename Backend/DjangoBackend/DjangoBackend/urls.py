@@ -27,5 +27,6 @@ urlpatterns = [
     path('api/add/classroom', views.add_classroom),
     path('api/add/class', views.add_class),
     path('api/get/all/subjects', views.get_subjects),
-    path('api/get/all/teachers', views.get_teachers)
+    path('api/get/all/teachers', views.get_teachers),
+    path('api/sendEmail', views.send_email)
 ]

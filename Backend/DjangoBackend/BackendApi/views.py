@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from BackendApi.models import Planners, Lessons, Teachers
+from BackendApi.models import Planners, Lessons, Teachers, Polls
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework_jwt.settings import api_settings
+from django.core.mail import send_mail
 import json
 import jwt
 from django.conf import settings
@@ -170,6 +171,35 @@ def get_teachers(request):
         except Exception as e:
             response = json.dumps({'message': str(e)})
             return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def send_email(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            planner = Planners.objects.get(email = user_data['email'])
+            teachers = Teachers.objects.filter(email = user_data['email'])
+            x = []
+            for i in teachers:
+                rows = Polls.objects.all().count()
+                poll = Polls(pool_id = rows + 1, email = planner, teacher_email = i, teacher_pref = None)
+                poll.save(force_insert = True)
+                x.append({'teacher_email': i.teacher_email})
+                send_mail(
+                    'Wypelnij ankiete!',
+                    'Link do ankiety to:  http://localhost:8080/polls/' + str(rows + 1),
+                    'plan@generator.pl',
+                    [str(i.teacher_email)],
+                ) 
+            response = json.dumps(x)
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
+
 
 
     
