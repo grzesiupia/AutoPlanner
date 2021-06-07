@@ -199,6 +199,28 @@ def send_email(request):
             response = json.dumps({'message': str(e)})
             return HttpResponse(response, content_type='text/json')
 
+@csrf_exempt
+def add_poll_data(request, pollNumber):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        #print(payload['poll'])
+        # response = json.dumps(payload)
+        # return HttpResponse(response, content_type='text/json')
+        try:
+            poll = Polls.objects.get(pool_id = pollNumber)
+            poll.teacher_pref = payload
+            poll.save()
+            response = json.dumps({"message": "Pomyslnie wyslano ankiete"})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
+
+            
+
+
+
 
 
 
