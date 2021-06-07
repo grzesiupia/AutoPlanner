@@ -292,3 +292,26 @@ export const sendClass = ({
             }
         });
 }
+
+export const sendPoll = ({
+    commit
+}, object) => {
+    console.log(object.poll)
+    axios
+        .post("api/add/poll", {
+            hours:this.poll
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("ADD_POLL_SUCCESS", true)
+            router.go();
+        })
+        .catch(function (error) {
+            commit("ADD_POLL_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("ADD_POLL_ERROR", error.response.data.message)
+            } else {
+                commit("ADD_POLL_ERROR", error.response.data.message)
+            }
+        });
+}
