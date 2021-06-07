@@ -13,6 +13,7 @@ import Step2 from '../views/Step2.vue'
 import Step3 from '../views/Step3.vue'
 import Step4 from '../views/Step4.vue'
 import Error from '../views/Error.vue'
+import Poll from '../views/Poll.vue'
 
 Vue.use(VueRouter)
 
@@ -76,6 +77,11 @@ const routes = [
     path: '/step/4',
     name: 'Step4',
     component: Step4
+  },
+  {
+    path: '/poll',
+    name: 'Poll',
+    component: Poll
   },
   {
     path: "*",

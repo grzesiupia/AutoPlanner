@@ -21,8 +21,7 @@ const mutations = {
     },
     'GET_TEACHERS_ERROR'(state, error) {
         state.getTeachersError = error;
-    },
-    
+    },  
 }
 
 const getters = {
