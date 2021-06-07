@@ -79,7 +79,7 @@ const routes = [
     component: Step4
   },
   {
-    path: '/poll',
+    path: '/poll/:id',
     name: 'Poll',
     component: Poll
   },

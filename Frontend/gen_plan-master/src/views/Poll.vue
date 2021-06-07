@@ -52,7 +52,8 @@ export default {
        this.$store.dispatch(
         "sendPoll",
         {
-          poll:this.poll
+          poll:this.poll,
+          id: this.$route.params.id 
         }
       )
     }

@@ -298,8 +298,8 @@ export const sendPoll = ({
 }, object) => {
     console.log(object.poll)
     axios
-        .post("api/add/poll", {
-            poll:this.poll
+        .post("api/add/poll/"+object.id, {
+            poll:object.poll
         })
         .then(function (response) {
             console.log(response);
