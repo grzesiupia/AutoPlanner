@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/get/all/subjects', views.get_subjects),
     path('api/get/all/teachers', views.get_teachers),
     path('api/sendEmail', views.send_email),
-    path('api/polls/<int:pollNumber>', views.add_poll_data)
+    path('api/polls/<int:pollNumber>', views.add_poll_data),
+    path('api/generatePlan', views.generate_plan)
 ]

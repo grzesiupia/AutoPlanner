@@ -189,7 +189,7 @@ def send_email(request):
                 x.append({'teacher_email': i.teacher_email})
                 send_mail(
                     'Wypelnij ankiete!',
-                    'Link do ankiety to:  http://localhost:8080/polls/' + str(rows + 1),
+                    'Link do ankiety to:  http://localhost:8080/poll/' + str(rows + 1),
                     'plan@generator.pl',
                     [str(i.teacher_email)],
                 ) 
@@ -216,16 +216,28 @@ def add_poll_data(request, pollNumber):
             response = json.dumps({'message': str(e)})
             return HttpResponse(response, content_type='text/json')
 
-
-            
-
-
-
-
-
-
-    
-        
-
-    
+@csrf_exempt
+def generate_plan(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            x = Lessons.objects.filter(email = user_data['email']).order_by().values('class_name').distinct()
+            print(x)
+            classes = {}
+            for i in x:
+                if i['class_name'] is not None:
+                    y = {}
+                    lessons = Lessons.objects.filter(email = user_data['email'], class_name = i['class_name'])
+                    # print(lessons)
+                    for j in lessons:
+                        y[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
+                    classes[i['class_name']] = y
+            print(classes)
+            response = json.dumps({'message': 'OK'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
 
