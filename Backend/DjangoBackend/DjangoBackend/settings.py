@@ -130,3 +130,17 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOW_HEADERS = ['x-access-token']
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'x-access-token',
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWOR = ''
+EMAIL_USE_TLS = False
+
