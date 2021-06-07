@@ -1,33 +1,30 @@
-[[[["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
-  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
-  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
-  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
-  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]],
-  [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "matematyka", [0, "Marcjanna Milik", ""]]]],
+0 IB ['matematyka', 'Marek Markowski', '211']			0 IA ['biologia', 'Bogdan Bogdanowicz', '200']			0 IC ['j.polski', 'Barbara Barbarowicz', '205']			0 ID ['j.polski', 'Halina Mak³owicz', '204']			
+1 IB ['j.polski', 'Zbigniew Zbigniewski', '205']			1 IA ['matematyka', 'Marcjanna Milik', '212']			1 IC ['biologia', 'Bogdan Bogdanowicz', '200']			1 ID ['wf', 'Wlodzimierz Wlodzimski', 'Sala gimnastyczna']			
+2 IB ['matematyka', 'Marek Markowski', '211']			2 IA ['biologia', 'Bogdan Bogdanowicz', '200']			2 IC ['chemia', 'Marianna Mania', '201']			2 ID ['j.polski', 'Halina Mak³owicz', '204']			
+3 IB ['biologia', 'Bogdan Bogdanowicz', '200']			3 IA ['chemia', 'Marianna Mania', '201']			3 IC ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			3 ID ['fizyka', 'Paulina Paulinowska', '308']			
+4 IB ['wf', 'Wlodzimierz Wlodzimski', 'Sala gimnastyczna']			4 IA ['matematyka', 'Marcjanna Milik', '212']			4 IC ['matematyka', 'Michalina Miœ', '213']			4 ID ['j.polski', 'Halina Mak³owicz', '204']			
 
-  [[["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "fizyka", [0, "Paulina Paulinowska", "308"]]],
-    [["IB", "matematyka", [0, "Marek Markowski", ""]], ["IA", "fizyka", [0, "Paulina Paulinowska", "308"]]],
-    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]],
-    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]],
-    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]],
-    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "j.polski", [0, "Barbara Barbarowicz", ""]]]],
+5 IB ['matematyka', 'Marek Markowski', '211']			5 IA ['j.polski', 'Barbara Barbarowicz', '206']			5 IC ['chemia', 'Marianna Mania', '201']			5 ID ['j.polski', 'Halina Mak³owicz', '204']			
+6 IB ['j.polski', 'Zbigniew Zbigniewski', '205']			6 IA ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			6 IC ['fizyka', 'Paulina Paulinowska', '308']			6 ID ['j.polski', 'Halina Mak³owicz', '204']			
+7 IB ['j.polski', 'Zbigniew Zbigniewski', '205']			7 IA ['biologia', 'Bogdan Bogdanowicz', '200']			7 IC ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			7 ID ['matematyka', 'Marcelina Korcz', '212']			
+8 IB ['fizyka', 'Paulina Paulinowska', '308']			8 IA ['chemia', 'Marianna Mania', '201']			8 IC ['matematyka', 'Michalina Miœ', '213']			8 ID ['religia', 'Ksiadz Robak', '104']			
+9 IB ['j.polski', 'Zbigniew Zbigniewski', '205']			9 IA ['matematyka', 'Marcjanna Milik', '212']			9 IC ['chemia', 'Marianna Mania', '201']			9 ID ['fizyka', 'Paulina Paulinowska', '308']			
 
-  [[["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "biologia", [0, "Bogdan Bogdanowicz", "200"]]],
-    [["IB", "fizyka", [0, "Paulina Paulinowska", "308"]], ["IA", "biologia", [0, "Bogdan Bogdanowicz", "200"]]],
-    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "chemia", [0, "Marianna Mania", "201"]]],
-    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "j.polski", [0, "Zbigniew Zbigniewski", ""]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
+10 IB ['fizyka', 'Paulina Paulinowska', '308']			10 IA ['j.polski', 'Barbara Barbarowicz', '206']			10 IC ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			10 ID ['biologia', 'Bogdan Bogdanowicz', '200']			
+11 IB ['religia', 'Ksiadz Robak', '104']			11 IA ['matematyka', 'Marcjanna Milik', '212']			11 IC ['matematyka', 'Michalina Miœ', '213']			11 ID ['j.polski', 'Halina Mak³owicz', '204']			
+12 IB ['matematyka', 'Marek Markowski', '211']			12 IA ['religia', 'Ksiadz Robak', '104']			12 IC ['fizyka', 'Paulina Paulinowska', '308']			12 ID ['wf', 'Wlodzimierz Wlodzimski', 'Sala gimnastyczna']			
+13 IB ['matematyka', 'Marek Markowski', '211']			13 IA ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			13 IC ['biologia', 'Bogdan Bogdanowicz', '200']			13 ID ['matematyka', 'Marcelina Korcz', '212']			
+14 IB ['fizyka', 'Paulina Paulinowska', '308']			14 IA ['j.polski', 'Barbara Barbarowicz', '206']			14 IC ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			14 ID ['matematyka', 'Marcelina Korcz', '212']			
 
-  [[["IB", "biologia", [0, "Bogdan Bogdanowicz", "200"]], ["IA", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "biologia", [0, "Bogdan Bogdanowicz", "200"]], ["IA", "religia", [0, "Ksiadz Robak", ""]]],
-    [["IB", "chemia", [0, "Marianna Mania", "201"]], ["IA", "religia", [0, "Ksiadz Robak", ""]]],
-    [["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
+15 IB ['chemia', 'Marianna Mania', '201']			15 IA ['matematyka', 'Marcjanna Milik', '212']			15 IC ['religia', 'Ksiadz Robak', '104']			15 ID ['biologia', 'Bogdan Bogdanowicz', '200']			
+16 IB ['matematyka', 'Marek Markowski', '211']			16 IA ['biologia', 'Bogdan Bogdanowicz', '200']			16 IC ['j.polski', 'Barbara Barbarowicz', '205']			16 ID ['j.polski', 'Halina Mak³owicz', '204']			
+17 IB ['j.polski', 'Zbigniew Zbigniewski', '205']			17 IA ['j.polski', 'Barbara Barbarowicz', '206']			17 IC ['fizyka', 'Paulina Paulinowska', '308']			17 ID ['matematyka', 'Marcelina Korcz', '212']			
+18 IB ['biologia', 'Bogdan Bogdanowicz', '200']			18 IA ['fizyka', 'Paulina Paulinowska', '308']			18 IC ['j.polski', 'Barbara Barbarowicz', '205']			18 ID ['chemia', 'Marianna Mania', '201']			
+19 IB ['j.polski', 'Zbigniew Zbigniewski', '205']			19 IA ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			19 IC ['chemia', 'Marianna Mania', '201']			19 ID ['matematyka', 'Marcelina Korcz', '212']			
 
-  [[["IB", "wf", [0, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-  [["IB", "religia", [0, "Ksiadz Robak", ""]]], [["IB", "religia", [0, "Ksiadz Robak", ""]]],
-    [],
-    [],
-    []]]
+20 IB ['matematyka', 'Marek Markowski', '211']			20 IA ['fizyka', 'Paulina Paulinowska', '308']			20 IC ['matematyka', 'Michalina Miœ', '213']			20 ID ['chemia', 'Marianna Mania', '201']			
+21 IB ['fizyka', 'Paulina Paulinowska', '308']			21 IA ['matematyka', 'Marcjanna Milik', '212']			21 IC ['matematyka', 'Michalina Miœ', '213']			21 ID ['wf', 'Wlodzimierz Wlodzimski', 'Sala gimnastyczna']			
+22 IB ['religia', 'Ksiadz Robak', '104']			22 IA ['chemia', 'Marianna Mania', '201']			22 IC ['j.polski', 'Barbara Barbarowicz', '205']			22 ID ['wf', 'Wlodzimierz Wlodzimski', 'Sala gimnastyczna']			
+23 IB ['matematyka', 'Marek Markowski', '211']			23 IA ['wf', 'Mieczys³aw Monciak', 'Sala gimnastyczna']			23 IC ['religia', 'Ksiadz Robak', '104']			23 ID ['matematyka', 'Marcelina Korcz', '212']			
+24 IB ['wf', 'Wlodzimierz Wlodzimski', 'Sala gimnastyczna']			24 IA ['religia', 'Ksiadz Robak', '104']			24 IC ['fizyka', 'Paulina Paulinowska', '308']			24 ID ['biologia', 'Bogdan Bogdanowicz', '200']			
+
