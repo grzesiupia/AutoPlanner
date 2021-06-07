@@ -2,7 +2,7 @@
   <div>
     <input class="buttonm btn btn-success mr-3" type="submit" @click="handleSubmit" value="Rozpocznij dodawanie danych">
 
-<table class="table table-striped">
+<table class="table table-striped" v-for="m in 2" :key="m">
   <thead>
     <tr>
       <th>#</th>
@@ -16,7 +16,7 @@
   <tbody>
     <tr v-for="n in 5" :key="n">
        <th scope="row">1</th>  
-       <td v-for="(pp,ii) in plan" :key="ii">{{pp[n-1][0][1]}}</td>
+       <td v-for="(pp,ii) in plan" :key="ii">{{pp[n-1][m-1][1]}}</td>
     </tr>
     
    </tbody>
@@ -54,15 +54,15 @@ export default {
   [[["IB", "biologia", ["Bogdan Bogdanowicz", "200"]], ["IA", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
     [["IB", "biologia", ["Bogdan Bogdanowicz", "200"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
     [["IB", "chemia", ["Marianna Mania", "201"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
+    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
+    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
+    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]]],
 
-  [[["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-  [["IB", "religia", ["Ksiadz Robak", ""]]], [["IB", "religia", ["Ksiadz Robak", ""]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]]] 
+  [[["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
+  [["IB", "religia", ["Ksiadz Robak", ""]], ["IA", "religia", ["Ksiadz Robak", ""]]],
+    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
+    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
+    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]], ["IA", "religia", ["Ksiadz Robak", ""]]]]] 
   }},
   methods: {
     handleSubmit() {
