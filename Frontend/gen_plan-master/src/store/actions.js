@@ -299,7 +299,7 @@ export const sendPoll = ({
     console.log(object.poll)
     axios
         .post("api/add/poll", {
-            hours:this.poll
+            poll:this.poll
         })
         .then(function (response) {
             console.log(response);

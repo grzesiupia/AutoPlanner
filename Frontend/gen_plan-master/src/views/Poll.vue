@@ -40,41 +40,7 @@ export default {
             [{'Day': 'Środa', 'Hour': 1, 'Selected': false}, {'Day':'Środa','Hour': 2, 'Selected': false}, {'Day':'Środa','Hour': 3, 'Selected': false}, {'Day':'Środa','Hour': 4, 'Selected': false}, {'Day':'Środa','Hour': 5, 'Selected': false}, {'Day':'Środa','Hour': 6, 'Selected': false}, {'Day':'Środa','Hour': 7, 'Selected': false}],
             [{'Day': 'Czwartek', 'Hour': 1, 'Selected': false}, {'Day':'Czwartek' , 'Hour': 2, 'Selected': false},{'Day':'Czwartek' , 'Hour': 3, 'Selected': false},{'Day':'Czwartek' , 'Hour': 4, 'Selected': false},{'Day':'Czwartek' , 'Hour': 5, 'Selected': false},{'Day':'Czwartek' , 'Hour': 6, 'Selected': false},{'Day':'Czwartek' , 'Hour': 7, 'Selected': false}],
             [{'Day': 'Piątek', 'Hour': 1, 'Selected': false}, {'Day':'Piątek', 'Hour': 2, 'Selected': false},{'Day':'Piątek', 'Hour': 3, 'Selected': false},{'Day':'Piątek', 'Hour': 4, 'Selected': false},{'Day':'Piątek', 'Hour': 5, 'Selected': false},{'Day':'Piątek', 'Hour': 6, 'Selected': false},{'Day':'Piątek', 'Hour': 7, 'Selected': false}],
-    ],
-  
-  plan:[[[["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
-  [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
-  [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
-  [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
-  [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
-  [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]]],
-
-  [[["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "fizyka", ["Paulina Paulinowska", "308"]]],
-    [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "fizyka", ["Paulina Paulinowska", "308"]]],
-    [["IB", "fizyka", ["Paulina Paulinowska", "308"]], ["IA", "j.polski", ["Barbara Barbarowicz", ""]]],
-    [["IB", "fizyka", ["Paulina Paulinowska", "308"]], ["IA", "j.polski", ["Barbara Barbarowicz", ""]]],
-    [["IB", "fizyka", ["Paulina Paulinowska", "308"]], ["IA", "j.polski", ["Barbara Barbarowicz", ""]]],
-    [["IB", "fizyka", ["Paulina Paulinowska", "308"]], ["IA", "j.polski", ["Barbara Barbarowicz", ""]]]],
-
-  [[["IB", "fizyka", ["Paulina Paulinowska", "308"]], ["IA", "biologia", ["Bogdan Bogdanowicz", "200"]]],
-    [["IB", "fizyka", ["Paulina Paulinowska", "308"]], ["IA", "biologia", ["Bogdan Bogdanowicz", "200"]]],
-    [["IB", "j.polski", ["Zbigniew Zbigniewski", ""]], ["IA", "chemia", ["Marianna Mania", "201"]]],
-    [["IB", "j.polski", ["Zbigniew Zbigniewski", ""]], ["IA", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "j.polski", ["Zbigniew Zbigniewski", ""]], ["IA", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "j.polski", ["Zbigniew Zbigniewski", ""]], ["IA", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
-
-  [[["IB", "biologia", ["Bogdan Bogdanowicz", "200"]], ["IA", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "biologia", ["Bogdan Bogdanowicz", "200"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
-    [["IB", "chemia", ["Marianna Mania", "201"]], ["IA", "religia", ["Ksiadz Robak", ""]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]],
-
-  [[["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-  [["IB", "religia", ["Ksiadz Robak", ""]]], [["IB", "religia", ["Ksiadz Robak", ""]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]],
-    [["IB", "wf", ["Wlodzimierz Wlodzimski", "Sala gimnastyczna"]]]]] 
+    ]
     }
   },
 
