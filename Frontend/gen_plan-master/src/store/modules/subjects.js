@@ -2,6 +2,10 @@ const state = {
     subjects: [],
     addSubjectSuccess: true,
     addSubjectError: null,
+    editSubjectSuccess: true,
+    editSubjectError: null,
+    deleteSubjectSuccess: true,
+    deleteSubjectError: null,
     getSubjectsSuccess: true,
     getSubjectsError: null
 }
@@ -15,6 +19,18 @@ const mutations = {
     },
     'ADD_SUBJECT_ERROR'(state, error) {
         state.addSubjectError = error;
+    },
+    'EDIT_SUBJECT_SUCCESS'(state, success) {
+        state.editSubjectSuccess = success
+    },
+    'EDIT_SUBJECT_ERROR'(state, error) {
+        state.editSubjectError = error;
+    },
+    'DELETE_SUBJECT_SUCCESS'(state, success) {
+        state.deleteSubjectSuccess = success
+    },
+    'DELETE_SUBJECT_ERROR'(state, error) {
+        state.deleteSubjectError = error;
     },
     'GET_SUBJECTS_SUCCESS'(state, success) {
         state.getSubjectsSuccess = success
@@ -34,6 +50,18 @@ const getters = {
     },
     getAddSubjectError: state => {
         return state.addSubjectError;
+    },
+    getEditSubjectSuccess: state => {
+        return state.editSubjectSuccess;
+    },
+    getEditSubjectError: state => {
+        return state.editSubjectError;
+    },
+    getDeleteSubjectSuccess: state => {
+        return state.deleteSubjectSuccess;
+    },
+    getDeleteSubjectError: state => {
+        return state.deleteSubjectError;
     },
     getSubjectsSuccess: state => {
         return state.getSubjectsSuccess;

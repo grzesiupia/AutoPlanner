@@ -37,6 +37,7 @@
       <input class="buttonm btn btn-success mr-3" @click="editClass" type="submit" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteClass" value="Usuń klasę">
     </a>
     </h1>
   </div>
@@ -112,6 +113,17 @@ export default {
           name: this.class.name,
           new_name: this.classname,
           new_list_of_lessons: this.list_of_lessons
+        }
+      )
+    },
+    deleteClass(e)
+    {
+      e.preventDefault();
+       this.$store.dispatch(
+        "deleteClass",
+        {
+          token: this.token,
+          name: this.class.name,
         }
       )
     },

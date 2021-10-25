@@ -53,7 +53,7 @@ const getters = {
         return state.editTeacherSuccess;
     },
     getEditTeacherError: state => {
-        return state.ditTeacherError;
+        return state.editTeacherError;
     },
     getTeachersSuccess: state => {
         return state.getTeachersSuccess;

@@ -27,6 +27,7 @@
       <input class="buttonf btn btn-success mr-3" @click="editTeacher" type="submit" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteTeacher" value="Usuń nauczyciela">
     </a>
     </h1>
   </div>
@@ -42,6 +43,12 @@ export default {
     },
     editError(){
       return this.$store.getters.getEditTeacherError;
+    },
+    deleteSuccess(){
+      return this.$store.getters.getDeleteTeacherSuccess;
+    },
+    deleteError(){
+      return this.$store.getters.getDeleteTeacherError;
     },
     getSuccess(){
       return this.$store.getters.getTeachersSuccess;
@@ -98,6 +105,17 @@ export default {
           new_surname: this.surname,
           new_email: this.email,
           new_list_of_subjects:this.list_of_subjects
+        }
+      )
+    },
+    deleteTeacher(e)
+    {
+       e.preventDefault();
+       this.$store.dispatch(
+        "deleteTeacher",
+        {
+          token: this.token,
+          email: this.teacher.email,
         }
       )
     }

@@ -5,6 +5,8 @@ const state = {
     addClassError: null,
     editClassSuccess: true,
     editClassError: null,
+    deleteClassSuccess: true,
+    deleteClassError: null,
     getClasssSuccess: true,
     getClasssError: null
 }
@@ -27,6 +29,12 @@ const mutations = {
     },
     'EDIT_CLASS_ERROR'(state, error) {
         state.editClassError = error;
+    },
+    'DELETE_CLASS_SUCCESS'(state, success) {
+        state.deleteClassSuccess = success
+    },
+    'DELETE_CLASS_ERROR'(state, error) {
+        state.deleteClassError = error;
     },
     'GET_CLASSES_SUCCESS'(state, success) {
         state.getClassesSuccess = success
@@ -55,6 +63,12 @@ const getters = {
     },
     getEditClassError: state => {
         return state.editClassError;
+    },
+    getDeleteClassSuccess: state => {
+        return state.deleteClassSuccess;
+    },
+    getDeleteClassError: state => {
+        return state.deleteClassError;
     },
     getClassesSuccess: state => {
         return state.getClassesSuccess;
