@@ -1,5 +1,5 @@
 module.exports = {
     devServer: {
-      public: 'subdomain.domain.ext:port'
+      public: 'http://ec2-35-159-51-127.eu-central-1.compute.amazonaws.com:8080/'
     }
   };
