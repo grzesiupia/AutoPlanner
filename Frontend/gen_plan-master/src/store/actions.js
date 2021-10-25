@@ -280,15 +280,15 @@ export const sendClass = ({
         })
         .then(function (response) {
             console.log(response);
-            commit("ADD_CLASSES_SUCCESS", true)
+            commit("ADD_CLASS_SUCCESS", true)
             router.go();
         })
         .catch(function (error) {
-            commit("ADD_CLASSES_SUCCESS", false)
+            commit("ADD_CLASS_SUCCESS", false)
             if (error.response.data.message === "Validation error") {
-                commit("ADD_CLASSES_ERROR", error.response.data.message)
+                commit("ADD_CLASS_ERROR", error.response.data.message)
             } else {
-                commit("ADD_CLASSES_ERROR", error.response.data.message)
+                commit("ADD_CLASS_ERROR", error.response.data.message)
             }
         });
 }
@@ -312,6 +312,207 @@ export const sendPoll = ({
                 commit("ADD_POLL_ERROR", error.response.data.message)
             } else {
                 commit("ADD_POLL_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const editSubject = ({
+    commit
+}, object) => {
+    console.log(object.token, object.subject_name, object.new_subject_name)
+    axios
+        .post("api/edit/subject", {
+            token: object.token,
+            subject_name: object.subject_name,
+            new_subject_name: object.new_subject_name
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("EDIT_SUBJECT_SUCCESS", true)
+            router.go();
+        })
+        .catch(function (error) {
+            commit("EDIT_SUBJECT_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("EDIT_SUBJECT_ERROR", error.response.data.message)
+            } else {
+                commit("EDIT_SUBJECT_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const editTeacher = ({
+    commit
+}, object) => {
+    console.log(object.token, object.email, object.new_name, object.new_surname, object.new_email, object.new_list_of_subjects)
+    axios
+        .post("api/edit/teacher", {
+            token: object.token,
+            email: object.email, 
+            new_name: object.new_name,
+            new_surname: object.new_surname,
+            new_email: object.new_email,
+            new_list_of_subjects: object.new_list_of_subjects
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("EDIT_TEACHER_SUCCESS", true)
+            router.go();
+        })
+        .catch(function (error) {
+            commit("EDIT_TEACHER_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("EDIT_TEACHER_ERROR", error.response.data.message)
+            } else {
+                commit("EDIT_TEACHER_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const editClassroom = ({
+    commit
+}, object) => {
+    console.log(object.token,object.name,object.new_name, object.new_list_of_subjects)
+    axios
+        .post("api/edit/classroom", {
+            token: object.token,
+            name: object.name,
+            new_name: object.new_name,
+            new_list_of_subjects: object.new_list_of_subjects
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("EDIT_CLASSROOM_SUCCESS", true)
+            router.go();
+        })
+        .catch(function (error) {
+            commit("EDIT_CLASSROOM_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("EDIT_CLASSROOM_ERROR", error.response.data.message)
+            } else {
+                commit("EDIT_CLASSROOM_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const editClass = ({
+    commit
+}, object) => {
+    console.log(object.token, object.name,object.new_name, object.new_list_of_lessons)
+    axios
+        .post("api/edit/class", {
+            token: object.token,
+            name: object.name,
+            new_name: object.new_name,
+            new_list_of_lessons: object.new_list_of_lessons
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("EDIT_CLASS_SUCCESS", true)
+            router.go();
+        })
+        .catch(function (error) {
+            commit("EDIT_CLASSES_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("EDIT_CLASS_ERROR", error.response.data.message)
+            } else {
+                commit("EDIT_CLASS_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const deleteSubject = ({
+    commit
+}, object) => {
+    console.log(object.token, object.subject_name)
+    axios
+        .post("api/delete/subject", {
+            token: object.token,
+            subject_name: object.subject_name
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("DELETE_SUBJECT_SUCCESS", true)
+            router.push("/step/1");
+        })
+        .catch(function (error) {
+            commit("DELETE_SUBJECT_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("DELETE_SUBJECT_ERROR", error.response.data.message)
+            } else {
+                commit("DELETE_SUBJECT_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const deleteTeacher = ({
+    commit
+}, object) => {
+    console.log(object.token, object.email)
+    axios
+        .post("api/delete/teacher", {
+            token: object.token,
+            email: object.email
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("DELETE_TEACHER_SUCCESS", true)
+            router.push("/step/2");
+        })
+        .catch(function (error) {
+            commit("DELETE_TEACHER_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("DELETE_TEACHER_ERROR", error.response.data.message)
+            } else {
+                commit("DELETE_TEACHER_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const deleteClassroom = ({
+    commit
+}, object) => {
+    console.log(object.token,object.name)
+    axios
+        .post("api/delete/classroom", {
+            token: object.token,
+            name: object.name
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("DELETE_CLASSROOM_SUCCESS", true)
+            router.push("/step/3");
+        })
+        .catch(function (error) {
+            commit("DELETE_CLASSROOM_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("DELETE_CLASSROOM_ERROR", error.response.data.message)
+            } else {
+                commit("DELETE_CLASSROOM_ERROR", error.response.data.message)
+            }
+        });
+}
+
+export const deleteClass = ({
+    commit
+}, object) => {
+    console.log(object.token, object.name)
+    axios
+        .post("api/delete/class", {
+            token: object.token,
+            name: object.name
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("DELETE_CLASS_SUCCESS", true)
+            router.push("/step/4");
+        })
+        .catch(function (error) {
+            commit("DELETE_CLASSES_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("DELETE_CLASS_ERROR", error.response.data.message)
+            } else {
+                commit("DELETE_CLASS_ERROR", error.response.data.message)
             }
         });
 }

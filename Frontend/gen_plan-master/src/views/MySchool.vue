@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr v-for="n in 5" :key="n">
-       <th scope="row">1</th>  
+       <th scope="row">{{n}}</th>  
        <td v-for="(pp,ii) in plan" :key="ii">{{pp[n-1][m-1][1]}}</td>
     </tr>
     

@@ -1,7 +1,10 @@
 const state = {
     classrooms: [],
+    classroom:{},
     addClassroomSuccess: true,
     addClassroomError: null,
+    editClassroomSuccess: true,
+    editClassroomError: null,
     getClassroomsSuccess: true,
     getClassroomsError: null
 }
@@ -15,6 +18,12 @@ const mutations = {
     },
     'ADD_CLASSROOM_ERROR'(state, error) {
         state.addClassroomError = error;
+    },
+    'EDIT_CLASSROOM_SUCCESS'(state, success) {
+        state.editClassroomSuccess = success
+    },
+    'EDIT_CLASSROOM_ERROR'(state, error) {
+        state.editClassroomError = error;
     },
     'GET_CLASSROOMS_SUCCESS'(state, success) {
         state.getClassroomsSuccess = success
@@ -34,6 +43,12 @@ const getters = {
     },
     getAddClassroomError: state => {
         return state.addClassroomError;
+    },
+    getEditClassroomSuccess: state => {
+        return state.editClassroomSuccess;
+    },
+    getEditClassroomError: state => {
+        return state.editClassroomError;
     },
     getClassroomsSuccess: state => {
         return state.getClassroomsSuccess;

@@ -1,19 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import EmailVerify from '../views/EmailVerify.vue'
-import NewPassword from '../views/NewPassword.vue'
-import ResetPassword from '../views/ResetPassword.vue'
+import Login from '../views/Login/Login.vue'
+import Register from '../views/Login/Register.vue'
+import EmailVerify from '../views/Login/EmailVerify.vue'
+import NewPassword from '../views/Login/NewPassword.vue'
+import ResetPassword from '../views/Login/ResetPassword.vue'
 import MySchool from '../views/MySchool.vue'
-import Step0 from '../views/Step0.vue'
-import Step1 from '../views/Step1.vue'
-import Step2 from '../views/Step2.vue'
-import Step3 from '../views/Step3.vue'
-import Step4 from '../views/Step4.vue'
+import Step0 from '../views/Add/Step0.vue'
+import Step1 from '../views/Add/Step1.vue'
+import Step2 from '../views/Add/Step2.vue'
+import Step3 from '../views/Add/Step3.vue'
+import Step4 from '../views/Add/Step4.vue'
 import Error from '../views/Error.vue'
 import Poll from '../views/Poll.vue'
+import EditSubject from '../views/Edit/EditSubject.vue'
+import EditTeacher from '../views/Edit/EditTeacher.vue'
+import EditClassroom from '../views/Edit/EditClassroom.vue'
+import EditClass from '../views/Edit/EditClass.vue'
 
 Vue.use(VueRouter)
 
@@ -82,6 +86,26 @@ const routes = [
     path: '/poll/:id',
     name: 'Poll',
     component: Poll
+  },
+  {
+    path: '/edit/Subject/:id',
+    name: 'EditSubject',
+    component: EditSubject
+  },
+  {
+    path: '/edit/teacher',
+    name: 'EditTeacher',
+    component: EditTeacher
+  },
+  {
+    path: '/edit/classroom',
+    name: 'EditClassroom',
+    component: EditClassroom
+  },
+  {
+    path: '/edit/class',
+    name: 'EditClass',
+    component: EditClass
   },
   {
     path: "*",
