@@ -76,19 +76,20 @@ WSGI_APPLICATION = 'DjangoBackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'TEST002',
-        'USER': 'uni',
-        'PASSWORD': '123',
-        'HOST': '185.66.213.128',
-        'PORT': '3306',
-        'OPTIONS': {
-         "init_command": "SET foreign_key_checks = 0;",
-        },
-    }
-}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'TEST002',
+#         'USER': 'uni',
+#         'PASSWORD': '123',
+#         'HOST': '185.66.213.128',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#          "init_command": "SET foreign_key_checks = 0;",
+#         },
+#     }
+# }
 
 
 # Password validation
