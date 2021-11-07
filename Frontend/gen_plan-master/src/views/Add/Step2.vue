@@ -19,7 +19,7 @@
       <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].subject_name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
         <option v-for="subject in subjects" v-bind:key="subject.subject_name" >
-        {{ subject.name }}
+        {{ subject.subject_name }}
         </option>
     </select>
     </div>
