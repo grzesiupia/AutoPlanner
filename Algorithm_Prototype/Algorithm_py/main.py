@@ -1,125 +1,195 @@
-import itertools
-from random import shuffle
+import string
 
-IB = {
-    "matematyka": [8, "Marek Markowski", "211"],
-    "fizyka": [4, "Paulina Paulinowska", "308"],
-    "j.polski": [6, "Zbigniew Zbigniewski", "205"],
-    "biologia": [2, "Bogdan Bogdanowicz", "200"],
-    "chemia": [1, "Marianna Mania", "201"],
-    "wf": [2, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"],
-    "religia": [2, "Ksiadz Robak", "104"]
+CLASSES = {
+    100: "biologia",
+    101: "fizyka",
+    102: "matematyka",
+    103: None,
+    104: "Chemia",
+    105: None,
+    200: "wf"
 }
 
-IA = {
-    "matematyka": [6, "Marcjanna Milik", "212"],
-    "fizyka": [2, "Paulina Paulinowska", "308"],
-    "j.polski": [4, "Barbara Barbarowicz", "206"],
-    "biologia": [4, "Bogdan Bogdanowicz", "200"],
-    "chemia": [3, "Marianna Mania", "201"],
-    "wf": [4, "Mieczysław Monciak", "Sala gimnastyczna"],
-    "religia": [2, "Ksiadz Robak", "104"]
+TEACHERS = {
+    "Janusz Walczuk": {
+        'subject': "matematyka",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Krystyna Pawłowicz": {
+        'subject': "j.polski",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Robert Lewandowski": {
+        'subject': "wf",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Waldemar Kiepski": {
+        'subject': "chemia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Ksiądz Robak": {
+        'subject': "religia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': None,
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': None
+        }
+    },
+    "Snoop Dogg": {
+        'subject': "biologia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Albert Einstein": {
+        'subject': "fizyka",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    }
 }
 
-IC = {
-    "matematyka": [5, "Michalina Miś", "213"],
-    "fizyka": [4, "Paulina Paulinowska", "308"],
-    "j.polski": [4, "Barbara Barbarowicz", "205"],
-    "biologia": [2, "Bogdan Bogdanowicz", "200"],
-    "chemia": [4, "Marianna Mania", "201"],
-    "wf": [4, "Mieczysław Monciak", "Sala gimnastyczna"],
-    "religia": [2, "Ksiadz Robak", "104"]
-}
-
-ID = {
-    "matematyka": [6, "Marcelina Korcz", "212"],
-    "fizyka": [2, "Paulina Paulinowska", "308"],
-    "j.polski": [7, "Halina Makłowicz", "204"],
-    "biologia": [3, "Bogdan Bogdanowicz", "200"],
-    "chemia": [2, "Marianna Mania", "201"],
-    "wf": [4, "Wlodzimierz Wlodzimski", "Sala gimnastyczna"],
-    "religia": [1, "Ksiadz Robak", "104"]
+SCHOOL_CLASSES = {
+    'IB': {
+        "matematyka": 8,
+        "fizyka": 4,
+        "j.polski": 6,
+        "biologia": 2,
+        "chemia": 1,
+        "wf": 2,
+        "religia": 2
+    },
+    'IA': {
+        "matematyka": 6,
+        "fizyka": 2,
+        "j.polski": 4,
+        "biologia": 4,
+        "chemia": 3,
+        "wf": 4,
+        "religia": 2
+    },
+    'IC': {
+        "matematyka": 5,
+        "fizyka": 4,
+        "j.polski": 4,
+        "biologia": 2,
+        "chemia": 4,
+        "wf": 4,
+        "religia": 2
+    },
+    'ID': {
+        "matematyka": 6,
+        "fizyka": 2,
+        "j.polski": 7,
+        "biologia": 3,
+        "chemia": 2,
+        "wf": 4,
+        "religia": 1
+    }
 }
 
 ToughSubjects = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
 
 
-class SchoolClass:
-    def __init__(self, name_of_class, dictionary, lessons_per_week):
-        self.name = name_of_class
-        self.max_lessons_per_day = int(lessons_per_week / 5 + 1)
-        self.avg_lessons_per_day = int(lessons_per_week / 5)
-        self.min_lessons_per_day = int(lessons_per_week / 5 - 1)
-        self.days_to_increase_lessons = int(lessons_per_week % 5)
-        self.max_tough_subjects_per_day = int(sum([dictionary[x][0] for x in dictionary if x in ToughSubjects]) / 5) + 1
-        self.subjects = dictionary
+class School:
+    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict):
+        self.school_name = None
+        self.classes = classes_data
+        self.school_classes = self.__process_school_classes(school_class_data)
+        self.teachers = self.__process_teachers(teachers_data)
 
-
-def all_distinct(lis):
-    return len(set(lis)) == len(lis)
-
-
-def validate_schedule(dict_data_to_schedule, list_of_school_classes):
-    val = [x for x in dict_data_to_schedule]
-    temp_teacher = []
-    temp_classroom = []
-    for x in range(25):
-        temp_teacher.clear()
-        temp_classroom.clear()
-        for y in val:
-            temp_teacher.append(dict_data_to_schedule[y][x][1])
-            temp_classroom.append(dict_data_to_schedule[y][x][2])
-        if not all_distinct(temp_teacher):
-            return False
-        if not all_distinct(temp_classroom):
-            return False
-    print_schedule(dict_data_to_schedule)
-    return True
-
-
-def prepare_data(list_of_school_classes):
-    list_of_all_subjects_for_class = {}
-
-    for school_class in list_of_school_classes:
+    @staticmethod
+    def __process_school_classes(school_class_data):
         temp = []
-        for subject in school_class.subjects:
-            while school_class.subjects[subject][0] > 0:
-                temp.append([subject, *school_class.subjects[subject][1:]])
-                school_class.subjects[subject][0] -= 1
-        list_of_all_subjects_for_class[school_class.name] = temp
+        for school_class, subjects in school_class_data.items():
+            temp.append(SchoolClass(name_of_class=school_class, subjects=subjects))
+        return temp
 
-    list_of_all_subjects_for_class_sh = list_of_all_subjects_for_class.copy()
-
-    temp = {}
-    while True:
-        temp.clear()
-        for school_class in list_of_school_classes:
-            shuffle(list_of_all_subjects_for_class_sh[school_class.name])
-            temp[school_class.name] = list(list_of_all_subjects_for_class_sh[school_class.name])
-        if validate_schedule(temp, list_of_school_classes):
-            print("jest git")
-            break
+    @staticmethod
+    def __process_teachers(teachers_data):
+        temp = []
+        for name, data in teachers_data.items():
+            temp.append(Teacher(name=name, data=data))
+        return temp
 
 
-def print_schedule(schedule):
-    file = open('output.json', 'w')
-    schedule_str = ""
-    for i in range(25):
-        for x in schedule:
-            schedule_str += (str(i) + " " + str(x) + " " + str(schedule[x][i]) + "\t\t\t")
-        schedule_str += "\n"
-        if (i+1) % 5 == 0:
-            schedule_str += "\n"
-    file.write(schedule_str)
-    file.close()
+class Teacher:
+    def __init__(self, name: string, data: dict):
+        self.name = name
+        self.data = data
+        self.subject = self.__set_subject()
+        self.work_hours = None
+
+    def __set_subject(self):
+        return self.data['subject']
+
+    def __set_work_hours(self):
+        return self.data['work_hours']
+
+
+class SchoolClass:
+    def __init__(self, name_of_class: string, subjects: dict):
+        self.name = name_of_class
+        self.subjects = subjects
+        self.lessons_per_week = self.__set_lessons_per_week()
+        self.max_lessons_per_day = self.__set_max_lessons_per_day()
+        self.min_lessons_per_day = self.__set_min_lessons_per_day()
+        self.max_tough_lessons_per_day = self.__set_max_tough_lessons_per_day()
+
+    def __set_lessons_per_week(self):
+        count = 0
+        for key, value in self.subjects.items():
+            count += value
+        return count
+
+    def __set_max_lessons_per_day(self):
+        return self.lessons_per_week / 5 + 1
+
+    def __set_min_lessons_per_day(self):
+        return self.lessons_per_week / 5 - 1
+
+    def __set_max_tough_lessons_per_day(self):
+        count = 0
+        for key, value in self.subjects.items():
+            if key in ToughSubjects:
+                count += value
+        return count / 5
 
 
 if __name__ == "__main__":
-
-    list_of_received_school_classes = [('IB', IB), ('IA', IA), ('IC', IC), ('ID', ID)]
-    list_of_school_class_objects = []
-
-    for l in list_of_received_school_classes:
-        list_of_school_class_objects.append(SchoolClass(l[0], l[1], sum([l[1][x][0] for x in l[1]])))
-
-    prepare_data(list_of_school_class_objects)
+    school = School(school_class_data=SCHOOL_CLASSES, teachers_data=TEACHERS, classes_data=CLASSES)
+    print(school.teachers[1].name)
