@@ -85,50 +85,66 @@ TEACHERS = {
 
 SCHOOL_CLASSES = {
     'IB': {
-        "matematyka": 8,
-        "fizyka": 4,
-        "j.polski": 6,
-        "biologia": 2,
-        "chemia": 1,
-        "wf": 2,
-        "religia": 2
+        "matematyka": [8, None],
+        "fizyka": [4, None],
+        "j.polski": [6, None],
+        "biologia": [2, None],
+        "chemia": [1, None],
+        "wf": [2, None],
+        "religia": [2, None],
     },
     'IA': {
-        "matematyka": 6,
-        "fizyka": 2,
-        "j.polski": 4,
-        "biologia": 4,
-        "chemia": 3,
-        "wf": 4,
-        "religia": 2
+        "matematyka": [6, None],
+        "fizyka": [2, None],
+        "j.polski": [4, None],
+        "biologia": [4, None],
+        "chemia": [3, None],
+        "wf": [4, None],
+        "religia": [2, None]
     },
     'IC': {
-        "matematyka": 5,
-        "fizyka": 4,
-        "j.polski": 4,
-        "biologia": 2,
-        "chemia": 4,
-        "wf": 4,
-        "religia": 2
+        "matematyka": [5, None],
+        "fizyka": [4, None],
+        "j.polski": [4, None],
+        "biologia": [2, None],
+        "chemia": [4, None],
+        "wf": [4, None],
+        "religia": [2, None]
     },
     'ID': {
-        "matematyka": 6,
-        "fizyka": 2,
-        "j.polski": 7,
-        "biologia": 3,
-        "chemia": 2,
-        "wf": 4,
-        "religia": 1
+        "matematyka": [6, None],
+        "fizyka": [2, None],
+        "j.polski": [7, None],
+        "biologia": [3, None],
+        "chemia": [2, None],
+        "wf": [4, None],
+        "religia": [1, None]
+    },
+    'IIA': {
+        "matematyka": [6, "Janusz Walczuk"],
+        "fizyka": [2, "Albert Einstein"],
+        "j.polski": [7, "Krystyna Pawłowicz"],
+        "biologia": [3, "Snoop Dogg"],
+        "chemia": [2, "Waldemar Kiepski"],
+        "wf": [4, "Robert Lewandowski"],
+        "religia": [1, None]
     }
+    
 }
 
 ToughSubjects = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
 
 
+class Class:
+    def __init__(self, class_number, preferred_subject):
+        self.class_number = class_number
+        self.preferred_subject = preferred_subject
+
+
 class School:
     def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict):
         self.school_name = None
-        self.classes = classes_data
+        self.classes = self.__process_classes(classes_data)
         self.school_classes = self.__process_school_classes(school_class_data)
         self.teachers = self.__process_teachers(teachers_data)
 
@@ -144,6 +160,13 @@ class School:
         temp = []
         for name, data in teachers_data.items():
             temp.append(Teacher(name=name, data=data))
+        return temp
+
+    @staticmethod
+    def __process_classes(classes_data):
+        temp = []
+        for class_number, preferred_subject in classes_data.items():
+            temp.append(Class(class_number=class_number, preferred_subject=preferred_subject))
         return temp
 
 
@@ -169,11 +192,12 @@ class SchoolClass:
         self.max_lessons_per_day = self.__set_max_lessons_per_day()
         self.min_lessons_per_day = self.__set_min_lessons_per_day()
         self.max_tough_lessons_per_day = self.__set_max_tough_lessons_per_day()
+        self.prefered_teachers = self.__set_prefered_teachers()
 
     def __set_lessons_per_week(self):
         count = 0
         for key, value in self.subjects.items():
-            count += value
+            count += value[0]
         return count
 
     def __set_max_lessons_per_day(self):
@@ -186,10 +210,19 @@ class SchoolClass:
         count = 0
         for key, value in self.subjects.items():
             if key in ToughSubjects:
-                count += value
+                count += value[0]
         return count / 5
+
+    def __set_prefered_teachers(self):
+        temp = {}
+        for subject, teacher in self.subjects.items():
+            if teacher[1] is not None:
+                temp[subject] = teacher[1]
+        if len(temp) == 0:
+            temp = None
+        return temp
 
 
 if __name__ == "__main__":
     school = School(school_class_data=SCHOOL_CLASSES, teachers_data=TEACHERS, classes_data=CLASSES)
-    print(school.teachers[1].name)
+    print(school.school_classes[4].prefered_teachers)
