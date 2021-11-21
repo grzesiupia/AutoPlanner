@@ -241,3 +241,77 @@ def generate_plan(request):
             response = json.dumps({'message': str(e)})
             return HttpResponse(response, content_type='text/json')
 
+@csrf_exempt
+def del_subject(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['subject_name']
+        token = payload['token']
+        try:
+            rows = Lessons.objects.all().count()
+            #print(rows)
+            user_data = jwt.decode(token, None, None)
+            #print(user_data['email'])
+            planner = Planners.objects.get(email = user_data['email'])
+            lesson = Lessons.objects.get(email = planner, lesson_name = name)
+            lesson.delete()
+            response=json.dumps({'message': 'Pomyslnie usunieto lekcje'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def del_teacher(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        email = payload['email']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            #print(user_data['email'])
+            teacher = Teachers.objects.get(teacher_email = email, email = user_data['email'])
+            teacher.delete()
+            response=json.dumps({'message': 'Pomyslnie usunieto nauczyciela'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+
+@csrf_exempt
+def del_classroom(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            #print(user_data['email'])
+            lessons = Lessons.objects.filter(email = user_data['email'], classroom = name)
+            for i in lessons:
+                i.classroom = None
+                i.save()
+            response=json.dumps({'message': lessons})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def del_class(request):
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            lessons = Lessons.objects.filter(email = user_data['email'], class_name = name)
+            for i in lessons_list:
+                i.class_name = None
+                i.save()
+            response=json.dumps({'message': lessons})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+

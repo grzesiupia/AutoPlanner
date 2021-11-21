@@ -30,5 +30,10 @@ urlpatterns = [
     path('api/get/all/teachers', views.get_teachers),
     path('api/sendEmail', views.send_email),
     path('api/polls/<int:pollNumber>', views.add_poll_data),
-    path('api/generatePlan', views.generate_plan)
+    path('api/generatePlan', views.generate_plan),
+    path('api/generatePlan', views.generate_plan),
+    path('api/delete/subject', views.del_subject),
+    path('api/delete/teacher', views.del_teacher),
+    path('api/delete/classroom', views.del_classroom),
+    path('api/delete/class', views.del_class)
 ]
