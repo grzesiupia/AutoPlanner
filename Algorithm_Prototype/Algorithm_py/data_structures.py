@@ -1,4 +1,7 @@
 import string
+from random import shuffle
+
+from singleton import Singleton
 
 CLASSES = {
     100: "biologia",
@@ -9,7 +12,6 @@ CLASSES = {
     105: None,
     200: "wf"
 }
-
 TEACHERS = {
     "Janusz Walczuk": {
         'subject': "matematyka",
@@ -82,8 +84,7 @@ TEACHERS = {
         }
     }
 }
-
-SCHOOL_CLASSES = {
+GROUP = {
     'IB': {
         "matematyka": [8, None],
         "fizyka": [4, None],
@@ -121,7 +122,7 @@ SCHOOL_CLASSES = {
         "religia": [1, None]
     },
     'IIA': {
-        "matematyka": [6, "Janusz Walczuk"],
+        "matematyka": [1, "Janusz Walczuk"],
         "fizyka": [2, "Albert Einstein"],
         "j.polski": [7, "Krystyna Pawłowicz"],
         "biologia": [3, "Snoop Dogg"],
@@ -141,41 +142,13 @@ class Class:
         self.preferred_subject = preferred_subject
 
 
-class School:
-    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict):
-        self.school_name = None
-        self.classes = self.__process_classes(classes_data)
-        self.school_classes = self.__process_school_classes(school_class_data)
-        self.teachers = self.__process_teachers(teachers_data)
-
-    @staticmethod
-    def __process_school_classes(school_class_data):
-        temp = []
-        for school_class, subjects in school_class_data.items():
-            temp.append(SchoolClass(name_of_class=school_class, subjects=subjects))
-        return temp
-
-    @staticmethod
-    def __process_teachers(teachers_data):
-        temp = []
-        for name, data in teachers_data.items():
-            temp.append(Teacher(name=name, data=data))
-        return temp
-
-    @staticmethod
-    def __process_classes(classes_data):
-        temp = []
-        for class_number, preferred_subject in classes_data.items():
-            temp.append(Class(class_number=class_number, preferred_subject=preferred_subject))
-        return temp
-
-
 class Teacher:
     def __init__(self, name: string, data: dict):
         self.name = name
         self.data = data
         self.subject = self.__set_subject()
-        self.work_hours = None
+        self.preferred_work_hours = None
+        self.work_hours = 0
 
     def __set_subject(self):
         return self.data['subject']
@@ -184,15 +157,26 @@ class Teacher:
         return self.data['work_hours']
 
 
-class SchoolClass:
-    def __init__(self, name_of_class: string, subjects: dict):
-        self.name = name_of_class
+class Group:
+    def __init__(self, group_name: string, subjects: dict):
+        self.name = group_name
         self.subjects = subjects
+        self.list_of_subjects = self.__set_list_of_subjects()
         self.lessons_per_week = self.__set_lessons_per_week()
         self.max_lessons_per_day = self.__set_max_lessons_per_day()
         self.min_lessons_per_day = self.__set_min_lessons_per_day()
         self.max_tough_lessons_per_day = self.__set_max_tough_lessons_per_day()
-        self.prefered_teachers = self.__set_prefered_teachers()
+        self.preferred_teachers = self.__set_preferred_teachers()
+
+    def __set_list_of_subjects(self):
+        temp = []
+        for key, value in self.subjects.items():
+            # value[0] is number of subject per week
+            for _ in range(value[0]):
+                temp.append([key, value[1]])
+        for _ in range(5):
+            shuffle(temp)
+        return temp
 
     def __set_lessons_per_week(self):
         count = 0
@@ -213,7 +197,7 @@ class SchoolClass:
                 count += value[0]
         return count / 5
 
-    def __set_prefered_teachers(self):
+    def __set_preferred_teachers(self):
         temp = {}
         for subject, teacher in self.subjects.items():
             if teacher[1] is not None:
@@ -223,6 +207,40 @@ class SchoolClass:
         return temp
 
 
-if __name__ == "__main__":
-    school = School(school_class_data=SCHOOL_CLASSES, teachers_data=TEACHERS, classes_data=CLASSES)
-    print(school.school_classes[4].prefered_teachers)
+class School:
+    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict):
+        self.school_name = None
+        self.classes = self.__process_classes(classes_data)
+        self.groups = self.__process_school_classes(school_class_data)
+        self.teachers = self.__process_teachers(teachers_data)
+        self.max_lessons_per_day_for_school = self.__set_max_lessons_per_day()
+
+    def __set_max_lessons_per_day(self):
+        max_lessons = 0
+        for group in self.groups:
+            if group.max_lessons_per_day > max_lessons:
+                max_lessons = group.max_lessons_per_day
+        return max_lessons
+
+    @staticmethod
+    def __process_school_classes(school_class_data):
+        temp = []
+        for group, subjects in school_class_data.items():
+            temp.append(Group(group_name=group, subjects=subjects))
+        return temp
+
+    @staticmethod
+    def __process_teachers(teachers_data):
+        temp = []
+        for name, data in teachers_data.items():
+            temp.append(Teacher(name=name, data=data))
+        return temp
+
+    @staticmethod
+    def __process_classes(classes_data):
+        temp = []
+        for class_number, preferred_subject in classes_data.items():
+            temp.append(Class(class_number=class_number, preferred_subject=preferred_subject))
+        return temp
+
+
