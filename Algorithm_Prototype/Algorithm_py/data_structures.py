@@ -82,6 +82,76 @@ TEACHERS = {
             'Thusday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
+    },
+    "Morgan Freeman": {
+        'subject': "matematyka",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Juliusz Słowacki": {
+        'subject': "j.polski",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Arkadiusz Milik": {
+        'subject': "wf",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Adam Mickiewicz": {
+        'subject': "chemia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Popieluszko": {
+        'subject': "religia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': None,
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': None
+        }
+    },
+    "Wiz Khalifa": {
+        'subject': "biologia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Moj Stary": {
+        'subject': "fizyka",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
     }
 }
 GROUP = {
@@ -122,7 +192,7 @@ GROUP = {
         "religia": [1, None]
     },
     'IIA': {
-        "matematyka": [1, "Janusz Walczuk"],
+        "matematyka": [4, "Janusz Walczuk"],
         "fizyka": [2, "Albert Einstein"],
         "j.polski": [7, "Krystyna Pawłowicz"],
         "biologia": [3, "Snoop Dogg"],
@@ -174,7 +244,7 @@ class Group:
             # value[0] is number of subject per week
             for _ in range(value[0]):
                 temp.append([key, value[1]])
-        for _ in range(5):
+        for _ in range(10):
             shuffle(temp)
         return temp
 
