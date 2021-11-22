@@ -49,24 +49,6 @@ class Algorithm(metaclass=Singleton):
                                                                          lesson_key=group.name,
                                                                          lesson_value=lesson_value)
 
-    def prepare_time_table_mb(self):
-        all_subjects = []
-        for group in self.school.groups:
-            for subject in group.list_of_subjects:
-                all_subjects.append(0, [group, *subject])
-        import random
-        random.shuffle(all_subjects)
-        for hour in range(int(school.max_lessons_per_day_for_school)):
-            for day in range(len(self.schedule.time_table)):
-                condition = True
-                while condition:
-                    lesson_value = all_subjects.pop()
-                    self.schedule.append_lesson_to_lessons_from_hour(day=day,
-                                                                     hour=hour,
-                                                                     lesson_key=lesson_value,
-                                                                     lesson_value=lesson_value)
-
-
     def shuffle_list_of_subjects(self, base_list: list, n: int):
         import random
         copy_of_list = base_list.copy()
