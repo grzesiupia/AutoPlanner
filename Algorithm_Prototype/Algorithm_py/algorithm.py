@@ -30,6 +30,15 @@ class Schedule:
                 print(hour)
             print("\n")
 
+    def print_group_schedule(self, group: str):
+        for day in self.time_table:
+            for hour in day:
+                if group in hour:
+                    print(hour[group])
+                else:
+                    print('-----')
+            print("\n")
+
 
 class Algorithm(metaclass=Singleton):
     def __init__(self, school: School):
