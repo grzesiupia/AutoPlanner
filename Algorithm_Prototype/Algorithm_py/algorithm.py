@@ -21,8 +21,8 @@ class Schedule:
     def set_lessons_from_hour(self, day: int, hour: int, lessons):
         self.time_table[day][hour] = lessons
 
-    def append_lesson_to_lessons_from_hour(self, day: int, hour: int, lesson_key: string, lesson_value):
-        self.time_table[day][hour][lesson_key] = lesson_value
+    def append_lesson_to_lessons_from_hour(self, day: int, hour: int, lesson_key: string, lesson_value, classroom=None):
+        self.time_table[day][hour][lesson_key] = [*lesson_value, classroom]
 
     def print_schedule(self):
         for day in self.time_table:
@@ -44,6 +44,11 @@ class Algorithm(metaclass=Singleton):
     def __init__(self, school: School):
         self.school = school
         self.schedule = Schedule(school.max_lessons_per_day_for_school)
+        self.number_of_non_unique_classrooms = 0
+        for classroom in self.school.classes:
+            if classroom.preferred_subject is None:
+                self.number_of_non_unique_classrooms += 1
+        print(self.number_of_non_unique_classrooms)
         self.prepare_time_table()
 
     # TODO convert ifs from statement to additional func with crucial conditions for schedule to be valid
@@ -51,12 +56,13 @@ class Algorithm(metaclass=Singleton):
         for hour in range(int(school.max_lessons_per_day_for_school)):
             for group in self.school.groups:
                 for day in range(len(self.schedule.time_table)):
-                    if self.statement(day, hour, group):
+                    if self.statement(day, hour, group, len(self.schedule.get_lessons_from_hour(day,hour))):
                         lesson_value = group.list_of_subjects.pop()
                         self.schedule.append_lesson_to_lessons_from_hour(day=day,
                                                                          hour=hour,
                                                                          lesson_key=group.name,
                                                                          lesson_value=lesson_value)
+
 
     def shuffle_list_of_subjects(self, base_list: list, n: int):
         import random
@@ -75,11 +81,10 @@ class Algorithm(metaclass=Singleton):
             base_list[index] = copy_of_list[indexes[j]]
             j += 1
 
-    def statement(self, day: int, hour: int, group: Group) -> bool:
-        if len(group.list_of_subjects) != 0 and hour < group.max_lessons_per_day:
-            return True
-        else:
-            return False
+    def statement(self, day: int, hour: int, group: Group, number_of_lesson_on_hour: int) -> bool:
+        return len(group.list_of_subjects) != 0 and \
+               hour < group.max_lessons_per_day and \
+               number_of_lesson_on_hour < self.number_of_non_unique_classrooms
 
 
 if __name__ == "__main__":

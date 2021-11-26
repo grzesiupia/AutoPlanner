@@ -2,12 +2,12 @@ import string
 from random import shuffle
 
 CLASSES = {
-    100: "biologia",
-    101: "fizyka",
-    102: "matematyka",
+    100: None,
+    101: None,
+    102: None,
     103: None,
-    104: "Chemia",
-    105: None,
+    # 104: None,
+    # 105: None,
     200: "wf"
 }
 TEACHERS = {
