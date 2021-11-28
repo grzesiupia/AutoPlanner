@@ -173,6 +173,44 @@ def get_teachers(request):
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
+def get_classrooms(request):
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
+        print(payload)
+        try:
+            user_data = jwt.decode(payload, None, None)
+            array = Lessons.objects.filter(email = user_data['email'])
+            print(user_data['email'])
+            x = []
+            for i in array:
+                x.append({'classroom': i.classroom})
+            print(x)
+            response=json.dumps(x)
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def get_classes(request):
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
+        print(payload)
+        try:
+            user_data = jwt.decode(payload, None, None)
+            array = Lessons.objects.filter(email = user_data['email'])
+            print(user_data['email'])
+            x = []
+            for i in array:
+                x.append({'class': i.class_name})
+            print(x)
+            response=json.dumps(x)
+            return HttpResponse(response, content_type='text/json')
+        except Exception as e:
+            response = json.dumps({'message': str(e)})
+            return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
 def send_email(request):
     if request.method == 'POST':
         payload = json.loads(request.body)
@@ -306,7 +344,7 @@ def del_class(request):
         try:
             user_data = jwt.decode(token, None, None)
             lessons = Lessons.objects.filter(email = user_data['email'], class_name = name)
-            for i in lessons_list:
+            for i in lessons:
                 i.class_name = None
                 i.save()
             response=json.dumps({'message': lessons})
