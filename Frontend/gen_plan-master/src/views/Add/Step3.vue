@@ -5,7 +5,7 @@
     <h1 class=row2><b><p class=mbuttons>
     <br>
         <my-component v-for="classroom in classrooms" :key="classroom.name">
-          <input class="buttonm btn btn-success mr-3" v-model="classroom.name" @click="editClassroom(classroom)">
+          <input class="buttonm btn btn-success mr-3" v-model="classroom.classroom" @click="editClassroom(classroom)">
         </my-component>
     </p></b>
     <a>
