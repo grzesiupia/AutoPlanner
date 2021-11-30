@@ -189,4 +189,4 @@ if __name__ == "__main__":
 # TODO 5.genetyka
 # TODO 6.get dane do planu z backendu w jsonie
 # TODO 7.send grafik dla nauczyela, plan zajec klasy i calej szkoly do jsona
-# TODO 8.struktura danych z
+# TODO 8.struktura danych z VLO
