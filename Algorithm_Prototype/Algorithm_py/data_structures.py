@@ -18,7 +18,7 @@ CLASSES_REQ = {
 
 TEACHERS = {
     "Janusz Walczuk": {
-        'subject': "matematyka",
+        'subject': ["matematyka"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
@@ -300,7 +300,6 @@ class School:
             return sub_name
 
     # Metoda przydziela nauczycieli do nieprzydzielonych na wejściu danych.
-    # TODO ogarnąć sale
     @staticmethod
     def repair_data(school_class_data, teachers_data):
         teachers_lessons_count = {}

@@ -90,7 +90,7 @@ class Algorithm(metaclass=Singleton):
         for classroom in self.school.classes:
             classrooms_temp.add(classroom.class_number)
         self.schedule = Schedule(school_.max_lessons_per_day_for_school, classrooms_temp)
-        self.remain_lessons_num = self.prepare_time_table()
+        self.remain_lessons_num = self.prepare_time_table() # if at the end this is 0 schedule is valid else schedule is trash
 
         # Jestem w szoku, że to działa, praktycznie niczego nie poprawiałem, trochę jest tu tylko rzeczy do
         # optymalizacji, dlatego też będzie dużo komentarzy.
@@ -181,3 +181,12 @@ if __name__ == "__main__":
     school = School(school_class_data=GROUP, teachers_data=TEACHERS, classes_data=CLASSES, classroom_req=CLASSES_REQ)
     alg = Algorithm(school)
     alg.schedule.print_group_schedule("IA")
+
+# TODO 1.zrozumienie co tu sie dzieje
+# TODO 2.poprawa komentarzy
+# TODO 3.make docstring
+# TODO 4.funkcja oceny
+# TODO 5.genetyka
+# TODO 6.get dane do planu z backendu w jsonie
+# TODO 7.send grafik dla nauczyela, plan zajec klasy i calej szkoly do jsona
+# TODO 8.struktura danych z
