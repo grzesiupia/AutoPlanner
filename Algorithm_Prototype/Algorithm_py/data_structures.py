@@ -2,14 +2,20 @@ import string
 from random import shuffle
 
 CLASSES = {
-    100: None,
-    101: None,
-    102: None,
-    103: None,
-    # 104: None,
-    # 105: None,
+    # zw = zwykła
+    100: "zw",
+    101: "zw",
+    102: "zw",
+    103: "zw",
+    104: "zw",
+    105: "zw",
     200: "wf"
 }
+
+CLASSES_REQ = {
+    'wf'
+}
+
 TEACHERS = {
     "Janusz Walczuk": {
         'subject': "matematyka",
@@ -17,7 +23,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -27,7 +33,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -37,7 +43,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -47,7 +53,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -57,7 +63,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': None,
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': None
         }
     },
@@ -67,7 +73,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -77,7 +83,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -87,7 +93,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -97,7 +103,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -107,7 +113,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -117,17 +123,17 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
-    "Popieluszko": {
+    "Popiełuszko": {
         'subject': ["religia"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': None,
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': None
         }
     },
@@ -137,7 +143,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
@@ -147,7 +153,7 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     }
@@ -276,18 +282,27 @@ class Group:
 
 
 class School:
-    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict):
-        self.repair_data(school_class_data, teachers_data, classes_data)
+    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict, classroom_req: set):
+        self.repair_data(school_class_data, teachers_data)
         self.school_name = None
         self.classes = self.__process_classes(classes_data)
+        self.classes_data = classes_data
         self.groups = self.__process_school_classes(school_class_data)
         self.teachers = self.__process_teachers(teachers_data)
         self.max_lessons_per_day_for_school = self.__set_max_lessons_per_day()
+        self.list_of_all_subjects = self.__process_list_of_all_subjects()
+        self.classroom_req = classroom_req
+
+    def get_req_name(self, sub_name):
+        if sub_name not in self.classroom_req:
+            return 'zw'
+        else:
+            return sub_name
 
     # Metoda przydziela nauczycieli do nieprzydzielonych na wejściu danych.
     # TODO ogarnąć sale
     @staticmethod
-    def repair_data(school_class_data, teachers_data, classes_data):
+    def repair_data(school_class_data, teachers_data):
         teachers_lessons_count = {}
         teacher_subjects = {}
         # Pętla liczy ilość lekcji przydzielonych ręcznie do nauczycieli. Tam gdzie jest None to nie liczy.
@@ -347,7 +362,7 @@ class School:
                             }
                             # Break to ja sobie kark chyba zaraz.
                             break
-                            # Nie ma chuja we wsi, że teraz ktoś nie zrozumie tego kodu.
+                            # Nie ma chuja we wsi, że teraz ktoś nie zrozumie tego kodu powyżej.
 
     def __set_max_lessons_per_day(self):
         max_lessons = 0
@@ -375,4 +390,13 @@ class School:
         temp = []
         for class_number, preferred_subject in classes_data.items():
             temp.append(Class(class_number=class_number, preferred_subject=preferred_subject))
+        return temp
+
+    def __process_list_of_all_subjects(self):
+        temp = []
+        for group in self.groups:
+            for sub in group.list_of_subjects:
+                temp.append([group.name, *sub, None])
+        for _ in range(10):
+            shuffle(temp)
         return temp
