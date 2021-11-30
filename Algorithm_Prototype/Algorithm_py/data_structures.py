@@ -1,17 +1,21 @@
 import string
 from random import shuffle
 
-from singleton import Singleton
-
 CLASSES = {
-    100: "biologia",
-    101: "fizyka",
-    102: "matematyka",
-    103: None,
-    104: "Chemia",
-    105: None,
+    # zw = zwykła
+    100: "zw",
+    101: "zw",
+    102: "zw",
+    103: "zw",
+    104: "zw",
+    105: "zw",
     200: "wf"
 }
+
+CLASSES_REQ = {
+    'wf'
+}
+
 TEACHERS = {
     "Janusz Walczuk": {
         'subject': "matematyka",
@@ -19,67 +23,137 @@ TEACHERS = {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
     "Krystyna Pawłowicz": {
-        'subject': "j.polski",
+        'subject': ["j.polski"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
     "Robert Lewandowski": {
-        'subject': "wf",
+        'subject': ["wf"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
     "Waldemar Kiepski": {
-        'subject': "chemia",
+        'subject': ["chemia"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
     "Ksiądz Robak": {
-        'subject': "religia",
+        'subject': ["religia"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': None,
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': None
         }
     },
     "Snoop Dogg": {
-        'subject': "biologia",
+        'subject': ["biologia"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     },
     "Albert Einstein": {
-        'subject': "fizyka",
+        'subject': ["fizyka"],
         'work_hours': {
             'Monday': [1, 2, 3, 4, 5],
             'Tuesday': [1, 2, 3, 4, 5],
             'Wednesday': [1, 2, 3, 4, 5],
-            'Thusday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Morgan Freeman": {
+        'subject': ["matematyka"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Juliusz Słowacki": {
+        'subject': ["j.polski"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Arkadiusz Milik": {
+        'subject': ["wf"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Adam Mickiewicz": {
+        'subject': ["chemia"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Popiełuszko": {
+        'subject': ["religia"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': None,
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': None
+        }
+    },
+    "Wiz Khalifa": {
+        'subject': ["biologia"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Moj Stary": {
+        'subject': ["fizyka"],
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thursday': [1, 2, 3, 4, 5],
             'Friday': [1, 2, 3, 4, 5]
         }
     }
@@ -122,7 +196,7 @@ GROUP = {
         "religia": [1, None]
     },
     'IIA': {
-        "matematyka": [1, "Janusz Walczuk"],
+        "matematyka": [4, "Janusz Walczuk"],
         "fizyka": [2, "Albert Einstein"],
         "j.polski": [7, "Krystyna Pawłowicz"],
         "biologia": [3, "Snoop Dogg"],
@@ -130,7 +204,7 @@ GROUP = {
         "wf": [4, "Robert Lewandowski"],
         "religia": [1, None]
     }
-    
+
 }
 
 ToughSubjects = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
@@ -174,7 +248,7 @@ class Group:
             # value[0] is number of subject per week
             for _ in range(value[0]):
                 temp.append([key, value[1]])
-        for _ in range(5):
+        for _ in range(10):
             shuffle(temp)
         return temp
 
@@ -208,12 +282,87 @@ class Group:
 
 
 class School:
-    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict):
+    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict, classroom_req: set):
+        self.repair_data(school_class_data, teachers_data)
         self.school_name = None
         self.classes = self.__process_classes(classes_data)
+        self.classes_data = classes_data
         self.groups = self.__process_school_classes(school_class_data)
         self.teachers = self.__process_teachers(teachers_data)
         self.max_lessons_per_day_for_school = self.__set_max_lessons_per_day()
+        self.list_of_all_subjects = self.__process_list_of_all_subjects()
+        self.classroom_req = classroom_req
+
+    def get_req_name(self, sub_name):
+        if sub_name not in self.classroom_req:
+            return 'zw'
+        else:
+            return sub_name
+
+    # Metoda przydziela nauczycieli do nieprzydzielonych na wejściu danych.
+    # TODO ogarnąć sale
+    @staticmethod
+    def repair_data(school_class_data, teachers_data):
+        teachers_lessons_count = {}
+        teacher_subjects = {}
+        # Pętla liczy ilość lekcji przydzielonych ręcznie do nauczycieli. Tam gdzie jest None to nie liczy.
+        for group, subjects_info in school_class_data.items():
+            for subject_name, subjects_value in subjects_info.items():
+                amount_of_lessons = subjects_value[0]
+                teacher = subjects_value[1]
+                if teacher is None:
+                    pass
+                elif teacher in teachers_lessons_count:
+                    teachers_lessons_count[teacher] += amount_of_lessons
+                else:
+                    teachers_lessons_count[teacher] = amount_of_lessons
+        # Pętla wrzuca do słownika nauczycieli, którzy nie mieli ręcznie przydzielonych lekcji
+        # oraz tworzy słownik nauczyciel-przedmioty
+        for teacher in teachers_data:
+            teacher_subjects[teacher] = teachers_data[teacher]['subject']
+            if teacher not in teachers_lessons_count:
+                teachers_lessons_count[teacher] = 0
+        # Pętla sortuje nauczycieli rosnąco po liczbie lekcji
+        teachers_lessons_count = {
+            key: value for key, value in sorted(teachers_lessons_count.items(), key=lambda item: item[1])
+        }
+
+        # Pętle na dole przydzielają nauczycieli do wejściowej struktury danych.
+        # Lepiej zapnij pasy - jeżeli tego dobrze nie opiszę to jutro nikt nie będzie wiedział o co tu chodzi.
+        # Pracujemy na wejściowych danych, group to nazwa klasy, do niczego się już nie przyda mordko, po prostu se
+        # napisałem, subjects_info to słownik w postaci: nazwa_przedmiotu: [ile_lekcji_tygodniowo, nazwa_nauczyciela]
+        for group, subjects_info in school_class_data.items():
+            # Rozpakowujemy słownik subjects_info jeszcze bardziej: subject_name to nazwa przedmiotu, subjects_value
+            # to lista, która ma następującą strukturę: [ile_lekcji_tygodniowo, nazwa_nauczyciela]
+            for subject_name, subjects_value in subjects_info.items():
+                # Jeżeli nazwa_nauczyciela to None to przypał i trzeba coś z tym zrobić.
+                if subjects_value[1] is None:
+                    # Jestem studentem, lubię pętle... Pamiętasz jak trochę wyżej sortowałem słownik? Pewnie sobie
+                    # myślałeś po chuj ten debil sortuje słownik.. Pewnie są lepsze sposoby, ale nie chciało mi się
+                    # szukać. Słownik został posortowany po to aby zawsze brać najpierw najmniej obciążonych
+                    # nauczycieli. Zmienna count to aktualna liczba lekcji jaką ma przydzielony aktualnie nauczyciel.
+                    for teacher, count in teachers_lessons_count.items():
+                        # No trzeba sprawdzić czy nauczyciel może uczyć jakiegoś przedmiotu. U mnie w gimnazjum chyba
+                        # tego nie robili i "Wychowanie Seksualne" prowadziła katechetka.
+                        if subject_name in teacher_subjects[teacher]:
+                            # No w końcu.. W tym miejscu przydzielamy nauczyciela do jakiś zajęć. Tyle pierdolenia się
+                            # po tą jedną linijkę kodu.
+                            subjects_value[1] = teacher
+                            # Uwzględniamy nową liczbę prowadzonych przez nauczyciela zajęć. Nie mam pojęcia dlaczego,
+                            # ale count += subjects_value[0] nie działa dobrze, chyba .items() kopiuje tylko wartości.
+                            # w każdym razie teachers_lessons_count[teacher] to aktualna liczba prowadzonych przez
+                            # nauczyciela lekcji (na ten moment w pętli).
+                            teachers_lessons_count[teacher] += subjects_value[0]
+                            # W tym miejscu możesz pomyśleć, że jakiś autystyczny jestem... Tak, sortuję słownik za
+                            # każdym razem jak uaktualniam liczbę prowadzonych przez nauczyciela zajęć. Jest to
+                            # chyba najmniej optymalne rozwiązanie na świecie, ale działa wystarczająco szybko.
+                            teachers_lessons_count = {
+                                key: value for key, value in
+                                sorted(teachers_lessons_count.items(), key=lambda item: item[1])
+                            }
+                            # Break to ja sobie kark chyba zaraz.
+                            break
+                            # Nie ma chuja we wsi, że teraz ktoś nie zrozumie tego kodu powyżej.
 
     def __set_max_lessons_per_day(self):
         max_lessons = 0
@@ -243,4 +392,11 @@ class School:
             temp.append(Class(class_number=class_number, preferred_subject=preferred_subject))
         return temp
 
-
+    def __process_list_of_all_subjects(self):
+        temp = []
+        for group in self.groups:
+            for sub in group.list_of_subjects:
+                temp.append([group.name, *sub, None])
+        for _ in range(10):
+            shuffle(temp)
+        return temp
