@@ -33,6 +33,6 @@ jobs:
             pylint $(git ls-files '*.py')
 
 workflows:
-  sample:
+  pipeline:
     jobs:
       - build
