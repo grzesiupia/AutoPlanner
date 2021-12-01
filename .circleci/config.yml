@@ -27,6 +27,7 @@ jobs:
       - run: python --version
       - run: pip list
       - run: pip install -r requirements.txt
+      - run: pip list
 
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
