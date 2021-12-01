@@ -22,14 +22,11 @@ jobs:
       - run:
           name: Install requirements
           command:
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            pip install pylint
+            pip install --upgrade pip && pip install -r requirements.txt && pip install pylint
       - run:
           name: Format .py files
           command:
-            pip install black
-            black $(git ls-files '*.py')
+            pip install black && black $(git ls-files '*.py')
       - run:
           name: pylint
           command:
