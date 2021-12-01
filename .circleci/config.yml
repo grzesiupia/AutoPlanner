@@ -24,21 +24,13 @@ jobs:
           command:
             pip install --upgrade pip
             pip install -r requirements.txt
-  pylint:
-    docker:
-      - image: cimg/python:3.10.0
-    steps:
-      - checkout
+            pip install pylint
       - run:
           name: pylint
           command:
-            pip install pylint
             pylint $(git ls-files '*.py')
 
 workflows:
   sample:
     jobs:
       - build
-      - pylint:
-          requires:
-            - build
