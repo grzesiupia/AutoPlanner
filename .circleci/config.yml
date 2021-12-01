@@ -29,7 +29,7 @@ jobs:
           name: Format .py files
           command:
             pip install black
-            python -m black $(git ls-files '*.py')
+            black $(git ls-files '*.py')
       - run:
           name: pylint
           command:
