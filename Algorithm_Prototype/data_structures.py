@@ -1,3 +1,7 @@
+"""
+    Module data structures is used to prepare data get from backend for algorithm.
+"""
+# pylint: disable=C0301, W0511, R1735, C0116, R0903, R0902
 import string
 from random import shuffle
 
@@ -210,18 +214,24 @@ GROUP = {
 ToughSubjects = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
 
 
-class Class:
+class Classroom:
+    """
+        Class Classroom is representation of data about classrooms in school
+    """
     def __init__(self, class_number, preferred_subject):
         self.class_number = class_number
         self.preferred_subject = preferred_subject
 
 
 class Teacher:
+    """
+        Class Techer is representation of data about teachers in school
+    """
     def __init__(self, name: string, data: dict):
         self.name = name
         self.data = data
         self.subject = self.__set_subject()
-        self.preferred_work_hours = None
+        self.preferred_work_hours = self.__set_work_hours()
         self.work_hours = 0
 
     def __set_subject(self):
@@ -232,6 +242,9 @@ class Teacher:
 
 
 class Group:
+    """
+        Classroom is representation of data about groups of students in school
+    """
     def __init__(self, group_name: string, subjects: dict):
         self.name = group_name
         self.subjects = subjects
@@ -254,7 +267,7 @@ class Group:
 
     def __set_lessons_per_week(self):
         count = 0
-        for key, value in self.subjects.items():
+        for value in self.subjects.values():
             count += value[0]
         return count
 
@@ -282,6 +295,9 @@ class Group:
 
 
 class School:
+    """
+        Class School is representation of data about all of instances in school
+    """
     def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict, classroom_req: set):
         self.repair_data(school_class_data, teachers_data)
         self.school_name = None
@@ -296,8 +312,7 @@ class School:
     def get_req_name(self, sub_name):
         if sub_name not in self.classroom_req:
             return 'zw'
-        else:
-            return sub_name
+        return sub_name
 
     # Metoda przydziela nauczycieli do nieprzydzielonych na wejściu danych.
     @staticmethod
@@ -305,7 +320,7 @@ class School:
         teachers_lessons_count = {}
         teacher_subjects = {}
         # Pętla liczy ilość lekcji przydzielonych ręcznie do nauczycieli. Tam gdzie jest None to nie liczy.
-        for group, subjects_info in school_class_data.items():
+        for subjects_info in school_class_data.values():
             for subject_name, subjects_value in subjects_info.items():
                 amount_of_lessons = subjects_value[0]
                 teacher = subjects_value[1]
@@ -322,15 +337,13 @@ class School:
             if teacher not in teachers_lessons_count:
                 teachers_lessons_count[teacher] = 0
         # Pętla sortuje nauczycieli rosnąco po liczbie lekcji
-        teachers_lessons_count = {
-            key: value for key, value in sorted(teachers_lessons_count.items(), key=lambda item: item[1])
-        }
+        dict(sorted(teachers_lessons_count.items(), key=lambda item: item[1]))
 
         # Pętle na dole przydzielają nauczycieli do wejściowej struktury danych.
         # Lepiej zapnij pasy - jeżeli tego dobrze nie opiszę to jutro nikt nie będzie wiedział o co tu chodzi.
         # Pracujemy na wejściowych danych, group to nazwa klasy, do niczego się już nie przyda mordko, po prostu se
         # napisałem, subjects_info to słownik w postaci: nazwa_przedmiotu: [ile_lekcji_tygodniowo, nazwa_nauczyciela]
-        for group, subjects_info in school_class_data.items():
+        for subjects_info in school_class_data.values():
             # Rozpakowujemy słownik subjects_info jeszcze bardziej: subject_name to nazwa przedmiotu, subjects_value
             # to lista, która ma następującą strukturę: [ile_lekcji_tygodniowo, nazwa_nauczyciela]
             for subject_name, subjects_value in subjects_info.items():
@@ -340,7 +353,7 @@ class School:
                     # myślałeś po chuj ten debil sortuje słownik.. Pewnie są lepsze sposoby, ale nie chciało mi się
                     # szukać. Słownik został posortowany po to aby zawsze brać najpierw najmniej obciążonych
                     # nauczycieli. Zmienna count to aktualna liczba lekcji jaką ma przydzielony aktualnie nauczyciel.
-                    for teacher, count in teachers_lessons_count.items():
+                    for teacher in teachers_lessons_count:
                         # No trzeba sprawdzić czy nauczyciel może uczyć jakiegoś przedmiotu. U mnie w gimnazjum chyba
                         # tego nie robili i "Wychowanie Seksualne" prowadziła katechetka.
                         if subject_name in teacher_subjects[teacher]:
@@ -355,10 +368,7 @@ class School:
                             # W tym miejscu możesz pomyśleć, że jakiś autystyczny jestem... Tak, sortuję słownik za
                             # każdym razem jak uaktualniam liczbę prowadzonych przez nauczyciela zajęć. Jest to
                             # chyba najmniej optymalne rozwiązanie na świecie, ale działa wystarczająco szybko.
-                            teachers_lessons_count = {
-                                key: value for key, value in
-                                sorted(teachers_lessons_count.items(), key=lambda item: item[1])
-                            }
+                            dict(sorted(teachers_lessons_count.items(), key=lambda item: item[1]))
                             # Break to ja sobie kark chyba zaraz.
                             break
                             # Nie ma chuja we wsi, że teraz ktoś nie zrozumie tego kodu powyżej.
@@ -388,7 +398,7 @@ class School:
     def __process_classes(classes_data):
         temp = []
         for class_number, preferred_subject in classes_data.items():
-            temp.append(Class(class_number=class_number, preferred_subject=preferred_subject))
+            temp.append(Classroom(class_number=class_number, preferred_subject=preferred_subject))
         return temp
 
     def __process_list_of_all_subjects(self):
