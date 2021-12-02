@@ -45,10 +45,6 @@ jobs:
           command:
             npm install ./Frontend
       - run:
-          name: Standard.js
-          command:
-            sudo npm install standard --global && standard "./Frontend"
-      - run:
           name: unit_tests
           command:
             cd Frontend &&
