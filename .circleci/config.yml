@@ -27,11 +27,20 @@ jobs:
           name: Format .py files
           command:
             pip install black && black $(git ls-files '*.py')
+      # - run:
+      #     name: pylint
+      #     command:
+      #       pylint $(git ls-files '*.py')
+  test_front:
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - run:  npm install node.js@latest
       - run:
-          name: pylint
+          name: Install requirements
           command:
-            pylint $(git ls-files '*.py')
-
+            npm install .\Frontend
 workflows:
   pipeline:
     jobs:
