@@ -38,9 +38,14 @@ jobs:
       - checkout
       - run:  npm install node.js@latest
       - run:
-          name: Install requirements
+          name: Install dependencies
           command:
             npm install ./Frontend
+      - run:
+          name: unit_tests
+          command:
+            cd Frontend
+            npm run test:unit
 workflows:
   pipeline:
     jobs:
