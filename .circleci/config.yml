@@ -44,7 +44,7 @@ jobs:
       - run:
           name: unit_tests
           command:
-            cd Frontend
+            cd Frontend &&
             npm run test:unit
 workflows:
   pipeline:
