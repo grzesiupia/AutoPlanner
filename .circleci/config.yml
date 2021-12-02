@@ -36,15 +36,18 @@ jobs:
       - image: cimg/node:17.2.0
     steps:
       - checkout
-      - run:  npm install node.js@latest
+      - run:  
+          name: Update node.js
+          command:
+            npm install node.js@latest
       - run:
           name: Install dependencies
           command:
             npm install ./Frontend
       - run:
-          name: standard js
+          name: Standard.js
           command:
-            npm install standard --global && standard "./Frontend"
+            sudo npm install standard --global && standard "./Frontend"
       - run:
           name: unit_tests
           command:
