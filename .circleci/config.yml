@@ -45,3 +45,4 @@ workflows:
   pipeline:
     jobs:
       - build
+      - test_front
