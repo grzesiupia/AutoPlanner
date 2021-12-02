@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from BackendApi.models import Planners, Lessons, Teachers, Polls
+from backend_api.models import Planners, Lessons, Teachers, Polls
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework_jwt.settings import api_settings
@@ -7,7 +7,6 @@ from django.core.mail import send_mail
 import json
 import jwt
 from django.conf import settings
-
 
 
 # Create your views here.

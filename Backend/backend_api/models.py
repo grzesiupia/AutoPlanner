@@ -1,4 +1,6 @@
 from django.db import models
+# pylint: disable=R0903
+
 
 
 class Lessons(models.Model):
