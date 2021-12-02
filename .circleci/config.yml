@@ -14,7 +14,7 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
+  build_and_test_back:
     docker:
       - image: cimg/python:3.10.0
     steps:
@@ -31,7 +31,7 @@ jobs:
           name: pylint
           command:
             pylint $(git ls-files '*.py')
-  test_front:
+  build_and_test_front:
     docker:
       - image: cimg/node:17.2.0
     steps:
@@ -42,6 +42,10 @@ jobs:
           command:
             npm install ./Frontend
       - run:
+          name: standard js
+          command:
+            npm install standard --global && standard "./Frontend"
+      - run:
           name: unit_tests
           command:
             cd Frontend &&
@@ -49,5 +53,5 @@ jobs:
 workflows:
   pipeline:
     jobs:
-      - build
-      - test_front
+      - build_and_test_back
+      - build_and_test_front
