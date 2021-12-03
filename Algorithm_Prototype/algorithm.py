@@ -95,7 +95,7 @@ class Algorithm(metaclass=Singleton):
 
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
-        self.group_breaks_num = {group.name: 0 for group in self.school.groups}
+        self.group_breaks_num = {group.name: 0 for group_name, group in self.school.groups.items()}
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
         self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers}
@@ -168,12 +168,15 @@ class Algorithm(metaclass=Singleton):
         # Kozak by było, gdyby ta zmienna miała zawsze wartość 0
         return unassigned_subject_num
 
-# funkcja oceny
+    # funkcja oceny
     def evaluate_time_table(self,
                             group_break_significance=10,
-                            teacher_break_significance=2):
-        # policz okienka i uzupełnij nimi self.group_breaks_num oraz self.teacher_breaks_num
-        self.count_all_breaks()
+                            teacher_break_significance=2,
+                            tough_lessons_significance=3):
+        # w celu zwiększenia czytelności kodu, iteracja przez dni i godziny została umieszczona w osobnej metodzie
+        # _start_evaluation, metoda ta wykonuje następujące czynności:
+        # 1. policz okienka i uzupełnij nimi self.group_breaks_num oraz self.teacher_breaks_num (tylko uzupełnia!)
+        self._start_evaluation(tough_lessons_significance)
 
         # wpływ okienek na ocenę planu zajęć (okienka dla grup)
         for group_name, breaks_num in self.group_breaks_num.items():
@@ -183,14 +186,15 @@ class Algorithm(metaclass=Singleton):
         for teacher_name, breaks_num in self.teacher_breaks_num.items():
             self.evaluation -= breaks_num * teacher_break_significance
 
-    def count_all_breaks(self):
+    def _start_evaluation(self, tough_lessons_significance):
         for day in self.schedule.time_table:
             # ten słownik służy do zapamiętywania poprzedniej iteracji, jeżeli wartość wynosi
             # 0 - lekcje się jeszcze nie rozpoczęły
             # -1 - na poprzedniej lekcji było okienko
             # 1 - na poprzedniej lekcji były zajęcia
-            groups_memo = {group.name: 0 for group in self.school.groups}
+            groups_memo = {group_name: 0 for group_name in self.school.groups}
             teacher_memo = {teacher.name: 0 for teacher in self.school.teachers}
+            group_name_to_tough_lessons_num = {group_name: 0 for group_name in self.school.groups}
             for hour in day:
                 for group_name in groups_memo:
                     if group_name in hour:
@@ -204,6 +208,16 @@ class Algorithm(metaclass=Singleton):
                     else:
                         # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
                         groups_memo[group_name] = -1
+
+                    # ===============================================================================================
+                    # ==== Początek części pętli odpowiedzialnej za uwzględnienie trudnych przedmiotów w ocenie planu
+                    # zostało to umieszczone tutaj, żeby nie tworzyć dwa razy kolosalnej pętli
+                    # upewniamy się tylko czy w danej godzinie grupa ma zajęcia
+                    if group_name in hour:
+                        if hour[group_name][0] in self.school.list_of_tough_subjects:
+                            group_name_to_tough_lessons_num[group_name] += 1
+                    # ==== Koniec części pętli odpowiedzialnej za uwzględnienie trudnych przedmiotów w ocenie planu
+                    # ===============================================================================================
 
                 # tutaj liczenie okienek, ale dla nauczycieli
                 for teacher_name in teacher_memo:
@@ -219,6 +233,16 @@ class Algorithm(metaclass=Singleton):
                     else:
                         # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
                         teacher_memo[teacher_name] = -1
+            # =====================================================================================================
+            # ========== Ta część znowu odpowiada za uwzględnienie trudnych przedmiotów w ocenie planu
+            for group_name, tough_lessons_num in group_name_to_tough_lessons_num.items():
+                # sub to różnica faktycznej liczby trudnych przedmiotów z preferowaną maksymalną liczbą trudnych
+                # przedmiotów
+                sub = self.school.groups[group_name].max_tough_lessons_per_day - tough_lessons_num
+                if 0 > sub:
+                    # sub jest tutaj zawsze ujemna, dlatego jest dodawanie
+                    self.evaluation += tough_lessons_significance * sub
+            # =====================================================================================================
 
     @staticmethod
     def shuffle_list_of_subjects(base_list: list, n: int):
