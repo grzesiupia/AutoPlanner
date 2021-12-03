@@ -3,13 +3,13 @@ In this module, there are every endpoint functions.
 
 All of them takes some Web request and return Web response.
 """
-# pylint: disable=W0703, E1101, R1710,
+# pylint: disable=W0703, E1101, R1710, C0412
 #from django.shortcuts import render
+import json
 from backend_api.models import Planners, Lessons, Teachers, Polls
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
-import json
 #from rest_framework_jwt.settings import api_settings
 import jwt
 from django.conf import settings
@@ -261,7 +261,7 @@ def send_email(request):
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
-def add_poll_data(request, poll_Number):
+def add_poll_data(request, poll_number):
     '''The function saves the survey filled by the user to the database and
      returns the appropriate message depending on the success of sending the survey '''
     if request.method == 'POST':
@@ -270,7 +270,7 @@ def add_poll_data(request, poll_Number):
         # response = json.dumps(payload)
         # return HttpResponse(response, content_type='text/json')
         try:
-            poll = Polls.objects.get(pool_id = poll_Number)
+            poll = Polls.objects.get(pool_id = poll_number)
             poll.teacher_pref = payload
             poll.save()
             response = json.dumps({"message": "Pomyslnie wyslano ankiete"})
