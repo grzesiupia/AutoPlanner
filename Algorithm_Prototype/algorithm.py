@@ -92,6 +92,14 @@ class Algorithm(metaclass=Singleton):
         self.schedule = Schedule(school_.max_lessons_per_day_for_school, classrooms_temp)
         # if at the end this is 0 schedule is valid else schedule is trash
         self.remain_lessons_num = self.prepare_time_table()
+
+        # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
+        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
+        self.group_breaks_num = {group.name: 0 for group in self.school.groups}
+        # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
+        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
+        self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers}
+
         self.evaluation = 0.0
         self.evaluate_time_table()
 
@@ -161,25 +169,34 @@ class Algorithm(metaclass=Singleton):
         return unassigned_subject_num
 
 # funkcja oceny
-    def evaluate_time_table(self):
-        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
-        group_breaks_num = {group.name: 0 for group in self.school.groups}
-        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
-        teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers}
-        # iterujemy przez dni
+    def evaluate_time_table(self,
+                            group_break_significance=10,
+                            teacher_break_significance=2):
+        # policz okienka i uzupełnij nimi self.group_breaks_num oraz self.teacher_breaks_num
+        self.count_all_breaks()
+
+        # wpływ okienek na ocenę planu zajęć (okienka dla grup)
+        for group_name, breaks_num in self.group_breaks_num.items():
+            self.evaluation -= breaks_num * group_break_significance
+
+        # wpływ okienek na ocenę planu zajęć (okienka dla nauczycieli)
+        for teacher_name, breaks_num in self.teacher_breaks_num.items():
+            self.evaluation -= breaks_num * teacher_break_significance
+
+    def count_all_breaks(self):
         for day in self.schedule.time_table:
             # ten słownik służy do zapamiętywania poprzedniej iteracji, jeżeli wartość wynosi
             # 0 - lekcje się jeszcze nie rozpoczęły
             # -1 - na poprzedniej lekcji było okienko
             # 1 - na poprzedniej lekcji były zajęcia
             groups_memo = {group.name: 0 for group in self.school.groups}
-            teacher_temp = {teacher.name: 0 for teacher in self.school.teachers}
+            teacher_memo = {teacher.name: 0 for teacher in self.school.teachers}
             for hour in day:
                 for group_name in groups_memo:
                     if group_name in hour:
                         if groups_memo[group_name] == -1:
                             # tu mamy okienko
-                            group_breaks_num[group_name] += 1
+                            self.group_breaks_num[group_name] += 1
                         groups_memo[group_name] = 1
                     elif groups_memo[group_name] == 0:
                         # tutaj lekcje się nie rozpoczęły
@@ -187,9 +204,21 @@ class Algorithm(metaclass=Singleton):
                     else:
                         # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
                         groups_memo[group_name] = -1
-        print(group_breaks_num)
 
-
+                # tutaj liczenie okienek, ale dla nauczycieli
+                for teacher_name in teacher_memo:
+                    teachers_in_hour = {lesson_values[1] for group_name, lesson_values in hour.items()}
+                    if teacher_name in teachers_in_hour:
+                        if teacher_memo[teacher_name] == -1:
+                            # tu mamy okienko
+                            self.teacher_breaks_num[teacher_name] += 1
+                        teacher_memo[teacher_name] = 1
+                    elif teacher_memo[teacher_name] == 0:
+                        # tutaj lekcje się nie rozpoczęły
+                        pass
+                    else:
+                        # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
+                        teacher_memo[teacher_name] = -1
 
     @staticmethod
     def shuffle_list_of_subjects(base_list: list, n: int):
@@ -213,7 +242,9 @@ class Algorithm(metaclass=Singleton):
 if __name__ == "__main__":
     school = School(school_class_data=GROUP, teachers_data=TEACHERS, classes_data=CLASSES, classroom_req=CLASSES_REQ)
     alg = Algorithm(school)
-    alg.schedule.print_group_schedule('IIA')
+    print(alg.teacher_breaks_num)
+    print(alg.group_breaks_num)
+    print(alg.evaluation)
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
