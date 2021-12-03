@@ -4,13 +4,13 @@ In this module, there are every endpoint functions.
 All of them takes some Web request and return Web response.
 """
 # pylint: disable=W0703, E1101, R1710,
-from django.shortcuts import render
+#from django.shortcuts import render
 from backend_api.models import Planners, Lessons, Teachers, Polls
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from rest_framework_jwt.settings import api_settings
 from django.core.mail import send_mail
 import json
+#from rest_framework_jwt.settings import api_settings
 import jwt
 from django.conf import settings
 
@@ -160,11 +160,11 @@ def get_subjects(request):
             user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(email = user_data['email'])
             print(user_data['email'])
-            x = []
+            subjects_list = []
             for i in array:
-                x.append({'subject_name': i.lesson_name})
-            print(x)
-            response=json.dumps(x)
+                subjects_list.append({'subject_name': i.lesson_name})
+            print(subjects_list)
+            response=json.dumps(subjects_list)
             #response.setHeader("Access-Control-Allow-Origin", "*")
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -261,7 +261,7 @@ def send_email(request):
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
-def add_poll_data(request, pollNumber):
+def add_poll_data(request, poll_Number):
     '''The function saves the survey filled by the user to the database and
      returns the appropriate message depending on the success of sending the survey '''
     if request.method == 'POST':
@@ -270,7 +270,7 @@ def add_poll_data(request, pollNumber):
         # response = json.dumps(payload)
         # return HttpResponse(response, content_type='text/json')
         try:
-            poll = Polls.objects.get(pool_id = pollNumber)
+            poll = Polls.objects.get(pool_id = poll_Number)
             poll.teacher_pref = payload
             poll.save()
             response = json.dumps({"message": "Pomyslnie wyslano ankiete"})
@@ -292,12 +292,12 @@ def generate_plan(request):
             classes = {}
             for i in lessons_list:
                 if i['class_name'] is not None:
-                    y = {}
+                    timetable_data = {}
                     lessons = Lessons.objects.filter(email = user_data['email'], class_name = i['class_name'])
                     # print(lessons)
                     for j in lessons:
-                        y[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
-                    classes[i['class_name']] = y
+                        timetable_data[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
+                    classes[i['class_name']] = timetable_data
             print(classes)
             response = json.dumps({'message': 'OK'})
             return HttpResponse(response, content_type='text/json')
@@ -314,7 +314,7 @@ def del_subject(request):
         name = payload['subject_name']
         token = payload['token']
         try:
-            rows = Lessons.objects.all().count()
+            #rows = Lessons.objects.all().count()
             #print(rows)
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
@@ -369,7 +369,8 @@ def del_classroom(request):
 
 @csrf_exempt
 def del_class(request):
-    '''Function that takes delete class request and returns response with the appropriate message,
+    '''Function that takes delete class request and 
+        returns response with the appropriate message,
      depending on whether the removal of a class was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
