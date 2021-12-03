@@ -1,6 +1,7 @@
 '''This module contains classes that represent tables in the database '''
+# pylint: disable=R0903, C0115
 from django.db import models
-# pylint: disable=R0903
+
 
 
 
