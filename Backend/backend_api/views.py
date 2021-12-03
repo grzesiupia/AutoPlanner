@@ -369,9 +369,9 @@ def del_classroom(request):
 
 @csrf_exempt
 def del_class(request):
-    '''Function that takes delete class request and 
+    """Function that takes delete class request and 
         returns response with the appropriate message,
-     depending on whether the removal of a class was successful    '''
+        depending on whether the removal of a class was successful    """
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
