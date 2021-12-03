@@ -78,7 +78,7 @@ class DjangoContentType(models.Model):
 
 
 class DjangoMigrations(models.Model):
-    ''' '''Default django table''''''
+    ''' Default django table'''
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     applied = models.DateTimeField()
