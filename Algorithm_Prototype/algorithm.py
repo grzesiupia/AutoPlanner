@@ -44,11 +44,11 @@ class Schedule:
                     print('-----')
             print("\n")
 
-    # do sprawdzenia czy nauczyciel na tą godzinę lekcyjną jest zajęty
+    # do sprawdzenia, czy nauczyciel na tą godzinę lekcyjną jest zajęty
     def is_teacher_busy(self, teacher: str, day: int, hour: int) -> bool:
         return teacher in self.busy_teachers_table[day][hour]
 
-    # do sprawdzenia czy sala na tą godzinę lekcyjną jest zajęta
+    # do sprawdzenia, czy sala na tą godzinę lekcyjną jest zajęta
     def is_classroom_busy(self, classroom: int, day: int, hour: int) -> bool:
         return classroom not in self.free_classrooms_table[day][hour]
 
@@ -62,13 +62,13 @@ class Schedule:
         # wynosić 0. Co sprawia, że nie ma żadnej poprawnej sali.
         if len(self.free_classrooms_table[day][hour]) == 0:
             return None
-        # Zabieramy pierwszą sale z brzegu.
+        # Zabieramy pierwszą salę z brzegu.
         free_classroom = self.free_classrooms_table[day][hour].pop()
-        # Tworzymy zbiór sal w których będziemy przechowywać sprawdzone już sale
+        # Tworzymy zbiór sal, w których będziemy przechowywać sprawdzone już sale
         checked_classrooms = set()
         # Poniższa pętla będzie wykonywać się tak długo, aż sala nie będzie okej.
         while classes_with_req[free_classroom] != req:
-            # sala, która okazała się być niewłaściwa, zapisywana jest do checked_classrooms
+            # sala, która okazała się niewłaściwa, zapisywana jest do checked_classrooms
             checked_classrooms.add(free_classroom)
             # jeżeli sprawdziliśmy cały zbiór free_classrooms_table[day][hour], to zwracamy None
             if len(self.free_classrooms_table[day][hour]) == 0:
@@ -90,7 +90,10 @@ class Algorithm(metaclass=Singleton):
         for classroom in self.school.classes:
             classrooms_temp.add(classroom.class_number)
         self.schedule = Schedule(school_.max_lessons_per_day_for_school, classrooms_temp)
-        self.remain_lessons_num = self.prepare_time_table() # if at the end this is 0 schedule is valid else schedule is trash
+        # if at the end this is 0 schedule is valid else schedule is trash
+        self.remain_lessons_num = self.prepare_time_table()
+        self.evaluation = 0.0
+        self.evaluate_time_table()
 
         # Jestem w szoku, że to działa, praktycznie niczego nie poprawiałem, trochę jest tu tylko rzeczy do
         # optymalizacji, dlatego też będzie dużo komentarzy.
@@ -100,7 +103,7 @@ class Algorithm(metaclass=Singleton):
         # oznacza ona liczbę zajęć, które ni chuja nie dało się nigdzie podpiąć.
         unassigned_subject_num = 0
         # Pętla po wszystkich zajęciach na samej górze, czyli dla każdej lekcji sprawdzimy każdą możliwą godzinę
-        # lekcyjną. Wydaje się też bardziej optymalne.
+        # lekcyjną. Wydaje się też optymalne.
         for subject in self.school.list_of_all_subjects:
             # Żeby nie tworzyć nadmiaru kolejnych pętli for to zrobiłem tu coś takiego: możliwych godzin lekcyjnych
             # jest zawsze 5*max_w_dniu, możemy z góry wyznaczyć konkretną liczbę iteracji w JEDNEJ pętli.
@@ -112,11 +115,10 @@ class Algorithm(metaclass=Singleton):
             group_name = subject[0]
             subject_name = subject[1]
             teacher_name = subject[2]
-            # Nie jest to potrzebne, ale zostawiam, żeby było widać, że należy zoptymalizować - w
             # self.school.list_of_all_subjects jest za dużo danych
             # classroom_preference = subject[3]  # na ten moment zawsze None
             # Jest 5 dni w tygodniu mordko, co nie? Mnożymy razy maksymalną liczbę godzin lekcyjnych w dniu i mamy jedną
-            # pętle zamiast dwóch.
+            # pętlę zamiast dwóch.
             for _ in range(int(self.school.max_lessons_per_day_for_school * 5)):
                 # Kluczem w słowniku zwracanym w funkcji get_lessons_from_hour jest grupa, dlatego, jeżeli nie ma
                 # takiego klucza, to znaczy, że na tą godzinę grupa nie ma na razie zaplanowanych zajęć. Sprawdzane
@@ -138,7 +140,7 @@ class Algorithm(metaclass=Singleton):
                                                                          [subject_name,
                                                                           teacher_name],
                                                                          classroom=classroom_temp)
-                        # jeżeli udało się dodać to przerywamy szukanie odpowiedniego terminu, i przechodzimy do
+                        # jeżeli udało się dodać, to przerywamy szukanie odpowiedniego terminu i przechodzimy do
                         # następnej klasy
                         break
 
@@ -147,7 +149,7 @@ class Algorithm(metaclass=Singleton):
                 if day == 5:
                     day = 0
                     hour += 1
-                    # Jeżeli nie udało się przydzielić się lekcji do żadnej godziny to wypadałoby to jakoś
+                    # Jeżeli nie udało się przydzielić się lekcji do żadnej godziny, to wypadałoby to jakoś
                     # zasygnalizować -> zwiększamy więc wartość zmiennej unassigned_subject_num, która oznacza
                     # ile takich lekcji jest w sumie
                     if hour == self.school.max_lessons_per_day_for_school:
@@ -157,6 +159,37 @@ class Algorithm(metaclass=Singleton):
                         break
         # Kozak by było, gdyby ta zmienna miała zawsze wartość 0
         return unassigned_subject_num
+
+# funkcja oceny
+    def evaluate_time_table(self):
+        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
+        group_breaks_num = {group.name: 0 for group in self.school.groups}
+        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
+        teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers}
+        # iterujemy przez dni
+        for day in self.schedule.time_table:
+            # ten słownik służy do zapamiętywania poprzedniej iteracji, jeżeli wartość wynosi
+            # 0 - lekcje się jeszcze nie rozpoczęły
+            # -1 - na poprzedniej lekcji było okienko
+            # 1 - na poprzedniej lekcji były zajęcia
+            groups_memo = {group.name: 0 for group in self.school.groups}
+            teacher_temp = {teacher.name: 0 for teacher in self.school.teachers}
+            for hour in day:
+                for group_name in groups_memo:
+                    if group_name in hour:
+                        if groups_memo[group_name] == -1:
+                            # tu mamy okienko
+                            group_breaks_num[group_name] += 1
+                        groups_memo[group_name] = 1
+                    elif groups_memo[group_name] == 0:
+                        # tutaj lekcje się nie rozpoczęły
+                        pass
+                    else:
+                        # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
+                        groups_memo[group_name] = -1
+        print(group_breaks_num)
+
+
 
     @staticmethod
     def shuffle_list_of_subjects(base_list: list, n: int):
@@ -180,7 +213,7 @@ class Algorithm(metaclass=Singleton):
 if __name__ == "__main__":
     school = School(school_class_data=GROUP, teachers_data=TEACHERS, classes_data=CLASSES, classroom_req=CLASSES_REQ)
     alg = Algorithm(school)
-    alg.schedule.print_group_schedule("IA")
+    alg.schedule.print_group_schedule('IIA')
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
