@@ -3,7 +3,7 @@ In this module, there are every endpoint functions.
 
 All of them takes some Web request and return Web response.
 """
-# pylint: disable=W0703, E1101, R1710, C0412
+# pylint: disable=W0703, E1101, R1710, C0412, C0301
 #from django.shortcuts import render
 import json
 from backend_api.models import Planners, Lessons, Teachers, Polls
