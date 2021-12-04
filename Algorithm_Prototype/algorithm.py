@@ -41,21 +41,42 @@ class Schedule:
         return temp
 
     def get_lessons_from_hour(self, day: int, hour: int):
+        """
+        Get dict of lessons from particular hour of the day
+        @param day: day to read lessons from
+        @param hour: hour to read lessons from
+        @return:
+        """
         return self.time_table[day][hour]
 
     def set_lessons_from_hour(self, day: int, hour: int, lessons):
         self.time_table[day][hour] = lessons
 
-    def append_lesson_to_lessons_from_hour(self, day: int, hour: int, lesson_key: str, lesson_value, classroom=None):
-        self.time_table[day][hour][lesson_key] = [*lesson_value, classroom]
+    def append_lesson_to_lessons_from_hour(self, day: int, hour: int, group_name: str, lesson_value, classroom=None):
+        """
+        Append lesson to dict of lessons in particular hour of the day
+        @param day: day to append lesson
+        @param hour:  hour to append lesson
+        @param group_name: name of group which lesson is appended
+        @param lesson_value: [subject_name, teacher_name] assigned for this lesson
+        @param classroom: classrom assigned for this lesson
+        """
+        self.time_table[day][hour][group_name] = [*lesson_value, classroom]
 
     def print_schedule(self):
+        """
+        Prints full schedule of whole school
+        """
         for day in self.time_table:
             for hour in day:
                 print(hour)
             print("\n")
 
     def print_group_schedule(self, group: str):
+        """
+        Prints schedule for particular class
+        @param group: group for which schedule is printed
+        """
         for day in self.time_table:
             for hour in day:
                 if group in hour:
@@ -64,61 +85,70 @@ class Schedule:
                     print('-----')
             print("\n")
 
-    # do sprawdzenia, czy nauczyciel na tą godzinę lekcyjną jest zajęty
     def is_teacher_busy(self, teacher: str, day: int, hour: int) -> bool:
+        """
+        Check if teacher is busy in particular hour of the day
+        @param teacher: name of teacher to check
+        @param day: day to check
+        @param hour: hour to check
+        @return: if teacher in busy_table return teacher name else return None
+        """
         return teacher in self.busy_teachers_table[day][hour]
 
-    # do sprawdzenia, czy sala na tą godzinę lekcyjną jest zajęta
     def is_classroom_busy(self, classroom: int, day: int, hour: int) -> bool:
+        """
+        Check if classroom is busy in particular hour of teh day
+        @param classroom: classroom number
+        @param day: day to check
+        @param hour: hour to check
+        @return: if classroom in busy_table return classroom number else None
+        """
         return classroom not in self.free_classrooms_table[day][hour]
 
-    # do wskazania w planie, że jakiś nauczyciel jest zajęty
     def make_teacher_busy(self, teacher: str, day: int, hour: int):
+        """
+        Adds techer to busy table
+        @param teacher: teacher name
+        @param day: day to assign
+        @param hour: hour to assign
+        """
         self.busy_teachers_table[day][hour].add(teacher)
 
     # classes_with_preferences musi mieć postać słownika postaci {sala: preferencja, ...} ({int: str, ...})
-    def pop_correct_classroom(self, req: str, classes_with_req: dict, day: int, hour: int):
-        # Jeżeli na daną godzinę nie ma wolnych sal to długość zbioru self.free_classrooms_table[day][hour] będzie
-        # wynosić 0. Co sprawia, że nie ma żadnej poprawnej sali.
+    def pop_correct_classroom(self, required_type_of_classroom: str, classrooms_with_type: dict, day: int, hour: int):
+        """
+        Checks if for particular hour in the day, there is free classroom of required type
+        @param required_type_of_classroom: type of required classrom e.g.:'wf'
+        @param classrooms_with_type: dict of classrooms
+        @param day: day to check
+        @param hour: hour to check
+        @return: number of picked classroom or none if there is none available
+        """
+        # If no free classroom in table of available classrooms there is no valid classroom
         if len(self.free_classrooms_table[day][hour]) == 0:
             return None
-        # Zabieramy pierwszą salę z brzegu.
-        free_classroom = self.free_classrooms_table[day][hour].pop()
-        # Tworzymy zbiór sal, w których będziemy przechowywać sprawdzone już sale
-        checked_classrooms = set()
-        # Poniższa pętla będzie wykonywać się tak długo, aż sala nie będzie okej.
-        while classes_with_req[free_classroom] != req:
-            # sala, która okazała się niewłaściwa, zapisywana jest do checked_classrooms
-            checked_classrooms.add(free_classroom)
-            # jeżeli sprawdziliśmy cały zbiór free_classrooms_table[day][hour], to zwracamy None
-            if len(self.free_classrooms_table[day][hour]) == 0:
-                # przywracamy do free_classrooms_table[day][hour] sale, które zostały wcześniej zabrane
-                self.free_classrooms_table[day][hour].update(checked_classrooms)
-                return None
-            # bierzemy kolejną salę
-            free_classroom = self.free_classrooms_table[day][hour].pop()
-        # przywracamy niewykorzystane sale do free_classrooms_table[day][hour]
-        self.free_classrooms_table[day][hour].update(checked_classrooms)
-        # zwracamy poprawną sae
-        return free_classroom
+        # Iterate throgh free classrooms in particular hour in the day
+        for classroom in self.free_classrooms_table[day][hour]:
+            if required_type_of_classroom == classrooms_with_type[classroom]:
+                # If required type of classroom is same as type of classroom in iteration
+                # number of this classroom is returned
+                self.free_classrooms_table[day][hour].remove(classroom)
+                return classroom
+        # If there is no type of classroom as needed in free classrooms list none is returned
+        return None
 
 
 class Algorithm(metaclass=Singleton):
     """
         Class Algorithm is main class of generator.
     """
-    def __init__(self, school_: School):
-        self.school = school_
-        classrooms_temp = set()
-        for classroom in self.school.classes:
-            classrooms_temp.add(classroom.class_number)
-        self.schedule = Schedule(school_.max_lessons_per_day_for_school, classrooms_temp)
-        # if at the end this is 0 schedule is valid else schedule is trash
-        self.remain_lessons_num = self.prepare_time_table()
-
+    def __init__(self, school_instance: School):
+        self.school = school_instance
+        self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
+        self.remain_lessons_num = self.prepare_time_table() # Must be 0 when algorithm finishes
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
-        self.group_breaks_num = {group.name: 0 for group_name, group in self.school.groups.items()}
+        self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
         self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers}
@@ -126,10 +156,11 @@ class Algorithm(metaclass=Singleton):
         self.evaluation = 0.0
         self.evaluate_time_table()
 
-        # Jestem w szoku, że to działa, praktycznie niczego nie poprawiałem, trochę jest tu tylko rzeczy do
-        # optymalizacji, dlatego też będzie dużo komentarzy.
-
     def prepare_time_table(self) -> int:
+        """
+
+        @return:
+        """
         # Ta zmienna będzie również zwracana, jeżeli będzie na końcu różna od zera to znaczy, że plan jest niepoprawny
         # oznacza ona liczbę zajęć, które ni chuja nie dało się nigdzie podpiąć.
         unassigned_subject_num = 0
@@ -147,7 +178,7 @@ class Algorithm(metaclass=Singleton):
             subject_name = subject[1]
             teacher_name = subject[2]
             # self.school.list_of_all_subjects jest za dużo danych
-            # classroom_preference = subject[3]  # na ten moment zawsze None
+            # classroom_preference = subject[3] na ten moment zawsze None
             # Jest 5 dni w tygodniu mordko, co nie? Mnożymy razy maksymalną liczbę godzin lekcyjnych w dniu i mamy jedną
             # pętlę zamiast dwóch.
             for _ in range(int(self.school.max_lessons_per_day_for_school * 5)):
@@ -158,10 +189,11 @@ class Algorithm(metaclass=Singleton):
                         not self.schedule.is_teacher_busy(teacher_name, day, hour):
                     # classroom_temp ma mieć w sobie nazwę pasującej sali lekcyjnej, jeżeli, żadna sala nie pasuje w
                     # tej jednostce lekcyjnej, to classroom_temp przyjmuje wartość None
-                    classroom_temp = self.schedule.pop_correct_classroom(self.school.get_req_name(subject_name),
-                                                                         self.school.classes_data,
-                                                                         day,
-                                                                         hour)
+                    classroom_temp = self.schedule.pop_correct_classroom(
+                        required_type_of_classroom=self.school.get_req_name(subject_name),
+                        classrooms_with_type=self.school.classrooms_data,
+                        day=day,
+                        hour=hour)
                     # Jeżeli classroom_temp przyjmie wartość None, to ta godzina lekcyjna jest do dupy i sprawdzamy
                     # nie dodajemy lekcji do tej godziny.
                     if classroom_temp is not None:
@@ -283,11 +315,12 @@ class Algorithm(metaclass=Singleton):
 
 
 if __name__ == "__main__":
-    school = School(school_class_data=GROUP, teachers_data=TEACHERS, classes_data=CLASSES, classroom_req=CLASSES_REQ)
+    school = School(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES, classroom_req=CLASSES_REQ)
     alg = Algorithm(school)
     print(alg.teacher_breaks_num)
     print(alg.group_breaks_num)
     print(alg.evaluation)
+    alg.schedule.print_schedule()
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy

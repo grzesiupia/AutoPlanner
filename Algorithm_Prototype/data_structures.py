@@ -298,12 +298,13 @@ class School:
     """
         Class School is representation of data about all of instances in school
     """
-    def __init__(self, school_class_data: dict, teachers_data: dict, classes_data: dict, classroom_req: set):
-        self.repair_data(school_class_data, teachers_data)
+    def __init__(self, groups_data: dict, teachers_data: dict, classrooms_data: dict, classroom_req: set):
+        self.repair_data(groups_data, teachers_data)
         self.school_name = None
-        self.classes = self.__process_classes(classes_data)
-        self.classes_data = classes_data
-        self.groups = self.__process_school_classes(school_class_data)
+        self.classrooms = self.__process_classes(classrooms_data)
+        self.classrooms_set = self.__process_classes_to_set()
+        self.classrooms_data = classrooms_data
+        self.groups = self.__process_school_classes(groups_data)
         self.list_of_tough_subjects = self.groups.copy().popitem()[1].list_of_tough_subjects
         self.teachers = self.__process_teachers(teachers_data)
         self.max_lessons_per_day_for_school = self.__set_max_lessons_per_day()
@@ -400,6 +401,12 @@ class School:
         temp = []
         for class_number, preferred_subject in classes_data.items():
             temp.append(Classroom(class_number=class_number, preferred_subject=preferred_subject))
+        return temp
+
+    def __process_classes_to_set(self):
+        temp = set()
+        for classroom_number in self.classrooms:
+            temp.add(classroom_number)
         return temp
 
     def __process_list_of_all_subjects(self):
