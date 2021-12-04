@@ -1,4 +1,9 @@
+"""
+    Module db_interface is used as api of data base
+"""
+# pylint: disable=C0301
 import mysql.connector
+
 
 mydb = mysql.connector.connect(
         host="185.66.213.128",
@@ -30,11 +35,11 @@ def get_list_of_users():
     """Gets list of user tuples by login argument.
     Example: get_list_of_users() may gets list [(login1, password1, email1), (login2, password2, email2), ...]."""
     mycursor.execute("SELECT * FROM users")
-    result = mycursor.fetchall()
-    list = []
-    for x in result:
-        list.append(x)
-    return list
+    results = mycursor.fetchall()
+    users_list = []
+    for result in results:
+        users_list.append(result)
+    return users_list
 
 
 #TEST ZONE

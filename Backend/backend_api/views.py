@@ -1,19 +1,26 @@
-from django.shortcuts import render
-from BackendApi.models import Planners, Lessons, Teachers, Polls
+"""
+In this module, there are every endpoint functions.
+
+All of them takes some Web request and return Web response.
+"""
+# pylint: disable=W0703, E1101, R1710, C0412, C0301
+#from django.shortcuts import render
+import json
+from backend_api.models import Planners, Lessons, Teachers, Polls
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from rest_framework_jwt.settings import api_settings
 from django.core.mail import send_mail
-import json
+#from rest_framework_jwt.settings import api_settings
 import jwt
 from django.conf import settings
-
 
 
 # Create your views here.
 
 @csrf_exempt
 def add_user(request):
+    '''Function that takes user register request and returns response with the appropriate message,
+     depending on whether the registration was successful  '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         username = payload['username']
@@ -23,12 +30,14 @@ def add_user(request):
         try:
             user.save(force_insert = True)
             response = json.dumps({'Sukces': 'Pomyslnie dodano uzytkownika'})
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
     return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def get_user(request):
+    '''Function that takes user login request and returns response with the appropriate message,
+     depending on whether the login was successful. On success, it also returns a JWT token   '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         get_email = payload['email']
@@ -47,12 +56,14 @@ def get_user(request):
 
             response = json.dumps({'userId': user.email, 'accessToken': format(token)})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
 
 @csrf_exempt
 def add_subject(request):
+    '''Function that takes new subject request and returns response with the appropriate message,
+     depending on whether the addition of a subject was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['subject_name']
@@ -67,19 +78,21 @@ def add_subject(request):
             lesson.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano lekcje'})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def add_teacher(request):
+    '''Function that takes new teacher request and returns response with the appropriate message,
+     depending on whether the addition of a teacher was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
         surname = payload['surname']
         email = payload['email']
         token = payload['token']
-        sub_list = payload['list_of_subjects']
+        #sub_list = payload['list_of_subjects']
         try:
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
@@ -87,12 +100,14 @@ def add_teacher(request):
             teacher.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano nauczyciela'})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
 
 @csrf_exempt
 def add_classroom(request):
+    '''Function that takes new classroom request and returns response with the appropriate message,
+     depending on whether the addition of a classroom was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
@@ -107,12 +122,14 @@ def add_classroom(request):
                 lesson.save()
             response=json.dumps({'message': class_list})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def add_class(request):
+    '''Function that takes new class request and returns response with the appropriate message,
+     depending on whether the addition of a class was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
@@ -129,12 +146,13 @@ def add_class(request):
                 lesson.save()
             response=json.dumps({'message': lessons_list})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
 
 @csrf_exempt
 def get_subjects(request):
+    ''' A function that returns a list of subjects for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
         print(payload)
@@ -142,19 +160,20 @@ def get_subjects(request):
             user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(email = user_data['email'])
             print(user_data['email'])
-            x = []
+            subjects_list = []
             for i in array:
-                x.append({'subject_name': i.lesson_name})
-            print(x)
-            response=json.dumps(x)
+                subjects_list.append({'subject_name': i.lesson_name})
+            print(subjects_list)
+            response=json.dumps(subjects_list)
             #response.setHeader("Access-Control-Allow-Origin", "*")
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def get_teachers(request):
+    ''' A function that returns a list of teachers for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
         print(payload)
@@ -162,18 +181,19 @@ def get_teachers(request):
             user_data = jwt.decode(payload, None, None)
             array = Teachers.objects.filter(email = user_data['email'])
             print(user_data['email'])
-            x = []
+            teacher_list = []
             for i in array:
-                x.append({'surname': i.teacher_name})
-            print(x)
-            response=json.dumps(x)
+                teacher_list.append({'surname': i.teacher_name})
+            print(teacher_list)
+            response=json.dumps(teacher_list)
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def get_classrooms(request):
+    ''' A function that returns a list of classrooms for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
         print(payload)
@@ -181,18 +201,19 @@ def get_classrooms(request):
             user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(email = user_data['email'])
             print(user_data['email'])
-            x = []
+            classroom_list = []
             for i in array:
-                x.append({'classroom': i.classroom})
-            print(x)
-            response=json.dumps(x)
+                classroom_list.append({'classroom': i.classroom})
+            print(classroom_list)
+            response=json.dumps(classroom_list)
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def get_classes(request):
+    ''' A function that returns a list of classes for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
         print(payload)
@@ -200,18 +221,20 @@ def get_classes(request):
             user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(email = user_data['email'])
             print(user_data['email'])
-            x = []
+            class_list = []
             for i in array:
-                x.append({'class': i.class_name})
-            print(x)
-            response=json.dumps(x)
+                class_list.append({'class': i.class_name})
+            print(class_list)
+            response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def send_email(request):
+    ''' The function that sends e-mails to teachers with a link to the survey,
+     returns the appropriate message depending on the success of sending the e-mails  '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         token = payload['token']
@@ -219,74 +242,79 @@ def send_email(request):
             user_data = jwt.decode(token, None, None)
             planner = Planners.objects.get(email = user_data['email'])
             teachers = Teachers.objects.filter(email = user_data['email'])
-            x = []
+            teacher_mail_list = []
             for i in teachers:
                 rows = Polls.objects.all().count()
                 poll = Polls(pool_id = rows + 1, email = planner, teacher_email = i, teacher_pref = None)
                 poll.save(force_insert = True)
-                x.append({'teacher_email': i.teacher_email})
+                teacher_mail_list.append({'teacher_email': i.teacher_email})
                 send_mail(
                     'Wypelnij ankiete!',
                     'Link do ankiety to:  http://localhost:8080/poll/' + str(rows + 1),
                     'plan@generator.pl',
                     [str(i.teacher_email)],
                 ) 
-            response = json.dumps(x)
+            response = json.dumps(teacher_mail_list)
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
-def add_poll_data(request, pollNumber):
+def add_poll_data(request, poll_number):
+    '''The function saves the survey filled by the user to the database and
+     returns the appropriate message depending on the success of sending the survey '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         #print(payload['poll'])
         # response = json.dumps(payload)
         # return HttpResponse(response, content_type='text/json')
         try:
-            poll = Polls.objects.get(pool_id = pollNumber)
+            poll = Polls.objects.get(pool_id = poll_number)
             poll.teacher_pref = payload
             poll.save()
             response = json.dumps({"message": "Pomyslnie wyslano ankiete"})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def generate_plan(request):
+    '''A function that sends all the necessary data to the generator '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            x = Lessons.objects.filter(email = user_data['email']).order_by().values('class_name').distinct()
-            print(x)
+            lessons_list = Lessons.objects.filter(email = user_data['email']).order_by().values('class_name').distinct()
+            print(lessons_list)
             classes = {}
-            for i in x:
+            for i in lessons_list:
                 if i['class_name'] is not None:
-                    y = {}
+                    timetable_data = {}
                     lessons = Lessons.objects.filter(email = user_data['email'], class_name = i['class_name'])
                     # print(lessons)
                     for j in lessons:
-                        y[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
-                    classes[i['class_name']] = y
+                        timetable_data[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
+                    classes[i['class_name']] = timetable_data
             print(classes)
             response = json.dumps({'message': 'OK'})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def del_subject(request):
+    '''Function that takes delete subject request and returns response with the appropriate message,
+     depending on whether the removal of a subject was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['subject_name']
         token = payload['token']
         try:
-            rows = Lessons.objects.all().count()
+            #rows = Lessons.objects.all().count()
             #print(rows)
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
@@ -295,12 +323,14 @@ def del_subject(request):
             lesson.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto lekcje'})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def del_teacher(request):
+    '''Function that takes delete teacher request and returns response with the appropriate message,
+     depending on whether the removal of a teacher was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         email = payload['email']
@@ -312,12 +342,14 @@ def del_teacher(request):
             teacher.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto nauczyciela'})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
 
 @csrf_exempt
 def del_classroom(request):
+    '''Function that takes delete classroom request and returns response with the appropriate message,
+     depending on whether the removal of a classroom was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
@@ -331,12 +363,14 @@ def del_classroom(request):
                 i.save()
             response=json.dumps({'message': lessons})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
 def del_class(request):
+    '''Function that takes delete class request and 
+        returns response with the appropriate message'''
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
@@ -349,7 +383,7 @@ def del_class(request):
                 i.save()
             response=json.dumps({'message': lessons})
             return HttpResponse(response, content_type='text/json')
-        except Exception as e:
-            response = json.dumps({'message': str(e)})
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
 

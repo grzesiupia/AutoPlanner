@@ -1,24 +1,44 @@
+"""
+    Module algorithm.py is responsible of creating final schedule.
+"""
+# pylint: disable=C0301, W0511, R1735, C0116, R0913
+import random
+
 from singleton import Singleton
 from data_structures import School, GROUP, TEACHERS, CLASSES, CLASSES_REQ
-import string
 
 
 class Schedule:
+    """
+        Class Schedule is used as api of module data_structures.py for Algorithm.
+    """
     def __init__(self, max_lessons, list_of_classrooms: set):
-        self.time_table = [[], [], [], [], []]
-        for day in self.time_table:
-            for _ in range(int(max_lessons)):
+        self.max_lessons = max_lessons
+        self.list_of_classrooms = list_of_classrooms
+        self.time_table = self.__set_time_table()
+        self.busy_teachers_table = self.__set_busy_teachers_table()
+        self.free_classrooms_table = self.__set_free_classrooms_table()
+
+    def __set_time_table(self):
+        temp = [[], [], [], [], []]
+        for day in temp:
+            for _ in range(int(self.max_lessons)):
                 day.append(dict())
+        return temp
 
-        self.busy_teachers_table = [[], [], [], [], []]
-        for day in self.busy_teachers_table:
-            for _ in range(int(max_lessons)):
+    def __set_free_classrooms_table(self):
+        temp = [[], [], [], [], []]
+        for day in temp:
+            for _ in range(int(self.max_lessons)):
+                day.append(self.list_of_classrooms.copy())
+        return temp
+
+    def __set_busy_teachers_table(self):
+        temp = [[], [], [], [], []]
+        for day in temp:
+            for _ in range(int(self.max_lessons)):
                 day.append(set())
-
-        self.free_classrooms_table = [[], [], [], [], []]
-        for day in self.free_classrooms_table:
-            for _ in range(int(max_lessons)):
-                day.append(list_of_classrooms.copy())
+        return temp
 
     def get_lessons_from_hour(self, day: int, hour: int):
         return self.time_table[day][hour]
@@ -26,7 +46,7 @@ class Schedule:
     def set_lessons_from_hour(self, day: int, hour: int, lessons):
         self.time_table[day][hour] = lessons
 
-    def append_lesson_to_lessons_from_hour(self, day: int, hour: int, lesson_key: string, lesson_value, classroom=None):
+    def append_lesson_to_lessons_from_hour(self, day: int, hour: int, lesson_key: str, lesson_value, classroom=None):
         self.time_table[day][hour][lesson_key] = [*lesson_value, classroom]
 
     def print_schedule(self):
@@ -84,6 +104,9 @@ class Schedule:
 
 
 class Algorithm(metaclass=Singleton):
+    """
+        Class Algorithm is main class of generator.
+    """
     def __init__(self, school_: School):
         self.school = school_
         classrooms_temp = set()
@@ -145,8 +168,7 @@ class Algorithm(metaclass=Singleton):
                         self.schedule.append_lesson_to_lessons_from_hour(day,
                                                                          hour,
                                                                          group_name,
-                                                                         [subject_name,
-                                                                          teacher_name],
+                                                                         [subject_name, teacher_name],
                                                                          classroom=classroom_temp)
                         # jeżeli udało się dodać, to przerywamy szukanie odpowiedniego terminu i przechodzimy do
                         # następnej klasy
@@ -245,22 +267,19 @@ class Algorithm(metaclass=Singleton):
             # =====================================================================================================
 
     @staticmethod
-    def shuffle_list_of_subjects(base_list: list, n: int):
-        import random
+    def shuffle_list_of_subjects(base_list: list, num: int):
         copy_of_list = base_list.copy()
         length_of_list = len(base_list)
         indexes = []
         for index in range(length_of_list):
             indexes.append(index)
         random.shuffle(indexes)
-        for _ in range(length_of_list - n):
+        for _ in range(length_of_list - num):
             indexes.pop()
         ordered_list = indexes.copy()
         ordered_list.sort()
-        j = 0
-        for index in ordered_list:
-            base_list[index] = copy_of_list[indexes[j]]
-            j += 1
+        for pos, index in enumerate(ordered_list):
+            base_list[index] = copy_of_list[indexes[pos]]
 
 
 if __name__ == "__main__":

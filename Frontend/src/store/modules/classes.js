@@ -13,10 +13,10 @@ const state = {
 
 const mutations = {
     'SET_CLASSES'(state, s) {
-        state.Clasess = s
+        state.classes = s
     },
     'SET_CLASS'(state, s) {
-        state.Class = s
+        state.class = s
     },
     'ADD_CLASS_SUCCESS'(state, success) {
         state.addClassSuccess = success
