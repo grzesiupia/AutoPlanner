@@ -12,7 +12,6 @@ CLASSES = {
     102: "zw",
     103: "zw",
     104: "zw",
-    105: "zw",
     200: "wf"
 }
 
@@ -245,10 +244,11 @@ class Group:
     """
         Classroom is representation of data about groups of students in school
     """
-    def __init__(self, group_name: string, subjects: dict):
+    def __init__(self, group_name: string, subjects: dict, tough_subjects=ToughSubjects):
         self.name = group_name
         self.subjects = subjects
         self.list_of_subjects = self.__set_list_of_subjects()
+        self.list_of_tough_subjects = tough_subjects
         self.lessons_per_week = self.__set_lessons_per_week()
         self.max_lessons_per_day = self.__set_max_lessons_per_day()
         self.min_lessons_per_day = self.__set_min_lessons_per_day()
@@ -280,7 +280,7 @@ class Group:
     def __set_max_tough_lessons_per_day(self):
         count = 0
         for key, value in self.subjects.items():
-            if key in ToughSubjects:
+            if key in self.list_of_tough_subjects:
                 count += value[0]
         return count / 5
 
@@ -304,6 +304,7 @@ class School:
         self.classes = self.__process_classes(classes_data)
         self.classes_data = classes_data
         self.groups = self.__process_school_classes(school_class_data)
+        self.list_of_tough_subjects = self.groups.copy().popitem()[1].list_of_tough_subjects
         self.teachers = self.__process_teachers(teachers_data)
         self.max_lessons_per_day_for_school = self.__set_max_lessons_per_day()
         self.list_of_all_subjects = self.__process_list_of_all_subjects()
@@ -375,16 +376,16 @@ class School:
 
     def __set_max_lessons_per_day(self):
         max_lessons = 0
-        for group in self.groups:
+        for group_name, group in self.groups.items():
             if group.max_lessons_per_day > max_lessons:
                 max_lessons = group.max_lessons_per_day
         return max_lessons
 
     @staticmethod
     def __process_school_classes(school_class_data):
-        temp = []
+        temp = {}
         for group, subjects in school_class_data.items():
-            temp.append(Group(group_name=group, subjects=subjects))
+            temp[group] = Group(group_name=group, subjects=subjects)
         return temp
 
     @staticmethod
@@ -403,7 +404,7 @@ class School:
 
     def __process_list_of_all_subjects(self):
         temp = []
-        for group in self.groups:
+        for group_name, group in self.groups.items():
             for sub in group.list_of_subjects:
                 temp.append([group.name, *sub, None])
         for _ in range(10):
