@@ -129,11 +129,11 @@ class Schedule:
             return None
         # Iterate throgh free classrooms in particular hour in the day
         for classroom in self.free_classrooms_table[day][hour]:
-            if required_type_of_classroom == classrooms_with_type[classroom]:
+            if required_type_of_classroom == classrooms_with_type[classroom.class_number]:
                 # If required type of classroom is same as type of classroom in iteration
                 # number of this classroom is returned
                 self.free_classrooms_table[day][hour].remove(classroom)
-                return classroom
+                return classroom.class_number
         # If there is no type of classroom as needed in free classrooms list none is returned
         return None
 
@@ -151,7 +151,7 @@ class Algorithm(metaclass=Singleton):
         self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
-        self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers}
+        self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers.values()}
 
         self.evaluation = 0.0
         self.evaluate_time_table()
@@ -247,7 +247,7 @@ class Algorithm(metaclass=Singleton):
             # -1 - na poprzedniej lekcji było okienko
             # 1 - na poprzedniej lekcji były zajęcia
             groups_memo = {group_name: 0 for group_name in self.school.groups}
-            teacher_memo = {teacher.name: 0 for teacher in self.school.teachers}
+            teacher_memo = {teacher.name: 0 for teacher in self.school.teachers.values()}
             group_name_to_tough_lessons_num = {group_name: 0 for group_name in self.school.groups}
             for hour in day:
                 for group_name in groups_memo:
