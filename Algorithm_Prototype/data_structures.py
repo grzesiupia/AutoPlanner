@@ -340,7 +340,7 @@ class School:
             Assigns teachers to all of groups with unassigned teachers
         """
         list_of_subjects_without_teacher = []
-        # Make list of all subjects from groups without teaher assigned
+        # Make list of all subjects from groups without teacher assigned
         for group in self.groups.values():
             for subject_name, data in group.subjects.items():
                 teacher_name = data[1]

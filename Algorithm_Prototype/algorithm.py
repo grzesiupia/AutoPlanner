@@ -205,6 +205,7 @@ class Algorithm:
                                                                          classroom=classroom_temp)
                         # jeżeli udało się dodać, to przerywamy szukanie odpowiedniego terminu i przechodzimy do
                         # następnej klasy
+                        self.schedule.make_teacher_busy(teacher=teacher_name, day=day, hour=hour)
                         break
 
                 # Tutaj kontrolujemy, którą mamy godzinę i, który mamy dzień
@@ -352,12 +353,15 @@ class Population:
 
 if __name__ == "__main__":
     p = Population()
-    p.new_population(10)
+    p.new_population(n=10)
     print(p.population)
+    print(p.get_best_specimen().teacher_breaks_num, "\n")
+    print(p.get_best_specimen().evaluation)
+    p.evolute(5000, 10)
+    print(p.get_best_specimen().schedule.print_group_schedule('IA'))
     print(p.get_best_specimen().teacher_breaks_num)
-    p.evolute(1000, 20)
-    print(p.population)
-    print(p.get_best_specimen().teacher_breaks_num)
+    print(p.get_best_specimen().evaluation)
+
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
