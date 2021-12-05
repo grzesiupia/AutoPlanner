@@ -4,7 +4,6 @@
 # pylint: disable=C0301, W0511, R1735, C0116, R0913
 import random
 
-from singleton import Singleton
 from data_structures import School, GROUP, TEACHERS, CLASSES, CLASSES_REQ
 
 
@@ -12,6 +11,7 @@ class Schedule:
     """
         Class Schedule is used as api of module data_structures.py for Algorithm.
     """
+
     def __init__(self, max_lessons, list_of_classrooms: set):
         self.max_lessons = max_lessons
         self.list_of_classrooms = list_of_classrooms
@@ -107,7 +107,7 @@ class Schedule:
 
     def make_teacher_busy(self, teacher: str, day: int, hour: int):
         """
-        Adds techer to busy table
+        Adds teacher to busy table
         @param teacher: teacher name
         @param day: day to assign
         @param hour: hour to assign
@@ -118,7 +118,7 @@ class Schedule:
     def pop_correct_classroom(self, required_type_of_classroom: str, classrooms_with_type: dict, day: int, hour: int):
         """
         Checks if for particular hour in the day, there is free classroom of required type
-        @param required_type_of_classroom: type of required classrom e.g.:'wf'
+        @param required_type_of_classroom: type of required classroom e.g.:'wf'
         @param classrooms_with_type: dict of classrooms
         @param day: day to check
         @param hour: hour to check
@@ -138,14 +138,15 @@ class Schedule:
         return None
 
 
-class Algorithm(metaclass=Singleton):
+class Algorithm:
     """
         Class Algorithm is main class of generator.
     """
+
     def __init__(self, school_instance: School):
         self.school = school_instance
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
-        self.remain_lessons_num = self.prepare_time_table() # Must be 0 when algorithm finishes
+        self.remain_lessons_num = self.prepare_time_table()  # Must be 0 when algorithm finishes
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
         self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
@@ -314,19 +315,53 @@ class Algorithm(metaclass=Singleton):
             base_list[index] = copy_of_list[indexes[pos]]
 
 
+class Population:
+    def __init__(self):
+        self.population = []
+
+    def new_population(self, n=100):
+        for _ in range(n):
+            temp = Algorithm(School(groups_data=GROUP,
+                                    teachers_data=TEACHERS,
+                                    classrooms_data=CLASSES,
+                                    classroom_req=CLASSES_REQ))
+            self.population.append([temp, temp.evaluation])
+        self.population.sort(key=lambda a: a[1], reverse=True)
+
+    def kill_worse_half(self):
+        n = len(self.population) // 2
+        self.population = self.population[:n]
+
+    def get_best_specimen(self):
+        return self.population[0][0]
+
+    def reproduce(self, mutation=10):
+        temp_list = []
+        for specimen in self.population:
+            Algorithm.shuffle_list_of_subjects(specimen[0].school.list_of_all_subjects, mutation)
+            temp = Algorithm(specimen[0].school)
+            temp_list.append([temp, temp.evaluation])
+        self.population += temp_list
+        self.population.sort(key=lambda a: a[1], reverse=True)
+
+    def evolute(self, number_of_generation: int, number_of_mutation: int):
+        for _ in range(number_of_generation):
+            self.kill_worse_half()
+            self.reproduce(number_of_mutation)
+
+
 if __name__ == "__main__":
-    school = School(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES, classroom_req=CLASSES_REQ)
-    alg = Algorithm(school)
-    print(alg.teacher_breaks_num)
-    print(alg.group_breaks_num)
-    print(alg.evaluation)
-    alg.schedule.print_schedule()
+    p = Population()
+    p.new_population(10)
+    print(p.population)
+    print(p.get_best_specimen().teacher_breaks_num)
+    p.evolute(1000, 20)
+    print(p.population)
+    print(p.get_best_specimen().teacher_breaks_num)
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
 # TODO 3.make docstring
-# TODO 4.funkcja oceny
-# TODO 5.genetyka
 # TODO 6.get dane do planu z backendu w jsonie
 # TODO 7.send grafik dla nauczyela, plan zajec klasy i calej szkoly do jsona
 # TODO 8.struktura danych z VLO
