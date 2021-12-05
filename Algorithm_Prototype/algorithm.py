@@ -252,49 +252,49 @@ class Algorithm:
             teacher_memo = {teacher.name: 0 for teacher in self.school.teachers.values()}
             group_name_to_tough_lessons_num = {group: 0 for group in self.school.groups}
             for hour in day:
-                for group_name in groups_memo:
-                    if group_name in hour:
-                        if groups_memo[group_name] == -1:
+                for group in groups_memo:
+                    if group in hour:
+                        if groups_memo[group] == -1:
                             # tu mamy okienko
-                            self.group_breaks_num[group_name] += 1
-                        groups_memo[group_name] = 1
-                    elif groups_memo[group_name] == 0:
+                            self.group_breaks_num[group] += 1
+                        groups_memo[group] = 1
+                    elif groups_memo[group] == 0:
                         # tutaj lekcje się nie rozpoczęły
                         pass
                     else:
                         # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
-                        groups_memo[group_name] = -1
+                        groups_memo[group] = -1
 
                     # ===============================================================================================
                     # ==== Początek części pętli odpowiedzialnej za uwzględnienie trudnych przedmiotów w ocenie planu
                     # zostało to umieszczone tutaj, żeby nie tworzyć dwa razy kolosalnej pętli
                     # upewniamy się tylko czy w danej godzinie grupa ma zajęcia
-                    if group_name in hour:
-                        if hour[group_name][0] in self.school.list_of_tough_subjects:
-                            group_name_to_tough_lessons_num[group_name] += 1
+                    if group in hour:
+                        if hour[group][0] in self.school.list_of_tough_subjects:
+                            group_name_to_tough_lessons_num[group] += 1
                     # ==== Koniec części pętli odpowiedzialnej za uwzględnienie trudnych przedmiotów w ocenie planu
                     # ===============================================================================================
 
                 # tutaj liczenie okienek, ale dla nauczycieli
-                for teacher_name in teacher_memo:
+                for teacher in teacher_memo:
                     teachers_in_hour = {lesson_values[1] for group_name, lesson_values in hour.items()}
-                    if teacher_name in teachers_in_hour:
-                        if teacher_memo[teacher_name] == -1:
+                    if teacher in teachers_in_hour:
+                        if teacher_memo[teacher] == -1:
                             # tu mamy okienko
-                            self.teacher_breaks_num[teacher_name] += 1
-                        teacher_memo[teacher_name] = 1
-                    elif teacher_memo[teacher_name] == 0:
+                            self.teacher_breaks_num[teacher] += 1
+                        teacher_memo[teacher] = 1
+                    elif teacher_memo[teacher] == 0:
                         # tutaj lekcje się nie rozpoczęły
                         pass
                     else:
                         # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
-                        teacher_memo[teacher_name] = -1
+                        teacher_memo[teacher] = -1
             # =====================================================================================================
             # ========== Ta część znowu odpowiada za uwzględnienie trudnych przedmiotów w ocenie planu
-            for group_name, tough_lessons_num in group_name_to_tough_lessons_num.items():
+            for group, tough_lessons_num in group_name_to_tough_lessons_num.items():
                 # sub to różnica faktycznej liczby trudnych przedmiotów z preferowaną maksymalną liczbą trudnych
                 # przedmiotów
-                sub = self.school.groups[group_name].max_tough_lessons_per_day - tough_lessons_num
+                sub = self.school.groups[group].max_tough_lessons_per_day - tough_lessons_num
                 if 0 > sub:
                     # sub jest tutaj zawsze ujemna, dlatego jest dodawanie
                     self.evaluation += tough_lessons_significance * sub
@@ -323,8 +323,8 @@ class Population:
     def __init__(self):
         self.population = []
 
-    def new_population(self, n=100):
-        for _ in range(n):
+    def new_population(self, number_of_instances=100):
+        for _ in range(number_of_instances):
             temp = Algorithm(School(groups_data=GROUP,
                                     teachers_data=TEACHERS,
                                     classrooms_data=CLASSES,
@@ -356,7 +356,7 @@ class Population:
 
 if __name__ == "__main__":
     p = Population()
-    p.new_population(n=10)
+    p.new_population(number_of_instances=10)
     print(p.population)
     print(p.get_best_specimen().teacher_breaks_num, "\n")
     print(p.get_best_specimen().evaluation)
