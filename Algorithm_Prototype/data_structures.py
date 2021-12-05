@@ -375,7 +375,7 @@ class School:
 
     def __set_max_lessons_per_day(self):
         max_lessons = 0
-        for group_name, group in self.groups.items():
+        for group in self.groups.values():
             if group.max_lessons_per_day > max_lessons:
                 max_lessons = group.max_lessons_per_day
         return max_lessons
@@ -413,7 +413,7 @@ class School:
 
     def __process_list_of_all_subjects(self):
         temp = []
-        for group_name, group in self.groups.items():
+        for group in self.groups.values():
             for sub in group.list_of_subjects:
                 temp.append([group.name, *sub, None])
         for _ in range(10):

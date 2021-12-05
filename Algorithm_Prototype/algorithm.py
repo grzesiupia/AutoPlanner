@@ -1,7 +1,7 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912
 import random
 
 from data_structures import School, GROUP, TEACHERS, CLASSES, CLASSES_REQ
@@ -248,9 +248,9 @@ class Algorithm:
             # 0 - lekcje się jeszcze nie rozpoczęły
             # -1 - na poprzedniej lekcji było okienko
             # 1 - na poprzedniej lekcji były zajęcia
-            groups_memo = {group_name: 0 for group_name in self.school.groups}
+            groups_memo = {group.name: 0 for group in self.school.groups.values()}
             teacher_memo = {teacher.name: 0 for teacher in self.school.teachers.values()}
-            group_name_to_tough_lessons_num = {group_name: 0 for group_name in self.school.groups}
+            group_name_to_tough_lessons_num = {group: 0 for group in self.school.groups}
             for hour in day:
                 for group_name in groups_memo:
                     if group_name in hour:
@@ -317,6 +317,9 @@ class Algorithm:
 
 
 class Population:
+    """
+        Class population is responsible for handling genetic algorithm
+    """
     def __init__(self):
         self.population = []
 
@@ -330,8 +333,8 @@ class Population:
         self.population.sort(key=lambda a: a[1], reverse=True)
 
     def kill_worse_half(self):
-        n = len(self.population) // 2
-        self.population = self.population[:n]
+        count_to_kill = len(self.population) // 2
+        self.population = self.population[:count_to_kill]
 
     def get_best_specimen(self):
         return self.population[0][0]
@@ -357,7 +360,7 @@ if __name__ == "__main__":
     print(p.population)
     print(p.get_best_specimen().teacher_breaks_num, "\n")
     print(p.get_best_specimen().evaluation)
-    p.evolute(5000, 10)
+    p.evolute(100, 10)
     print(p.get_best_specimen().schedule.print_group_schedule('IA'))
     print(p.get_best_specimen().teacher_breaks_num)
     print(p.get_best_specimen().evaluation)
