@@ -147,15 +147,12 @@ class Algorithm:
         self.school = school_instance
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
         self.remain_lessons_num = self.prepare_schedule()  # Must be 0 when algorithm finishes
-        # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
-        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
+        # count of brakes for each group
         self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
-        # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
-        # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdego nauczyciela
+        # count of brakes for each teacher
         self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers.values()}
-
         self.evaluation = 0.0
-        self.evaluate_time_table()
+        self.evaluate_schedule_rating()
 
     def prepare_schedule(self) -> int:
         """
@@ -171,7 +168,7 @@ class Algorithm:
             day = 0
             hour = 0
 
-            # Extract for better clarity
+            # Extract for better code clarity
             group_name = lesson[0]
             subject_name = lesson[1]
             teacher_name = lesson[2]
@@ -211,26 +208,29 @@ class Algorithm:
                     if hour == self.school.max_lessons_per_day_for_school:
                         unassigned_lesson_num += 1
 
-        # Id unassigned_lesson_num != 0 schedule is not valid
+        # If unassigned_lesson_num != 0 schedule is not valid
         return unassigned_lesson_num
 
-    # funkcja oceny
-    def evaluate_time_table(self,
-                            group_break_importance=10,
-                            teacher_break_importance=2,
-                            tough_lessons_importance=3):
-        # w celu zwiększenia czytelności kodu, iteracja przez dni i godziny została umieszczona w osobnej metodzie
-        # _start_evaluation, metoda ta wykonuje następujące czynności:
-        # 1. policz okienka i uzupełnij nimi self.group_breaks_num oraz self.teacher_breaks_num (tylko uzupełnia!)
+    def evaluate_schedule_rating(self,
+                                 group_break_importance=10,
+                                 teacher_break_importance=2,
+                                 tough_lessons_importance=3):
+        """
+        This func evaluates schedule rating basing on markers like: no brakes for groups etc.
+        Best and wanted rating is 0. Throug evaluation points are added for every inconvenience.
+        @param group_break_importance: points added to rating when group have brake in middle of lessons
+        @param teacher_break_importance: points added to rating when teacher have brake in middle of lessons
+        @param tough_lessons_importance: points added to rating when group have too many tough lessons per day
+        """
         self._start_evaluation(tough_lessons_importance)
 
-        # wpływ okienek na ocenę planu zajęć (okienka dla grup)
-        for group_name, breaks_num in self.group_breaks_num.items():
-            self.evaluation -= breaks_num * group_break_importance
+        # Evaluation of minus points for breaks of groups
+        for group_breaks in self.group_breaks_num.values():
+            self.evaluation -= group_breaks * group_break_importance
 
-        # wpływ okienek na ocenę planu zajęć (okienka dla nauczycieli)
-        for teacher_name, breaks_num in self.teacher_breaks_num.items():
-            self.evaluation -= breaks_num * teacher_break_importance
+        # Evaluation of minus points for brakes of teachers
+        for teacher_breaks in self.teacher_breaks_num.values():
+            self.evaluation -= teacher_breaks * teacher_break_importance
 
     def _start_evaluation(self, tough_lessons_significance):
         for day in self.schedule.time_table:
