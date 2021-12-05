@@ -348,22 +348,53 @@ class Population:
         self.population += temp_list
         self.population.sort(key=lambda a: a[1], reverse=True)
 
+    def parallel_reproduce(self, mutation=10):
+        from joblib import Parallel, delayed
+
+        def generate_new_specimens(specimen: [Algorithm, int]):
+            Algorithm.shuffle_list_of_subjects(specimen[0].school.list_of_all_subjects, mutation)
+            temp = Algorithm(specimen[0].school)
+            return [temp, temp.evaluation]
+
+        answer = Parallel(n_jobs=4)(delayed(generate_new_specimens)(specimen) for specimen in self.population)
+        self.population += answer
+        self.population.sort(key=lambda a: a[1], reverse=True)
+
     def evolute(self, number_of_generation: int, number_of_mutation: int):
         for _ in range(number_of_generation):
             self.kill_worse_half()
             self.reproduce(number_of_mutation)
 
+    def parallel_evolute(self, number_of_generation: int, number_of_mutation: int):
+        for _ in range(number_of_generation):
+            self.kill_worse_half()
+            self.parallel_reproduce(number_of_mutation)
+
 
 if __name__ == "__main__":
+    import time
+
+    population_size = 100
+    generation_num = 1000
+    mutation_num = 20
+
     p = Population()
-    p.new_population(number_of_instances=10)
-    print(p.population)
-    print(p.get_best_specimen().teacher_breaks_num, "\n")
+    p.new_population(number_of_instances=population_size)
     print(p.get_best_specimen().evaluation)
-    p.evolute(100, 10)
-    print(p.get_best_specimen().schedule.print_group_schedule('IA'))
-    print(p.get_best_specimen().teacher_breaks_num)
+    start = time.time()
+    p.parallel_evolute(generation_num, mutation_num)
+    end = time.time()
+    print(f"Nonparallel: {end - start} sec")
     print(p.get_best_specimen().evaluation)
+
+    p2 = Population()
+    p2.new_population(number_of_instances=population_size)
+    print(p2.get_best_specimen().evaluation)
+    start = time.time()
+    p2.parallel_evolute(generation_num, mutation_num)
+    end = time.time()
+    print(f"Parallel: {end - start} sec")
+    print(p2.get_best_specimen().evaluation)
 
 
 # TODO 1.zrozumienie co tu sie dzieje
