@@ -374,9 +374,9 @@ class Population:
 if __name__ == "__main__":
     import time
 
-    population_size = 100
-    generation_num = 1000
-    mutation_num = 20
+    population_size = 10
+    generation_num = 10000
+    mutation_num = 2
 
     p = Population()
     p.new_population(number_of_instances=population_size)
