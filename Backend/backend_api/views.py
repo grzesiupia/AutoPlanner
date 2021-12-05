@@ -204,7 +204,7 @@ def get_classrooms(request):
             print(user_data['email'])
             classroom_list = []
             for i in array:
-                if i not in clssroom_list:
+                if i not in classroom_list:
                     classroom_list.append({'classroom': i.classroom})
             print(classroom_list)
             response=json.dumps(classroom_list)

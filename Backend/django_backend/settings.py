@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'BackendApi',
+    'backend_api',
     'corsheaders'
 ]
 
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-ROOT_URLCONF = 'DjangoBackend.urls'
+ROOT_URLCONF = 'django_backend.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DjangoBackend.wsgi.application'
+WSGI_APPLICATION = 'django_backend.wsgi.application'
 
 
 # Database
