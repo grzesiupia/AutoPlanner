@@ -332,6 +332,9 @@ class Population:
         n = len(self.population) // 2
         self.population = self.population[:n]
 
+    def get_best_specimen(self):
+        return self.population[0][0]
+
     def reproduce(self, mutation=10):
         temp_list = []
         for specimen in self.population:
@@ -351,8 +354,10 @@ if __name__ == "__main__":
     p = Population()
     p.new_population(10)
     print(p.population)
+    print(p.get_best_specimen().teacher_breaks_num)
     p.evolute(1000, 20)
     print(p.population)
+    print(p.get_best_specimen().teacher_breaks_num)
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
