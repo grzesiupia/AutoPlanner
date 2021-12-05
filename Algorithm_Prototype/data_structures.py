@@ -361,7 +361,7 @@ class School:
                 if subject_name in teacher.subject:
                     teachers_of_this_subject.append(teacher)
 
-            # Look for teacher witch smallest amount of hours
+            # Look for teacher witch the smallest amount of hours
             teacher_not_busy = teachers_of_this_subject[0]
             for teacher in teachers_of_this_subject:
                 if teacher.work_hours < teacher_not_busy.work_hours:
