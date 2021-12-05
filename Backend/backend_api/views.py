@@ -162,7 +162,8 @@ def get_subjects(request):
             print(user_data['email'])
             subjects_list = []
             for i in array:
-                subjects_list.append({'subject_name': i.lesson_name})
+                if i not in subjects_list:
+                    subjects_list.append({'subject_name': i.lesson_name})
             print(subjects_list)
             response=json.dumps(subjects_list)
             #response.setHeader("Access-Control-Allow-Origin", "*")
@@ -203,7 +204,8 @@ def get_classrooms(request):
             print(user_data['email'])
             classroom_list = []
             for i in array:
-                classroom_list.append({'classroom': i.classroom})
+                if i not in clssroom_list:
+                    classroom_list.append({'classroom': i.classroom})
             print(classroom_list)
             response=json.dumps(classroom_list)
             return HttpResponse(response, content_type='text/json')
@@ -223,7 +225,8 @@ def get_classes(request):
             print(user_data['email'])
             class_list = []
             for i in array:
-                class_list.append({'class': i.class_name})
+                if i not in class_list:
+                    class_list.append({'class': i.class_name})
             print(class_list)
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
