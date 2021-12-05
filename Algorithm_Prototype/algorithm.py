@@ -146,7 +146,7 @@ class Algorithm:
     def __init__(self, school_instance: School):
         self.school = school_instance
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
-        self.remain_lessons_num = self.prepare_time_table()  # Must be 0 when algorithm finishes
+        self.remain_lessons_num = self.prepare_schedule()  # Must be 0 when algorithm finishes
         # zmienna uzupełniona w evaluate_time_table -> count_all_breaks
         # w tym słowniku mamy liczbę okienek w ciągu tygodnia dla każdej grupy
         self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
@@ -157,90 +157,80 @@ class Algorithm:
         self.evaluation = 0.0
         self.evaluate_time_table()
 
-    def prepare_time_table(self) -> int:
+    def prepare_schedule(self) -> int:
         """
-
-        @return:
+        This func produces already valid bot not good schedule for whole school.
+        Before adding of lesson to schedule it checks if group doesn't already have lesson in this hour
+        and if teacher assigned is not busy.
+        @return: Number of unassigned lessons. Have to be 0 for valid schedule
         """
-        # Ta zmienna będzie również zwracana, jeżeli będzie na końcu różna od zera to znaczy, że plan jest niepoprawny
-        # oznacza ona liczbę zajęć, które ni chuja nie dało się nigdzie podpiąć.
-        unassigned_subject_num = 0
-        # Pętla po wszystkich zajęciach na samej górze, czyli dla każdej lekcji sprawdzimy każdą możliwą godzinę
-        # lekcyjną. Wydaje się też optymalne.
-        for subject in self.school.list_of_all_subjects:
-            # Żeby nie tworzyć nadmiaru kolejnych pętli for to zrobiłem tu coś takiego: możliwych godzin lekcyjnych
-            # jest zawsze 5*max_w_dniu, możemy z góry wyznaczyć konkretną liczbę iteracji w JEDNEJ pętli.
+        unassigned_lesson_num = 0   # lessons left unassigned - schoud be 0 at the end
 
-            # Zmienne poniżej będą zmieniane w pętli.
+        for lesson in self.school.list_of_all_subjects:    # Try to add every lesson to schedule
+            # indexes to iterate through in the loop
             day = 0
             hour = 0
-            # wypakowanie zmiennej subject, żeby czytelniej było
-            group_name = subject[0]
-            subject_name = subject[1]
-            teacher_name = subject[2]
-            # self.school.list_of_all_subjects jest za dużo danych
-            # classroom_preference = subject[3] na ten moment zawsze None
-            # Jest 5 dni w tygodniu mordko, co nie? Mnożymy razy maksymalną liczbę godzin lekcyjnych w dniu i mamy jedną
-            # pętlę zamiast dwóch.
-            for _ in range(int(self.school.max_lessons_per_day_for_school * 5)):
-                # Kluczem w słowniku zwracanym w funkcji get_lessons_from_hour jest grupa, dlatego, jeżeli nie ma
-                # takiego klucza, to znaczy, że na tą godzinę grupa nie ma na razie zaplanowanych zajęć. Sprawdzane
-                # jest również czy nauczyciel jest zajęty.
+
+            # Extract for better clarity
+            group_name = lesson[0]
+            subject_name = lesson[1]
+            teacher_name = lesson[2]
+            # classroom_preference = lesson[3] for now not usable
+
+            for _ in range(int(self.school.max_lessons_per_day_for_school * 5)):    # range of max lessons in week
+                # Check if group doesn't have already assigned lesson and if teacher is free in this hour
                 if group_name not in self.schedule.get_lessons_from_hour(day, hour) and \
                         not self.schedule.is_teacher_busy(teacher_name, day, hour):
-                    # classroom_temp ma mieć w sobie nazwę pasującej sali lekcyjnej, jeżeli, żadna sala nie pasuje w
-                    # tej jednostce lekcyjnej, to classroom_temp przyjmuje wartość None
-                    classroom_temp = self.schedule.pop_correct_classroom(
+                    # classroom_to_assign is a number of classroom which met requirement and assigned to this lesson
+                    # if no classroom meeting requirement free -> classroom_to_assign = None
+                    classroom_to_assign = self.schedule.pop_correct_classroom(
                         required_type_of_classroom=self.school.get_req_name(subject_name),
                         classrooms_with_type=self.school.classrooms_data,
                         day=day,
                         hour=hour)
-                    # Jeżeli classroom_temp przyjmie wartość None, to ta godzina lekcyjna jest do dupy i sprawdzamy
-                    # nie dodajemy lekcji do tej godziny.
-                    if classroom_temp is not None:
+
+                    # If classroom_to_assign is None then this lesson is not valid for this hour
+                    if classroom_to_assign is not None:
+                        # Add lesson to schedule
                         self.schedule.append_lesson_to_lessons_from_hour(day,
                                                                          hour,
                                                                          group_name,
                                                                          [subject_name, teacher_name],
-                                                                         classroom=classroom_temp)
-                        # jeżeli udało się dodać, to przerywamy szukanie odpowiedniego terminu i przechodzimy do
-                        # następnej klasy
+                                                                         classroom=classroom_to_assign)
+                        # Make teacher assigned, busy in this hour
                         self.schedule.make_teacher_busy(teacher=teacher_name, day=day, hour=hour)
                         break
 
-                # Tutaj kontrolujemy, którą mamy godzinę i, który mamy dzień
+                # Control of day and hour in schedule
                 day += 1
                 if day == 5:
                     day = 0
                     hour += 1
-                    # Jeżeli nie udało się przydzielić się lekcji do żadnej godziny, to wypadałoby to jakoś
-                    # zasygnalizować -> zwiększamy więc wartość zmiennej unassigned_subject_num, która oznacza
-                    # ile takich lekcji jest w sumie
+
+                    # If we are here that means we couldn't append lesson to schedule, then unassigned_lesson_num++
                     if hour == self.school.max_lessons_per_day_for_school:
-                        unassigned_subject_num += 1
-                        # Ten break w sumie nie potrzebny, ale przynajmniej widać, że z tego poziomu zawsze rozpocznie
-                        # się następna iteracja.
-                        break
-        # Kozak by było, gdyby ta zmienna miała zawsze wartość 0
-        return unassigned_subject_num
+                        unassigned_lesson_num += 1
+
+        # Id unassigned_lesson_num != 0 schedule is not valid
+        return unassigned_lesson_num
 
     # funkcja oceny
     def evaluate_time_table(self,
-                            group_break_significance=10,
-                            teacher_break_significance=2,
-                            tough_lessons_significance=3):
+                            group_break_importance=10,
+                            teacher_break_importance=2,
+                            tough_lessons_importance=3):
         # w celu zwiększenia czytelności kodu, iteracja przez dni i godziny została umieszczona w osobnej metodzie
         # _start_evaluation, metoda ta wykonuje następujące czynności:
         # 1. policz okienka i uzupełnij nimi self.group_breaks_num oraz self.teacher_breaks_num (tylko uzupełnia!)
-        self._start_evaluation(tough_lessons_significance)
+        self._start_evaluation(tough_lessons_importance)
 
         # wpływ okienek na ocenę planu zajęć (okienka dla grup)
         for group_name, breaks_num in self.group_breaks_num.items():
-            self.evaluation -= breaks_num * group_break_significance
+            self.evaluation -= breaks_num * group_break_importance
 
         # wpływ okienek na ocenę planu zajęć (okienka dla nauczycieli)
         for teacher_name, breaks_num in self.teacher_breaks_num.items():
-            self.evaluation -= breaks_num * teacher_break_significance
+            self.evaluation -= breaks_num * teacher_break_importance
 
     def _start_evaluation(self, tough_lessons_significance):
         for day in self.schedule.time_table:
