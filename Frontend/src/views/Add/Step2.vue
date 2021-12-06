@@ -99,7 +99,7 @@ export default {
     },
     editTeacher(teacher){
       this.$store.commit("SET_TEACHER",teacher)
-      router.push("/edit/teacher/"+teacher.surname)
+      router.push("/edit/teacher")
     }
   }
 }

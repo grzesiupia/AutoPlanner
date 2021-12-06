@@ -110,7 +110,7 @@ export default {
     },
     editClassroom(classroom){
       this.$store.commit("SET_CLASSROOM",classroom)
-      router.push("/edit/classroom/"+classroom.name)
+      router.push("/edit/classroom")
     }
   }
 }

@@ -113,7 +113,7 @@ export default {
     },
     editClass(clas){
       this.$store.commit("SET_CLASS",clas)
-      router.push("/edit/class/"+clas.name)
+      router.push("/edit/class/")
     },
     changePref(index)
     {
