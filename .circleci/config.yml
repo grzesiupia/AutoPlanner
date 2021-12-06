@@ -51,7 +51,7 @@ jobs:
             npm run test:unit
   deploy:
     docker:
-    - image: circleci/openjdk:8-jdk
+    - image: cimg/python:3.10.0
     steps:
       - checkout
       - run:
