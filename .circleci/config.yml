@@ -72,6 +72,8 @@ jobs:
             SG_ID=sg-02a3bb4a42242d062
             
             # 5- Add an ingress rule to the security group
+            aws configure --profile produser
+            AKIA3IRMUJAD5OJRA7ED
             aws configure
             cd
             sudo /usr/local/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
