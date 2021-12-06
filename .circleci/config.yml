@@ -75,7 +75,7 @@ jobs:
             PUBLIC_IP=$(curl ipinfo.io/ip)
               
             # 3- Get AWS Region#
-            AWS_REGION=eu-central-1
+            # AWS_REGION=eu-central-1
             
             # 4- Get SG ID# TODO Don't forget to replace by your own SG ID
             SG_ID=sg-02a3bb4a42242d062
