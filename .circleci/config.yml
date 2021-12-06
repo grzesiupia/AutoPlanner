@@ -53,12 +53,11 @@ jobs:
           name: Deploy
           command: |
             sudo apt-get update
-            sudo apt-get install python2.7-minimal
+            cd ..
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             echo siema
-            cd ..
             ls -a
             sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
             echo halo
