@@ -51,7 +51,8 @@ jobs:
             cd Frontend &&
             npm run test:unit
   deploy:
-    executor: aws-cli/default
+    docker:
+      - image: cimg/python:3.10.0
     steps:
       - checkout
       - aws-cli/setup:
