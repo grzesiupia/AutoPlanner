@@ -14,7 +14,7 @@
       <input class="buttonm btn btn-success mr-3" type="submit" @click="editSubject" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
-    <input class="buttonc btn btn-success mr-3"  type="submit" @click="deletesubject" value="Usuń przedmiot">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteSubject" value="Usuń przedmiot">
     </a>
     </h1>
   </div>
