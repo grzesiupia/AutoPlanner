@@ -72,9 +72,8 @@ jobs:
             SG_ID=sg-02a3bb4a42242d062
             
             # 5- Add an ingress rule to the security group
-            echo okok
-            sudo ln -s /usr/local/bin/aws /home/circleci/bin/aws
-            sudo ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+            cd
+            sudo /usr/local/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
             echo ehhh
             # 6- Give the ingress rule some time to propogate
