@@ -81,11 +81,11 @@ jobs:
             SG_ID=sg-02a3bb4a42242d062
             aws configure list
             # 5- Add an ingress rule to the security group
-            sudo /usr/local/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
-              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+            # sudo /usr/local/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+            #   --protocol tcp --port 22 --cidr $PUBLIC_IP/24
             echo ehhh
             # 6- Give the ingress rule some time to propogate
-            sleep 5
+            # sleep 5
               
             # 7- SSH to the server to deploy
             EC2_USERNAME=ubuntu
