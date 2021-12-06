@@ -52,7 +52,8 @@ jobs:
       - run:
           name: Deploy
           command: |
-            sudo apt install python3.8-venv
+            sudo apt install python3-pip
+            pip install venv
             sudo ln -s /usr/bin/python3 /usr/bin/python
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
