@@ -91,12 +91,10 @@ jobs:
             # 7- SSH to the server to deploy
             EC2_USERNAME=ubuntu
             EC2_PUBLIC_DNS=ec2-52-59-142-241.eu-central-1.compute.amazonaws.com
-            ssh -t $EC2_USERNAME@$EC2_PUBLIC_DNS << EOF
-              uptime && date && ls -a
-            EOF
-            
+            ssh $EC2_USERNAME@$EC2_PUBLIC_DNS 'uptime && date && ls -a'
+
             # 8- Perform steps to deploy
-            
+
             # cd GroupProject/
             # git pull --rebase
             echo nospoko
