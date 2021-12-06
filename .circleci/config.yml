@@ -58,8 +58,7 @@ jobs:
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             echo siema
-            ls -a
-            cd awscli-bundle
+            cd ..
             ls -a
             sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
             echo halo
