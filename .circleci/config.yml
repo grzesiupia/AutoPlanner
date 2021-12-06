@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            apt-get update
+            sudo apt-get update
             sudo apt-get install python3-venv
             sudo ln -s /usr/bin/python3 /usr/bin/python
             # 1- Install AWS CLI
