@@ -49,11 +49,6 @@ jobs:
           command:
             cd Frontend &&
             npm run test:unit
-  deploy:
-    docker:
-    - image: cimg/python:3.10.0
-    steps:
-      - checkout
       - run:
           name: Deploy
           command: |
@@ -62,8 +57,8 @@ jobs:
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
+            echo siema
             sudo ./awscli-bundle/install -b ~/bin/aws
-            awscli --version
             
             # 2- Get the public IP of the current CircleCI runner
             PUBLIC_IP=$(curl ipinfo.io/ip)
@@ -93,6 +88,12 @@ jobs:
             # 9- Remove the ingress rule
             ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+  deploy:
+    docker:
+    - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      
       
 workflows:
   build_test_deploy:
