@@ -52,6 +52,9 @@ jobs:
       - run:
           name: Deploy
           command: |
+            cd /usr/bin
+            mkdir env
+            cd ~
             sudo ln -s /usr/bin/python3 /usr/bin/env/python
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
