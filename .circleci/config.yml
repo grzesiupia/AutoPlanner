@@ -106,7 +106,6 @@ jobs:
             --port 22 \
             --cidr $PUBLIC_IP/24
       
-      
 workflows:
   build_test_deploy:
     jobs:
