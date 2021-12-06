@@ -10,6 +10,7 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.2
+  aws-cli: circleci/aws-cli@2.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -49,6 +50,13 @@ jobs:
           command:
             cd Frontend &&
             npm run test:unit
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          aws-access-key-id: AKIA3IRMUJAD5OJRA7ED
+          aws-secret-access-key: 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
       - run:
           name: Deploy
           command: |
@@ -59,7 +67,6 @@ jobs:
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
-            ls -a
             sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
             
             # 2- Get the public IP of the current CircleCI runner
@@ -72,10 +79,6 @@ jobs:
             SG_ID=sg-02a3bb4a42242d062
             
             # 5- Add an ingress rule to the security group
-            aws configure --profile produser
-            AKIA3IRMUJAD5OJRA7ED
-            aws configure
-            cd
             sudo /usr/local/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
             echo ehhh
@@ -94,11 +97,6 @@ jobs:
             # 9- Remove the ingress rule
             ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
-  deploy:
-    docker:
-    - image: circleci/openjdk:8-jdk
-    steps:
-      - checkout
       
       
 workflows:
