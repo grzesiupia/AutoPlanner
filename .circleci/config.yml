@@ -62,6 +62,7 @@ jobs:
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
+            echo siema
             ./awscli-bundle/install -b ~/bin/aws
             
             # 2- Get the public IP of the current CircleCI runner
