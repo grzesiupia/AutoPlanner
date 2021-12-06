@@ -58,7 +58,7 @@ jobs:
           name: Deploy
           command: |
             sudo apt-get update
-            sudo apt-get install python3
+            sudo apt-get install python2.7-minimal
             # 1- Install AWS CLI
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
