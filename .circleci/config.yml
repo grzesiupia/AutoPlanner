@@ -79,7 +79,7 @@ jobs:
             
             # 4- Get SG ID# TODO Don't forget to replace by your own SG ID
             SG_ID=sg-02a3bb4a42242d062
-            
+            aws configure list
             # 5- Add an ingress rule to the security group
             sudo /usr/local/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
