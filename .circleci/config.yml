@@ -91,10 +91,9 @@ jobs:
             # 7- SSH to the server to deploy
             EC2_USERNAME=ubuntu
             EC2_PUBLIC_DNS=ec2-52-59-142-241.eu-central-1.compute.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS
             
             # 8- Perform steps to deploy
-            sleep 10
             ls -a
             # cd GroupProject/
             # git pull --rebase
