@@ -70,12 +70,12 @@ jobs:
             # 2- Get the public IP of the current CircleCI runner
             PUBLIC_IP=$(curl ipinfo.io/ip)
               
-            # 3- Get AWS Region#
-            # AWS_REGION=eu-central-1
+            # 3- Get AWS IAM role access
+            AWS_ACCESS_KEY_ID = $AWS_ACCESS_KEY_ID_FRONT
+            AWS_SECRET_ACCESS_KEY = $AWS_SECRET_ACCESS_KEY_FRONT
             
-            # 4- Get SG ID# TODO Don't forget to replace by your own SG ID
+            # 4- Get SG ID
             SG_ID=sg-02a3bb4a42242d062
-            aws configure list
             
             # 5- Add an ingress rule to the security group
             aws ec2 authorize-security-group-ingress \
