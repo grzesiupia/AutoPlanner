@@ -88,13 +88,11 @@ jobs:
             # 6- Give the ingress rule some time to propogate
             sleep 5
               
-            # 7- SSH to the server to deploy
+            # 7- SSH to the server to deploy and Perform steps to deploy
             EC2_USERNAME=ubuntu
             EC2_PUBLIC_DNS=ec2-52-59-142-241.eu-central-1.compute.amazonaws.com
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
-            # 8- Perform steps to deploy
-            'cd GroupProject && ls && git pull --rebase && exit'
-          
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS 'cd GroupProject && ls && git pull --rebase && exit'
+
             echo nospoko
             # 9- Remove the ingress rule
             aws ec2 revoke-security-group-ingress \
