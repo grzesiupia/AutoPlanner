@@ -54,7 +54,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
-      - aws-cli/install
       - aws-cli/setup:
           aws-access-key-id: AWS_ACCESS_KEY_ID_FRONT
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_FRONT
@@ -91,7 +90,6 @@ jobs:
             git pull --rebase && 
             exit'
 
-            echo nospoko
             # 9- Remove the ingress rule
             aws ec2 revoke-security-group-ingress \
             --region $AWS_DEFAULT_REGION \
