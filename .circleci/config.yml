@@ -124,9 +124,7 @@ jobs:
             cd GroupProject; 
             git pull --rebase;
             cd Backend;
-            tmux;
-            python3 manage.py runserver 0.0.0.0:8000;
-            ^a - d;
+            tmux new -d 'python3 manage.py runserver 0.0.0.0:8000'
             exit'
 
             
