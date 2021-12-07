@@ -51,10 +51,12 @@ jobs:
             cd Frontend &&
             npm run test:unit
   deploy:
-    docker:
-      - image: cimg/python:3.10.0
+    executor: aws-cli/default
     steps:
       - checkout
+      - aws-cli/setup:
+          aws-access-key-id: $AWS_ACCESS_KEY_ID_FRONT
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY_FRONT
       - run:
           name: Deploy
           command: |
@@ -71,8 +73,8 @@ jobs:
             PUBLIC_IP=$(curl ipinfo.io/ip)
               
             # 3- Get AWS IAM role access
-            AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_FRONT
-            AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_FRONT
+            # AWS_ACCESS_KEY_ID=
+            # AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_FRONT
             
             # 4- Get SG ID
             SG_ID=sg-02a3bb4a42242d062
