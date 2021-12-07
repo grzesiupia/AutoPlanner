@@ -75,14 +75,13 @@ jobs:
             
             # 3- Give the ingress rule some time to propogate
             sleep 5
-            TMUX_RUN_SERVE='tmux new -d "npm run serve"'
               
             # 4- SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_FRONT 'cd GroupProject; 
             git pull --rebase;
             cd Frontend;
             tmux kill-server;
-            $TMUX_RUN_SERVE;
+            sudo tmux new -d 'npm run server';
             exit'
 
             # 5- Remove the ingress rule
