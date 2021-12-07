@@ -122,6 +122,7 @@ jobs:
             'if pgrep screen; then pkill screen; fi &&
             screen -dmS sessionName \
             [cd GroupProject &&
+            pwd &&
             git pull --rebase && 
             cd Backend &&
             python3 manage.py runserver 0.0.0.0:8000] &&
