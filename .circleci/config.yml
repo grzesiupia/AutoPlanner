@@ -55,8 +55,8 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
-          aws-access-key-id: $AWS_ACCESS_KEY_ID_FRONT
-          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY_FRONT
+          aws-access-key-id: AWS_ACCESS_KEY_ID_FRONT
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_FRONT
       - run:
           name: Deploy
           command: |
