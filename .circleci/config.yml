@@ -118,7 +118,7 @@ jobs:
             sleep 5
               
             # 4- SSH to the server to deploy and Perform steps to deploy
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'if pgrep screen; then pkill screen; fi; pwd; ls -a; cd GroupProject; exit'
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'if pgrep screen; then pkill screen; fi; pwd; ls -a; cd .ssh; ls -a; cd GroupProject; exit'
             # screen -dmS server bash -c 'git pull --rebase && cd Backend && python3 manage.py runserver 0.0.0.0:8000'; 
             
 
