@@ -147,6 +147,7 @@ workflows:
       - build_and_test_front
       - deploy_frontend:
           requires:
+            - build_and_test_back
             - build_and_test_front
           filters:
             branches:
@@ -154,6 +155,7 @@ workflows:
                 - main
       - deploy_backend:
           requires:
+            - build_and_test_back
             - build_and_test_front
           filters:
             branches:
