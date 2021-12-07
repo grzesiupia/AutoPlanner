@@ -50,7 +50,7 @@ jobs:
           command:
             cd Frontend &&
             npm run test:unit
-  deploy:
+  deploy_frontend:
     executor: aws-cli/default
     steps:
       - checkout
@@ -58,22 +58,14 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID_FRONT
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_FRONT
       - run:
-          name: Deploy
+          name: deploy_frontend
           command: |
             sudo apt-get update
             
-            # sudo apt-get install python3-venv
-            # sudo ln -s /usr/bin/python3 /usr/bin/python
-            
-            # 1- Install AWS CLI
-            # curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-            # unzip awscli-bundle.zip
-            # sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-            
-            # 2- Get the public IP of the current CircleCI runner
+            # 1- Get the public IP of the current CircleCI runner
             PUBLIC_IP=$(curl ipinfo.io/ip)
             
-            # 5- Add an ingress rule to the security group
+            # 2- Add an ingress rule to the security group
             aws ec2 authorize-security-group-ingress \
             --region $AWS_DEFAULT_REGION \
             --group-id $SG_ID_FRONT \
@@ -81,16 +73,16 @@ jobs:
             --port 22 \
             --cidr $PUBLIC_IP/24
             
-            # 6- Give the ingress rule some time to propogate
+            # 3- Give the ingress rule some time to propogate
             sleep 5
               
-            # 7- SSH to the server to deploy and Perform steps to deploy
+            # 4- SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_FRONT \
             'cd GroupProject &&
             git pull --rebase && 
             exit'
 
-            # 9- Remove the ingress rule
+            # 5- Remove the ingress rule
             aws ec2 revoke-security-group-ingress \
             --region $AWS_DEFAULT_REGION \
             --group-id $SG_ID_FRONT \
@@ -98,14 +90,64 @@ jobs:
             --port 22 \
             --cidr $PUBLIC_IP/24
 
-            echo DONE!
-      
+            echo DONE! Successfully deployed to Frontend EC2 server.
+  deploy_backend:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID_BACK
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_BACK
+      - run:
+          name: deploy_back
+          command: |
+            sudo apt-get update
+            
+            # 1- Get the public IP of the current CircleCI runner
+            PUBLIC_IP=$(curl ipinfo.io/ip)
+            
+            # 2- Add an ingress rule to the security group
+            aws ec2 authorize-security-group-ingress \
+            --region $AWS_DEFAULT_REGION \
+            --group-id $SG_ID_BACK \
+            --protocol tcp \
+            --port 22 \
+            --cidr $PUBLIC_IP/24
+            
+            # 3- Give the ingress rule some time to propogate
+            sleep 5
+              
+            # 4- SSH to the server to deploy and Perform steps to deploy
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK \
+            'killall python &&
+            cd GroupProject &&
+            git pull --rebase && 
+            cd Backend &&
+            python3 manage.py runserver 0.0.0.0:8000 &&
+            exit'
+
+            # 5- Remove the ingress rule
+            aws ec2 revoke-security-group-ingress \
+            --region $AWS_DEFAULT_REGION \
+            --group-id $SG_ID_BACK \
+            --protocol tcp \
+            --port 22 \
+            --cidr $PUBLIC_IP/24
+
+            echo DONE! Successfully deployed to Backend EC2 server.    
 workflows:
   build_test_deploy:
     jobs:
       - build_and_test_back
       - build_and_test_front
-      - deploy:
+      - deploy_frontend:
+          requires:
+            - build_and_test_front
+          filters:
+            branches:
+              only:
+                - main
+      - deploy_backend:
           requires:
             - build_and_test_front
           filters:
