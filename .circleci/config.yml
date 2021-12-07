@@ -120,13 +120,13 @@ jobs:
             # 4- SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'if pgrep screen; 
             then pkill screen; 
-            fi; pwd; 
-            ls -a; 
-            cd .ssh; 
+            fi; 
+            pwd; 
             ls -a; 
             cd GroupProject; 
+            screen -dmS server bash -c 'git pull --rebase && cd Backend && python3 manage.py runserver 0.0.0.0:8000';
             exit'
-            # screen -dmS server bash -c 'git pull --rebase && cd Backend && python3 manage.py runserver 0.0.0.0:8000'; 
+
             
 
             # 5- Remove the ingress rule
