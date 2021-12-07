@@ -135,6 +135,7 @@ jobs:
             --cidr $PUBLIC_IP/24
 
             echo DONE! Successfully deployed to Backend EC2 server.    
+
 workflows:
   build_test_deploy:
     jobs:
