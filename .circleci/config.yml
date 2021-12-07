@@ -124,7 +124,7 @@ jobs:
             pwd; 
             ls -a; 
             cd GroupProject; 
-            screen -dmS server bash -c 'git pull --rebase && cd Backend && python3 manage.py runserver 0.0.0.0:8000';
+            git pull --rebase;
             exit'
 
             
