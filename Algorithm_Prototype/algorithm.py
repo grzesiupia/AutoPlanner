@@ -355,7 +355,6 @@ if __name__ == "__main__":
     print(p.get_best_specimen().teacher_breaks_num)
     print(p.get_best_specimen().evaluation)
 
-
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
 # TODO 3.make docstring
