@@ -81,7 +81,7 @@ jobs:
             git pull --rebase;
             cd Frontend;
             tmux kill-server;
-            tmux new -d 'npm run serve'
+            tmux new -d "npm run serve";
             exit'
 
             # 5- Remove the ingress rule
@@ -93,6 +93,7 @@ jobs:
             --cidr $PUBLIC_IP/24
 
             echo DONE! Successfully deployed to Frontend EC2 server.
+
   deploy_backend:
     executor: aws-cli/default
     steps:
