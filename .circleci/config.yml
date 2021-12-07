@@ -100,11 +100,13 @@ jobs:
             echo nospoko
             # 9- Remove the ingress rule
             aws ec2 revoke-security-group-ingress \
-            --region $AWS_REGION \
+            --region $AWS_DEFAULT_REGION \
             --group-id $SG_ID \
             --protocol tcp \
             --port 22 \
             --cidr $PUBLIC_IP/24
+
+            echo DONE!
       
 workflows:
   build_test_deploy:
