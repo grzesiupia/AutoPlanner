@@ -81,7 +81,7 @@ jobs:
             git pull --rebase;
             cd Frontend;
             tmux kill-server;
-            sudo tmux new -d 'npm run server';
+            tmux new -d 'npm run serve';
             exit'
 
             # 5- Remove the ingress rule
