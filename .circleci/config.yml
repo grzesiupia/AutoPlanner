@@ -121,10 +121,10 @@ jobs:
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'if pgrep screen; 
             then pkill screen; 
             fi; 
-            pwd; 
-            ls -a; 
             cd GroupProject; 
             git pull --rebase;
+            cd Backend;
+            python3 manage.py runserver 0.0.0.0:8000;
             exit'
 
             
