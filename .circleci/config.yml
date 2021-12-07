@@ -81,8 +81,8 @@ jobs:
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_FRONT 'cd GroupProject; 
             git pull --rebase;
             cd Frontend;
+            tmux kill-server;
             $TMUX_RUN_SERVE;
-            tmux_run_serve;
             exit'
 
             # 5- Remove the ingress rule
