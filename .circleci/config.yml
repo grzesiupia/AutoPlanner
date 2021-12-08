@@ -81,6 +81,7 @@ jobs:
             git pull --rebase;
             cd Frontend;
             tmux new-session -d -s DUMMY;
+            sleep 2;
             tmux kill-server;
             tmux new-session -d -s FRONTEND_SERVER;
             tmux send-keys -t FRONTEND_SERVER "npm run serve" C-m;
@@ -127,6 +128,7 @@ jobs:
             git pull --rebase;
             cd Backend;
             tmux new-session -d -s DUMMY;
+            sleep 2
             tmux kill-server;
             tmux new-session -d -s BACKEND_SERVER;
             tmux send-keys -t BACKEND_SERVER "python3 manage.py runserver 0.0.0.0:8000" C-m;
