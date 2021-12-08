@@ -1,3 +1,7 @@
+"""
+Data from real school to test algorithm
+"""
+
 CLASSES = {
     # zw = zwykła
     315: "zw",

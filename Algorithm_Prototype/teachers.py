@@ -1,3 +1,7 @@
+"""
+Data from real school to test algorithm
+"""
+
 TEACHERS = {
     "AR": {
         'subject': ["matematyka"],

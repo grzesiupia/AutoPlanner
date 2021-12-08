@@ -1,3 +1,7 @@
+"""
+Data from real school to test algorithm
+"""
+
 GROUP = {
     '1a': {
         "matematyka": [3, None],
