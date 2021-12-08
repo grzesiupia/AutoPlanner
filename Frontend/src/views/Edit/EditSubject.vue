@@ -5,13 +5,13 @@
     <h1 class=row2><b><p class=mbuttons>
     <br>
         <my-component v-for="subject in subjects" :key="subject.subject_name">
-          <input class="buttonm btn btn-success mr-3" v-model="subject.subject_name">
+          <input class="buttonm btn btn-success mr-3" v-model="subject.subject_name" @click="editSub(subject.subject_name)">
         </my-component>
     </p></b>
     <a>
-    <form class=topform>
-      <p><input id="Subject" v-model="subjectName" type="text" placeholder="Nazwa przedmiotu"></p>
-      <input class="buttonm btn btn-success mr-3" type="submit" @click="editSubject" value="Zapisz zmiany" >
+    <form class=topform onsubmit="editSubject">
+      <p><input id="Subject" v-model="subjectName" type="text" placeholder="Nazwa przedmiotu" required></p>
+      <input class="buttonm btn btn-success mr-3" type="submit" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteSubject" value="Usuń przedmiot">
@@ -83,6 +83,10 @@ export default {
           subject_name: this.$route.params.id,
         }
       )
+    },
+    editSub(subject_name){
+      router.push("/edit/subject/"+subject_name)
+      router.go()
     }
     
   }

@@ -5,12 +5,12 @@
     <h1 class=row2><b><p class=mbuttons>
     <br>
         <my-component v-for="clas in classes" :key="clas.name">
-          <input class="buttonm btn btn-success mr-3" v-model="clas.name">
+          <input class="buttonm btn btn-success mr-3" v-model="clas.class" @click="editCla(clas)">
         </my-component>
     </p></b>
     <a>
-    <form class=topform>
-      <p><input id="Classname" v-model="classname" type="text" placeholder="Nazwa klasy"></p>
+    <form class=topform onsubmit="addClass">
+      <p><input id="Classname" v-model="classname" type="text" placeholder="Nazwa klasy" required></p>
       <p><label>Lista przedmiotów</label></p>
       <div v-for="index in lessonsNumber" :key="index" >
         <p style="border-left:2px solid green;border-right:2px solid green;border-bottom:2px solid green;border-top:2px solid green;">
@@ -33,7 +33,8 @@
           </span>
         </p>
       </div>
-      <p><input class="buttond" type="submit" @click="addSubject" value="+" ></p>
+      <p><input class="buttond" type="submit" value="+" >
+      <input class="buttond" type="submit" value="-" @click="delSubject" style="margin: 0px 8px"></p>
       <input class="buttonm btn btn-success mr-3" @click="editClass" type="submit" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
@@ -103,6 +104,16 @@ export default {
       this.list_of_lessons.push({"name":'',"number":'',"teacher":''})
       this.disabled.push(1)
     },
+    delSubject(e)
+    {
+      e.preventDefault();
+      if(this.lessonsNumber>1)
+      {
+      this.lessonsNumber=this.lessonsNumber-1;
+      this.list_of_lessons.pop()
+      this.disabled.pop()
+      }
+    },
     editClass(e)
     {
       e.preventDefault();
@@ -126,6 +137,11 @@ export default {
           name: this.class.name,
         }
       )
+    },
+    editCla(clas){
+      this.$store.commit("SET_CLASS",clas)
+      router.push("/edit/class")
+      router.go()
     },
     changePref(index)
     {

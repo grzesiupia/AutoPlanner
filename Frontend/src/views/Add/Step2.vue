@@ -9,24 +9,29 @@
         </my-component>
     </p></b>
     <a>
-    <form class=topform>
-      <p><input id="Name" v-model="name" type="text" placeholder="Imię"></p>
-      <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko"></p>
-      <p><input id="Email" v-model="email" type="email" placeholder="Email"></p>
+    <form class=topform onsubmit="addTeacher">
+      <p><input id="Name" v-model="name" type="text" placeholder="Imię" required></p>
+      <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko" required></p>
+      <p><input id="Email" v-model="email" type="email" placeholder="Email" required></p>
       <label style="float:left;">Prowadzone przedmioty</label>
       
       <div v-for="index in subjectNumber" :key="index">
+      <p>
       <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].subject_name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
         <option v-for="subject in subjects" v-bind:key="subject.subject_name" >
         {{ subject.subject_name }}
         </option>
     </select>
+    
+    </p>
     </div>
       <input class="buttond" type="submit" @click="addSubject" value="+" >
-      <input class="buttonf btn btn-success mr-3" @click="addTeacher" type="submit" value="Dodaj" >
+      <input class="buttond" type="submit" value="-" @click="delSubject" style="margin: 0px 8px">
+      <input class="buttonf btn btn-success mr-3" type="submit" value="Dodaj" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">
     </a>
     </h1>
   </div>
@@ -77,11 +82,24 @@ export default {
     handleSubmit() {
       router.push("/step/3")
     },
+    back() {
+      router.push("/step/1")
+    },
     addSubject(e)
     {
       e.preventDefault();
       this.subjectNumber=this.subjectNumber+1;
       this.list_of_subjects.push({"name":''})
+    },
+    delSubject(e)
+    {
+      e.preventDefault();
+      if(this.subjectNumber>1)
+      {
+      this.subjectNumber=this.subjectNumber-1;
+      this.list_of_subjects.pop()
+      }
+     
     },
     addTeacher(e)
     {

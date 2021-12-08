@@ -5,14 +5,14 @@
     <h1 class=row2><b><p class=mbuttons>
     <br>
         <my-component v-for="teacher in teachers" :key="teacher.surname">
-          <input class="buttonm btn btn-success mr-3" v-model="teacher.surname">
+          <input class="buttonm btn btn-success mr-3" v-model="teacher.surname" @click="editTea(teacher)">
         </my-component>
     </p></b>
     <a>
-    <form class=topform>
-      <p><input id="Name" v-model="name" type="text" placeholder="Imię"></p>
-      <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko"></p>
-      <p><input id="Email" v-model="email" type="email" placeholder="Email"></p>
+    <form class=topform onsubmit="editTeacher">
+      <p><input id="Name" v-model="name" type="text" placeholder="Imię" required></p>
+      <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko" required></p>
+      <p><input id="Email" v-model="email" type="email" placeholder="Email" required></p>
       <label style="float:left;">Prowadzone przedmioty</label>
       
       <div v-for="index in subjectNumber" :key="index">
@@ -24,7 +24,7 @@
     </select>
     </div>
       <input class="buttond" type="submit" @click="addSubject" value="+" >
-      <input class="buttonf btn btn-success mr-3" @click="editTeacher" type="submit" value="Zapisz zmiany" >
+      <input class="buttonf btn btn-success mr-3" type="submit" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteTeacher" value="Usuń nauczyciela">
@@ -93,6 +93,16 @@ export default {
       this.subjectNumber=this.subjectNumber+1;
       this.list_of_subjects.push({"name":''})
     },
+    delSubject(e)
+    {
+      e.preventDefault();
+      if(this.subjectNumber>1)
+      {
+      this.subjectNumber=this.subjectNumber-1;
+      this.list_of_subjects.pop()
+      }
+     
+    },
     editTeacher(e)
     {
        e.preventDefault();
@@ -118,6 +128,11 @@ export default {
           email: this.teacher.email,
         }
       )
+    },
+    editTea(teacher){
+      this.$store.commit("SET_TEACHER",teacher)
+      router.push("/edit/teacher")
+      router.go()
     }
   }
 }

@@ -9,11 +9,12 @@
         </my-component>
     </p></b>
     <a>
-    <form class=topform>
-      <p><input id="Subject" v-model="subjectName" type="text" placeholder="Nazwa przedmiotu"></p>
-      <input class="buttonm btn btn-success mr-3" type="submit" @click="addSubject" value="Dodaj" >
+    <form class=topform onsubmit="addSubject">
+      <p><input id="Subject" v-model="subjectName" type="text" placeholder="Nazwa przedmiotu" required></p>
+      <input class="buttonm btn btn-success mr-3" type="submit">
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">
     </a>
     </h1>
   </div>
@@ -55,6 +56,9 @@ export default {
   methods: {
     handleSubmit() {
       router.push("/step/2")
+    },
+     back() {
+      router.push("/my/school")
     },
     addSubject(e){
       e.preventDefault();
