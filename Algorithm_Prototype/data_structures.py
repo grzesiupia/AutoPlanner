@@ -30,6 +30,7 @@ class Teacher:
         self.subject = self.__set_subject()
         self.preferred_work_hours = self.__set_preferred_work_hours()
         self.work_hours = 0
+        self.breaks_count = 0
 
     def __set_subject(self):
         return self.data['subject']
@@ -57,6 +58,7 @@ class Group:
         self.max_tough_lessons_per_day = self.__set_max_tough_lessons_per_day()
         self.preferred_teachers = self.__set_preferred_teachers()
         self.__set_list_of_subjects()
+        self.breaks_count = 0
 
     def set_list_of_subjects_call(self):
         self.__set_list_of_subjects()
@@ -122,7 +124,7 @@ class School:
         self.groups = self.__process_groups(groups_data)
         self.list_of_tough_subjects = self.groups.copy().popitem()[1].list_of_tough_subjects
         self.teachers = self.__process_teachers(teachers_data)
-        self.max_lessons_per_day_for_school = self.__set_max_lessons_per_day()
+        self.max_lessons_per_day_for_school = int(self.__set_max_lessons_per_day())
         self.__assign_teachers_to_groups()
         self.list_of_all_subjects = self.__process_list_of_all_subjects()
 

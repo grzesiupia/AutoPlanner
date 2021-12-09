@@ -2,7 +2,9 @@
     Module algorithm.py is responsible of creating final schedule.
 """
 # pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912
+import copy
 import random
+import numpy as np
 
 from data_structures import School
 from teachers import TEACHERS
@@ -14,7 +16,6 @@ class Schedule:
     """
         Class Schedule is used as api of module data_structures.py for Algorithm.
     """
-
     def __init__(self, max_lessons, list_of_classrooms: set):
         self.max_lessons = max_lessons
         self.list_of_classrooms = list_of_classrooms
@@ -65,6 +66,20 @@ class Schedule:
         @param classroom: classrom assigned for this lesson
         """
         self.time_table[day][hour][group_name] = [*lesson_value, classroom]
+
+    def print_teacher_schedule(self, teacher):
+        """
+        Prints schedule for particular teacher
+        @param teacher: teacher for whom schedule is printed
+        """
+        for day in self.time_table:
+            for hour in day:
+                for group, values in hour.items():
+                    if values[1] == teacher:
+                        print(hour[group])
+                else:
+                    print('-----')
+            print("\n")
 
     def print_schedule(self):
         """
@@ -145,15 +160,14 @@ class Algorithm:
     """
         Class Algorithm is main class of generator.
     """
-
     def __init__(self, school_instance: School):
         self.school = school_instance
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
         self.remain_lessons_num = self.prepare_schedule()  # Must be 0 when algorithm finishes
         # count of brakes for each group
-        self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
-        # count of brakes for each teacher
-        self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers.values()}
+        # self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
+        # # count of brakes for each teacher
+        # self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers.values()}
         self.evaluation = 0.0
         self.evaluate_schedule_rating()
 
@@ -225,73 +239,87 @@ class Algorithm:
         @param teacher_break_importance: points added to rating when teacher have brake in middle of lessons
         @param tough_lessons_importance: points added to rating when group have too many tough lessons per day
         """
-        self._start_evaluation(tough_lessons_importance)
+        self._start_evaluation_new(tough_lessons_importance)
 
         # Evaluation of minus points for breaks of groups
-        for group_breaks in self.group_breaks_num.values():
-            self.evaluation -= group_breaks * group_break_importance
+        for group in self.school.groups.values():
+            self.evaluation -= group.breaks_count * group_break_importance
 
         # Evaluation of minus points for brakes of teachers
-        for teacher_breaks in self.teacher_breaks_num.values():
-            self.evaluation -= teacher_breaks * teacher_break_importance
+        for teacher in self.school.teachers.values():
+            self.evaluation -= teacher.breaks_count * teacher_break_importance
 
-    def _start_evaluation(self, tough_lessons_significance):
-        for day in self.schedule.time_table:
-            # ten słownik służy do zapamiętywania poprzedniej iteracji, jeżeli wartość wynosi
-            # 0 - lekcje się jeszcze nie rozpoczęły
-            # -1 - na poprzedniej lekcji było okienko
-            # 1 - na poprzedniej lekcji były zajęcia
-            groups_memo = {group.name: 0 for group in self.school.groups.values()}
-            teacher_memo = {teacher.name: 0 for teacher in self.school.teachers.values()}
-            group_name_to_tough_lessons_num = {group: 0 for group in self.school.groups}
-            for hour in day:
-                for group in groups_memo:
-                    if group in hour:
-                        if groups_memo[group] == -1:
-                            # tu mamy okienko
-                            self.group_breaks_num[group] += 1
-                        groups_memo[group] = 1
-                    elif groups_memo[group] == 0:
-                        # tutaj lekcje się nie rozpoczęły
-                        pass
-                    else:
-                        # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
-                        groups_memo[group] = -1
+    def _start_evaluation_new(self, tough_lessons_importance):
+        time_table = np.array(self.schedule.time_table)
 
-                    # ===============================================================================================
-                    # ==== Początek części pętli odpowiedzialnej za uwzględnienie trudnych przedmiotów w ocenie planu
-                    # zostało to umieszczone tutaj, żeby nie tworzyć dwa razy kolosalnej pętli
-                    # upewniamy się tylko czy w danej godzinie grupa ma zajęcia
-                    if group in hour:
-                        if hour[group][0] in self.school.list_of_tough_subjects:
-                            group_name_to_tough_lessons_num[group] += 1
-                    # ==== Koniec części pętli odpowiedzialnej za uwzględnienie trudnych przedmiotów w ocenie planu
-                    # ===============================================================================================
+        # memo's for checking
+        groups_memo = {group.name: 0 for group in self.school.groups.values()}
+        teacher_memo = {teacher.name: 0 for teacher in self.school.teachers.values()}
+        tough_lessons_memo = {group: 0 for group in self.school.groups}
 
-                # tutaj liczenie okienek, ale dla nauczycieli
-                for teacher in teacher_memo:
-                    teachers_in_hour = {lesson_values[1] for group_name, lesson_values in hour.items()}
-                    if teacher in teachers_in_hour:
-                        if teacher_memo[teacher] == -1:
-                            # tu mamy okienko
-                            self.teacher_breaks_num[teacher] += 1
-                        teacher_memo[teacher] = 1
-                    elif teacher_memo[teacher] == 0:
-                        # tutaj lekcje się nie rozpoczęły
-                        pass
-                    else:
-                        # kolejny z rzędu brak zajęć albo większe okienko, albo koniec lekcji
-                        teacher_memo[teacher] = -1
-            # =====================================================================================================
-            # ========== Ta część znowu odpowiada za uwzględnienie trudnych przedmiotów w ocenie planu
-            for group, tough_lessons_num in group_name_to_tough_lessons_num.items():
-                # sub to różnica faktycznej liczby trudnych przedmiotów z preferowaną maksymalną liczbą trudnych
-                # przedmiotów
-                sub = self.school.groups[group].max_tough_lessons_per_day - tough_lessons_num
-                if 0 > sub:
-                    # sub jest tutaj zawsze ujemna, dlatego jest dodawanie
-                    self.evaluation += tough_lessons_significance * sub
-            # =====================================================================================================
+        # make memo's zeros copies for fast reset
+        groups_memo_zeros = copy.deepcopy(groups_memo)
+        teacher_memo_zeros = copy.deepcopy(teacher_memo)
+        tough_lessons_memo_zeros = copy.deepcopy(tough_lessons_memo)
+
+        def count_teacher_breakes(lesson_hour):
+            teachers_in_hour = [lesson_values[1] for lesson_values in lesson_hour.values()]
+            for teacher in teacher_memo:
+                if teacher in teachers_in_hour:
+                    if teacher_memo[teacher] == -1:
+                        # this means break
+                        self.school.teachers[teacher].breaks_count += 1
+                    teacher_memo[teacher] = 1
+                elif teacher_memo[teacher] == 0:
+                    # lessons haven't started yet
+                    pass
+                else:
+                    # break or end of work
+                    teacher_memo[teacher] = -1
+
+        def count_group_brakes(lesson_hour):
+            for group in groups_memo:
+                if group in lesson_hour:
+                    if groups_memo[group] < 0:
+                        # this means break
+                        self.school.groups[group].breaks_count += 1
+                    groups_memo[group] = 1
+                elif groups_memo[group] == 0:
+                    # it means lessons haven't started yet
+                    pass
+                else:
+                    # end of lessons per day or increase break
+                    groups_memo[group] = -1
+                # check if subject of class is tough
+                if group in lesson_hour:
+                    if lesson_hour[group][0] in self.school.list_of_tough_subjects:
+                        tough_lessons_memo[group] += 1
+
+        def count_tough_lessons():
+            for group, tough_lessons_num in tough_lessons_memo.items():
+                diff_tough_lessons = self.school.groups[group].max_tough_lessons_per_day - tough_lessons_num
+                if 0 > diff_tough_lessons:
+                    # diff_tough_lessons jest tutaj zawsze ujemna, dlatego jest dodawanie
+                    self.evaluation += tough_lessons_importance * diff_tough_lessons
+
+        hour = 0
+        for lesson in time_table.flatten():     # squash time_table to decrease time complexity
+            # Reset hours, memo's (simulate day change), check tough lessons per day
+            if hour == self.school.max_lessons_per_day_for_school:
+                count_tough_lessons()
+
+                hour = 0
+                groups_memo = copy.deepcopy(groups_memo_zeros)
+                teacher_memo = copy.deepcopy(teacher_memo_zeros)
+                tough_lessons_memo = copy.deepcopy(tough_lessons_memo_zeros)
+
+            # Count breaks of teacher
+            count_teacher_breakes(lesson_hour=lesson)
+
+            # Count breaks of group and tough subject count
+            count_group_brakes(lesson_hour=lesson)
+
+            hour += 1
 
     @staticmethod
     def shuffle_list_of_subjects(base_list: list, num: int):
@@ -307,6 +335,10 @@ class Algorithm:
         ordered_list.sort()
         for pos, index in enumerate(ordered_list):
             base_list[index] = copy_of_list[indexes[pos]]
+
+    def print_teachers_breaks_count(self):
+        for teacher in self.school.teachers.values():
+            print(f"{teacher.name}: {teacher.breaks_count}")
 
 
 class Population:
@@ -350,12 +382,13 @@ class Population:
 if __name__ == "__main__":
     p = Population()
     p.new_population(number_of_instances=10)
-    print(p.get_best_specimen().teacher_breaks_num, "\n")
+    # print(p.get_best_specimen().print_teachers_breaks_count())
+    # print(p.get_best_specimen().schedule.print_teacher_schedule('LF'))
     print(p.get_best_specimen().evaluation)
-    p.evolute(10000, 10)
-    print(p.get_best_specimen().schedule.print_group_schedule('1a'))
-    print(p.get_best_specimen().teacher_breaks_num)
-    print(p.get_best_specimen().evaluation)
+    # p.evolute(10000, 10)
+    # print(p.get_best_specimen().schedule.print_group_schedule('1a'))
+    # print(p.get_best_specimen().teacher_breaks_num)
+    # print(p.get_best_specimen().evaluation)
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
