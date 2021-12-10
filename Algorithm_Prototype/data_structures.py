@@ -6,7 +6,7 @@ import string
 from random import shuffle
 
 
-ToughSubjects = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
+TOUGH_SUBJECTS = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
 
 
 class Classroom:
@@ -37,22 +37,15 @@ class Teacher:
     def __set_preferred_work_hours(self):
         return self.data['work_hours']
 
-    @staticmethod
-    def __set_breakes_count():
-        temp = 0
-        return temp
-
     def increase_work_hours(self, hours):
         self.work_hours += hours
-
 
 
 class Group:
     """
         Classroom is representation of data about groups of students in school
     """
-
-    def __init__(self, group_name: string, subjects: dict, tough_subjects=ToughSubjects):
+    def __init__(self, group_name: string, subjects: dict, tough_subjects=TOUGH_SUBJECTS):
         self.name = group_name
         self.subjects = subjects
         self.list_of_subjects = []
