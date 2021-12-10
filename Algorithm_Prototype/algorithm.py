@@ -5,6 +5,7 @@
 import copy
 import random
 import numpy as np
+import numpy.random
 
 from data_structures import School
 from teachers import TEACHERS
@@ -365,16 +366,23 @@ class Algorithm:
     def shuffle_list_of_subjects(base_list: list, num: int):
         copy_of_list = copy.deepcopy(base_list)
         length_of_list = len(base_list)
-        indexes = []
-        for index in range(length_of_list):
-            indexes.append(index)
-        random.shuffle(indexes)
-        for _ in range(length_of_list - num):
-            indexes.pop()
-        ordered_list = indexes.copy()
-        ordered_list.sort()
-        for pos, index in enumerate(ordered_list):
-            base_list[index] = copy_of_list[indexes[pos]]
+        indexes = [i for i in range(length_of_list)]
+        samples = random.sample(indexes, num)
+        samples_shuffle = copy.deepcopy(samples)
+        random.shuffle(samples_shuffle, numpy.random.random)
+        # print(f"{samples}\n{samples_shuffle}\n\n================")
+        for i, sample in enumerate(samples):
+            base_list[sample] = copy_of_list[samples_shuffle[i]]
+
+
+
+        # random.shuffle(indexes)
+        # for _ in range(length_of_list - num):
+        #     indexes.pop()
+        # ordered_list = indexes.copy()
+        # random.shuffle(ordered_list)
+        # for pos, index in enumerate(samples):
+        #     base_list[index] = copy_of_list[indexes[pos]]
 
     def print_teachers_breaks_count(self):
         print(self.teacher_breaks_num)
@@ -426,12 +434,12 @@ if __name__ == "__main__":
     import time
 
     p = Population()
-    p.new_population(number_of_instances=10)
+    p.new_population(number_of_instances=4)
     print(p.get_best_specimen().print_teachers_breaks_count())
     # print(p.get_best_specimen().schedule.print_group_schedule("1a"))
     print(p.get_best_specimen().evaluation)
     start_time = time.time()
-    p.evolute(10000, 20)
+    p.evolute(1000, 20)
     end_time = time.time() - start_time
     print(p.get_best_specimen().print_teachers_breaks_count())
     print(p.get_best_specimen().evaluation)
