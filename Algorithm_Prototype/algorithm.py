@@ -16,7 +16,6 @@ class Schedule:
     """
         Class Schedule is used as api of module data_structures.py for Algorithm.
     """
-
     def __init__(self, max_lessons, list_of_classrooms: set):
         self.max_lessons = max_lessons
         self.list_of_classrooms = list_of_classrooms
@@ -161,7 +160,6 @@ class Algorithm:
     """
         Class Algorithm is main class of generator.
     """
-
     def __init__(self, school_instance: School):
         self.school = school_instance
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
@@ -312,10 +310,14 @@ class Algorithm:
                         # they are next to each other no action needed
                         pass
                     else:
+                        if subject == 'wf':
+                            self.evaluation -= 50
                         # subjects are teared decrease evaluation value
-                        self.evaluation -= 10
+                        else:
+                            self.evaluation -= 10
+                    # if more than 3 of type in day
                     if group_lessons_per_day_memo[group].count(subject) > 2:
-                        self.evaluation -= 10
+                        self.evaluation -= 15
                     group_lessons_per_day_memo[group].append(subject)
                 else:
                     group_lessons_per_day_memo[group].append(subject)
@@ -334,7 +336,7 @@ class Algorithm:
                         pass
                     else:
                         # subjects are teared decrease evaluation value
-                        self.evaluation -= 10
+                        self.evaluation -= 15
 
         hour = 0
         for lesson in time_table.flatten():  # squash time_table to decrease time complexity
@@ -355,6 +357,8 @@ class Algorithm:
             if hour == self.school.max_lessons_per_day_for_school:
                 count_tough_lessons()
                 check_easy_lessons()
+
+                # reset values
                 hour = 0
                 groups_memo = copy.deepcopy(groups_memo_zeros)
                 teacher_memo = copy.deepcopy(teacher_memo_zeros)
@@ -365,16 +369,12 @@ class Algorithm:
     def shuffle_list_of_subjects(base_list: list, num: int):
         copy_of_list = copy.deepcopy(base_list)
         length_of_list = len(base_list)
-        indexes = []
-        for index in range(length_of_list):
-            indexes.append(index)
-        random.shuffle(indexes)
-        for _ in range(length_of_list - num):
-            indexes.pop()
-        ordered_list = indexes.copy()
-        ordered_list.sort()
-        for pos, index in enumerate(ordered_list):
-            base_list[index] = copy_of_list[indexes[pos]]
+        indexes = [i for i in range(length_of_list)]
+        samples = random.sample(indexes, num)
+        samples_shuffle = copy.deepcopy(samples)
+        random.shuffle(samples_shuffle)
+        for i, sample in enumerate(samples):
+            base_list[sample] = copy_of_list[samples_shuffle[i]]
 
     def print_teachers_breaks_count(self):
         print(self.teacher_breaks_num)
@@ -416,31 +416,60 @@ class Population:
         self.population += temp_list
         self.population.sort(key=lambda a: a[1], reverse=True)
 
+    def parallel_reproduce(self, mutation=10):
+        from joblib import Parallel, delayed
+
+        def generate_new_specimens(specimen: [Algorithm, int]):
+            Algorithm.shuffle_list_of_subjects(specimen[0].school.list_of_all_subjects, mutation)
+            temp = Algorithm(specimen[0].school)
+            return [temp, temp.evaluation]
+
+        answer = Parallel(n_jobs=7)(delayed(generate_new_specimens)(specimen) for specimen in self.population)
+        self.population += answer
+        self.population.sort(key=lambda a: a[1], reverse=True)
+
     def evolute(self, number_of_generation: int, number_of_mutation: int):
         for _ in range(number_of_generation):
             self.kill_worse_half()
             self.reproduce(number_of_mutation)
 
+    def parallel_evolute(self, number_of_generation: int, number_of_mutation: int):
+        for _ in range(number_of_generation):
+            self.kill_worse_half()
+            self.parallel_reproduce(number_of_mutation)
+
 
 if __name__ == "__main__":
     import time
 
-    p = Population()
-    p.new_population(number_of_instances=10)
-    print(p.get_best_specimen().print_teachers_breaks_count())
-    # print(p.get_best_specimen().schedule.print_group_schedule("1a"))
-    print(p.get_best_specimen().evaluation)
-    start_time = time.time()
-    p.evolute(10000, 20)
-    end_time = time.time() - start_time
-    print(p.get_best_specimen().print_teachers_breaks_count())
-    print(p.get_best_specimen().evaluation)
-    print(p.get_best_specimen().schedule.print_group_schedule("1a"))
-    print(end_time)
+    population_size = 10
+    generation_num = 1000
+    mutation_num = 20
 
-# TODO 1.zrozumienie co tu sie dzieje
-# TODO 2.poprawa komentarzy
-# TODO 3.make docstring
+    p = Population()
+    p.new_population(number_of_instances=population_size)
+    print(p.get_best_specimen().evaluation)
+    start = time.time()
+    p.evolute(generation_num, mutation_num)
+    end = time.time()
+    print(f"Nonparallel: {end - start} sec")
+    print(p.get_best_specimen().evaluation)
+    print(p.get_best_specimen().schedule.print_group_schedule('1a'))
+
+    p2 = Population()
+    p2.new_population(number_of_instances=population_size)
+    print(p2.get_best_specimen().evaluation)
+    start = time.time()
+    p2.parallel_evolute(generation_num, mutation_num)
+    end = time.time()
+    print(f"Parallel: {end - start} sec")
+    print(p2.get_best_specimen().evaluation)
+    print(p2.get_best_specimen().schedule.print_group_schedule('1a'))
+    print(p2.get_best_specimen().schedule.print_group_schedule('2a'))
+
+# TODO 1.zrozumienie co tu sie dzieje z parallel
+# TODO 2.Rozwiniecie oceny o klasy, i poprawienie punktow
+
+
 # TODO 6.get dane do planu z backendu w jsonie
 # TODO 7.send grafik dla nauczyela, plan zajec klasy i calej szkoly do jsona
-# TODO 8.struktura danych z VLO
