@@ -30,7 +30,6 @@ class Teacher:
         self.subject = self.__set_subject()
         self.preferred_work_hours = self.__set_preferred_work_hours()
         self.work_hours = 0
-        self.breaks_count = 0
 
     def __set_subject(self):
         return self.data['subject']
@@ -38,8 +37,14 @@ class Teacher:
     def __set_preferred_work_hours(self):
         return self.data['work_hours']
 
+    @staticmethod
+    def __set_breakes_count():
+        temp = 0
+        return temp
+
     def increase_work_hours(self, hours):
         self.work_hours += hours
+
 
 
 class Group:
@@ -58,7 +63,6 @@ class Group:
         self.max_tough_lessons_per_day = self.__set_max_tough_lessons_per_day()
         self.preferred_teachers = self.__set_preferred_teachers()
         self.__set_list_of_subjects()
-        self.breaks_count = 0
 
     def set_list_of_subjects_call(self):
         self.__set_list_of_subjects()

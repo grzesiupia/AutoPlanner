@@ -77,8 +77,8 @@ class Schedule:
                 for group, values in hour.items():
                     if values[1] == teacher:
                         print(hour[group])
-                else:
-                    print('-----')
+                    else:
+                        print('-----')
             print("\n")
 
     def print_schedule(self):
@@ -165,9 +165,9 @@ class Algorithm:
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
         self.remain_lessons_num = self.prepare_schedule()  # Must be 0 when algorithm finishes
         # count of brakes for each group
-        # self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
+        self.group_breaks_num = {group_name: 0 for group_name, group in self.school.groups.items()}
         # # count of brakes for each teacher
-        # self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers.values()}
+        self.teacher_breaks_num = {teacher.name: 0 for teacher in self.school.teachers.values()}
         self.evaluation = 0.0
         self.evaluate_schedule_rating()
 
@@ -242,12 +242,12 @@ class Algorithm:
         self._start_evaluation_new(tough_lessons_importance)
 
         # Evaluation of minus points for breaks of groups
-        for group in self.school.groups.values():
-            self.evaluation -= group.breaks_count * group_break_importance
+        for group_breaks in self.group_breaks_num.values():
+            self.evaluation -= group_breaks * group_break_importance
 
         # Evaluation of minus points for brakes of teachers
-        for teacher in self.school.teachers.values():
-            self.evaluation -= teacher.breaks_count * teacher_break_importance
+        for teacher_breaks in self.teacher_breaks_num.values():
+            self.evaluation -= teacher_breaks * teacher_break_importance
 
     def _start_evaluation_new(self, tough_lessons_importance):
         time_table = np.array(self.schedule.time_table)
@@ -268,7 +268,7 @@ class Algorithm:
                 if teacher in teachers_in_hour:
                     if teacher_memo[teacher] == -1:
                         # this means break
-                        self.school.teachers[teacher].breaks_count += 1
+                        self.teacher_breaks_num[teacher] += 1
                     teacher_memo[teacher] = 1
                 elif teacher_memo[teacher] == 0:
                     # lessons haven't started yet
@@ -282,7 +282,7 @@ class Algorithm:
                 if group in lesson_hour:
                     if groups_memo[group] < 0:
                         # this means break
-                        self.school.groups[group].breaks_count += 1
+                        self.group_breaks_num[group] += 1
                     groups_memo[group] = 1
                 elif groups_memo[group] == 0:
                     # it means lessons haven't started yet
@@ -323,7 +323,7 @@ class Algorithm:
 
     @staticmethod
     def shuffle_list_of_subjects(base_list: list, num: int):
-        copy_of_list = base_list.copy()
+        copy_of_list = copy.deepcopy(base_list)
         length_of_list = len(base_list)
         indexes = []
         for index in range(length_of_list):
@@ -337,8 +337,10 @@ class Algorithm:
             base_list[index] = copy_of_list[indexes[pos]]
 
     def print_teachers_breaks_count(self):
-        for teacher in self.school.teachers.values():
-            print(f"{teacher.name}: {teacher.breaks_count}")
+        print(self.teacher_breaks_num)
+
+    def print_groups_breaks_count(self):
+        print(self.group_breaks_num)
 
 
 class Population:
@@ -382,13 +384,11 @@ class Population:
 if __name__ == "__main__":
     p = Population()
     p.new_population(number_of_instances=10)
-    # print(p.get_best_specimen().print_teachers_breaks_count())
-    # print(p.get_best_specimen().schedule.print_teacher_schedule('LF'))
+    print(p.get_best_specimen().print_teachers_breaks_count())
     print(p.get_best_specimen().evaluation)
-    # p.evolute(10000, 10)
-    # print(p.get_best_specimen().schedule.print_group_schedule('1a'))
-    # print(p.get_best_specimen().teacher_breaks_num)
-    # print(p.get_best_specimen().evaluation)
+    p.evolute(1000, 10)
+    print(p.get_best_specimen().print_teachers_breaks_count())
+    print(p.get_best_specimen().evaluation)
 
 # TODO 1.zrozumienie co tu sie dzieje
 # TODO 2.poprawa komentarzy
