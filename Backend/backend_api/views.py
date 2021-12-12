@@ -6,7 +6,7 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301
 #from django.shortcuts import render
 import json
-from backend_api.models import Planners, Lessons, Teachers, Polls
+from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -26,7 +26,7 @@ def add_user(request):
         username = payload['username']
         dbemail = payload['email']
         dbpassword = payload['password']
-        user = Planners(login = username, password = dbpassword, email = dbemail)
+        user = Planners(login = username, password = dbpassword, planneremail = dbemail)
         try:
             user.save(force_insert = True)
             response = json.dumps({'Sukces': 'Pomyslnie dodano uzytkownika'})
@@ -43,18 +43,18 @@ def get_user(request):
         get_email = payload['email']
         get_password = payload['password']
         try:
-            user = Planners.objects.get(email=get_email, password=get_password)
+            user = Planners.objects.get(planneremail=get_email, password=get_password)
 
 
             access_token_payload = {
-            'email': user.email,
+            'email': user.planneremail,
             'login': user.login,
             'password': user.password
             }
 
             token = jwt.encode(access_token_payload, settings.SECRET_KEY, algorithm='HS256').decode('utf-8')
 
-            response = json.dumps({'userId': user.email, 'accessToken': format(token)})
+            response = json.dumps({'userId': user.planneremail, 'accessToken': format(token)})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
@@ -69,13 +69,9 @@ def add_subject(request):
         name = payload['subject_name']
         token = payload['token']
         try:
-            rows = Lessons.objects.all().count()
-            #print(rows)
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            planner = Planners.objects.get(email = user_data['email'])
-            lesson = Lessons(lesson_id = rows+1, lesson_name = name, teacher_email = None, email = planner, classroom = None, lesson_pref = None, numbers_of_lesson = None)
-            lesson.save(force_insert = True)
+            subject = Subjects(subjectname = name, planneremail = user_data["email"])
+            subject.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano lekcje'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
