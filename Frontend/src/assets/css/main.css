@@ -1,0 +1,15 @@
+.btn{
+    background-color: #8ea604;
+    border-color: #8ea604
+    }
+    .btn:hover {
+      color: #fff;
+      background-color: #748802;
+      border-color: #748802;
+      font-size: large;
+    }
+    .btn:focus{
+        color: #fff;
+        background-color: #8ea604;
+        border-color: #8ea604;
+    }

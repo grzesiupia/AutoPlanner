@@ -3,6 +3,7 @@
   <router-link to="/">
       <img src="../assets/logo.png" style="width:50px;height:50px;" />
     </router-link>
+    <p class="customfont">Autoplanner</p>
     <button
       class="navbar-toggler"
       type="button"
@@ -54,6 +55,13 @@ export default {
 
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+p.customfont { 
+    font-family: 'Righteous', cursive;
+    display: block;
+    font-size:30px;
+    text-align: center;
+}
 #nav {
   padding: 30px;
 }
@@ -68,6 +76,14 @@ export default {
   padding: 5px;
   margin: 3px;
 }
-
+.btn{
+background-color: #8ea604;
+border-color: #8ea604
+}
+.btn:hover {
+  color: #fff;
+  background-color: #748802;
+  border-color: #748802;
+}
 
 </style>
