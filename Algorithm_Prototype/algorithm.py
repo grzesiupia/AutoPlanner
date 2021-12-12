@@ -4,7 +4,10 @@
 # pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912
 import random
 
-from data_structures import School, GROUP, TEACHERS, CLASSES, CLASSES_REQ
+from data_structures import School
+from teachers import TEACHERS
+from groups import GROUP
+from classrooms import CLASSES, CLASSES_REQ
 
 
 class Schedule:
@@ -347,11 +350,10 @@ class Population:
 if __name__ == "__main__":
     p = Population()
     p.new_population(number_of_instances=10)
-    print(p.population)
     print(p.get_best_specimen().teacher_breaks_num, "\n")
     print(p.get_best_specimen().evaluation)
-    p.evolute(100, 10)
-    print(p.get_best_specimen().schedule.print_group_schedule('IA'))
+    p.evolute(10000, 10)
+    print(p.get_best_specimen().schedule.print_group_schedule('1a'))
     print(p.get_best_specimen().teacher_breaks_num)
     print(p.get_best_specimen().evaluation)
 
