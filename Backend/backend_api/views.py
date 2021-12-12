@@ -85,14 +85,14 @@ def add_teacher(request):
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
-        surname = payload['surname']
         email = payload['email']
         token = payload['token']
+        subjects = payload['list_of_subjects']
         #sub_list = payload['list_of_subjects']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            teacher = Teachers(email, name +" "+ surname, user_data['email'])
+            pref_list = json.dumps(subjects)
+            teacher = Teachers(email, name, pref_list, user_data['email'])
             teacher.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano nauczyciela'})
             return HttpResponse(response, content_type='text/json')
@@ -108,15 +108,13 @@ def add_classroom(request):
         payload = json.loads(request.body)
         name = payload['name']
         token = payload['token']
-        class_list = payload['list_of_subjects']
+        subjects = payload['list_of_subjects']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            for i in class_list:
-                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = i['name'])
-                lesson.classroom = name
-                lesson.save()
-            response=json.dumps({'message': class_list})
+            pref_list = json.dumps(subjects)
+            classroom = Classrooms(name, pref_list, user_data['email'])
+            classroom.save(force_insert = True)
+            response=json.dumps({'message': subjects})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
