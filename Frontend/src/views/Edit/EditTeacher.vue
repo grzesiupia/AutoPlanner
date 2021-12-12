@@ -10,8 +10,7 @@
     </p></b>
     <a>
     <form class=topform onsubmit="editTeacher">
-      <p><input id="Name" v-model="name" type="text" placeholder="Imię" required></p>
-      <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko" required></p>
+      <p><input id="Name" v-model="name" type="text" placeholder="Imię i Nazwisko" required></p>
       <p><input id="Email" v-model="email" type="email" placeholder="Email" required></p>
       <label style="float:left;">Prowadzone przedmioty</label>
       
@@ -78,7 +77,6 @@ export default {
     return {
         subjectNumber: this.teacher.list_of_subjects.length,
         name: this.teacher.name,
-        surname: this.teacher.surname,
         email: this.teacher.email,
         list_of_subjects: this.teacher.list_of_subjects
     };
@@ -112,7 +110,6 @@ export default {
           token: this.token,
           email: this.teacher.email,
           new_name: this.name,
-          new_surname: this.surname,
           new_email: this.email,
           new_list_of_subjects:this.list_of_subjects
         }

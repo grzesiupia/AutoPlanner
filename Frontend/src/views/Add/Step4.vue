@@ -26,8 +26,8 @@
           <input type="checkbox" v-on:change="changePref(index)">
           <select name="teachers" id="teachers" style="width:80%;" v-model="list_of_lessons[index-1].teacher" :disabled="disabled[index-1] == 1">
             <option disabled selected value> -- wybierz prowadzącego -- </option>
-            <option v-for="teacher in teachers" v-bind:key="teacher.surname" >
-            {{ teacher.surname }}
+            <option v-for="teacher in teachers" v-bind:key="teacher.name" >
+            {{ teacher.name }}
             </option>
           </select>
           </span>

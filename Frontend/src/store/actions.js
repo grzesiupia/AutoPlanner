@@ -197,12 +197,11 @@ export const fetchTeachers = ({
 export const sendTeacher = ({
     commit
 }, object) => {
-    console.log(object.token, object.name, object.surname, object.email, object.list_of_subjects)
+    console.log(object.token, object.name, object.email, object.list_of_subjects)
     axios
         .post("api/add/teacher", {
             token: object.token,
             name: object.name,
-            surname: object.surname,
             email: object.email,
             list_of_subjects: object.list_of_subjects
         })
@@ -344,13 +343,12 @@ export const editSubject = ({
 export const editTeacher = ({
     commit
 }, object) => {
-    console.log(object.token, object.email, object.new_name, object.new_surname, object.new_email, object.new_list_of_subjects)
+    console.log(object.token, object.email, object.new_name, object.new_email, object.new_list_of_subjects)
     axios
         .post("api/edit/teacher", {
             token: object.token,
             email: object.email, 
             new_name: object.new_name,
-            new_surname: object.new_surname,
             new_email: object.new_email,
             new_list_of_subjects: object.new_list_of_subjects
         })

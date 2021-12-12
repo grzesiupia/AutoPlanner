@@ -5,13 +5,12 @@
     <h1 class=row2><b><p class=mbuttons>
     <br>
         <my-component v-for="teacher in teachers" :key="teacher.surname">
-          <input class="buttonm btn btn-success mr-3" v-model="teacher.surname" @click="editTeacher(teacher)">
+          <input class="buttonm btn btn-success mr-3" v-model="teacher.name" @click="editTeacher(teacher)">
         </my-component>
     </p></b>
     <a>
     <form class=topform onsubmit="addTeacher">
-      <p><input id="Name" v-model="name" type="text" placeholder="Imię" required></p>
-      <p><input id="Surname" v-model="surname" type="text" placeholder="Nazwisko" required></p>
+      <p><input id="Name" v-model="name" type="text" placeholder="Imię i Nazwisko" required></p>
       <p><input id="Email" v-model="email" type="email" placeholder="Email" required></p>
       <label style="float:left;">Prowadzone przedmioty</label>
       
@@ -73,7 +72,6 @@ export default {
     return {
         subjectNumber: 1,
         name: "",
-        surname: "",
         email: "",
         list_of_subjects: [{"name":''}]
     };
@@ -109,7 +107,6 @@ export default {
         {
           token: this.token,
           name: this.name,
-          surname: this.surname,
           email: this.email,
           list_of_subjects:this.list_of_subjects
         }
