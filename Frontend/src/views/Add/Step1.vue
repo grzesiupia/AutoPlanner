@@ -9,9 +9,9 @@
         </my-component>
     </p></b>
     <a>
-    <form class=topform onsubmit="addSubject">
+    <form class=topform @submit="addSubject">
       <p><input id="Subject" v-model="subjectName" type="text" placeholder="Nazwa przedmiotu" required></p>
-      <input class="buttonm btn btn-success mr-3" type="submit" @click="addSubject" value="Dodaj">
+      <input class="buttonm btn btn-success mr-3" type="submit" value="Dodaj">
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">

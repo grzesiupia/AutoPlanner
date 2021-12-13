@@ -9,7 +9,7 @@
         </my-component>
     </p></b>
     <a>
-    <form class=topform onsubmit="addClassroom">
+    <form class=topform @submit="addClassroom">
       <p><input id="Classroom" v-model="classroom_name" type="text" placeholder="Nazwa sali" required></p>
       <p style="margin-left:10px;"><input type="checkbox" v-model="preferedSubject" v-on:change="changePrefered"><label style="float:left;font-size:20px;">Preferowane przedmioty</label></p>
       <div v-if="preferedSubject">
@@ -23,10 +23,10 @@
     </div>
     </div>
       <div v-if="preferedSubject">
-      <input class="buttond" type="submit" value="+" >
-      <input class="buttond" type="submit" value="-" @click="delSubject" style="margin: 0px 8px">
+      <input class="buttond" type="button" value="+" >
+      <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px">
       </div>
-      <input class="buttonm btn btn-success mr-3" @click="addClassroom" type="submit" value="Dodaj" >
+      <input class="buttonm btn btn-success mr-3" type="submit" value="Dodaj" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">

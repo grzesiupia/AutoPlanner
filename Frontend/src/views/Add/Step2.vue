@@ -9,7 +9,7 @@
         </my-component>
     </p></b>
     <a>
-    <form class=topform onsubmit="addTeacher">
+    <form class=topform @submit="addTeacher">
       <p><input id="Name" v-model="name" type="text" placeholder="Imię i Nazwisko" required></p>
       <p><input id="Email" v-model="email" type="email" placeholder="Email" required></p>
       <label style="float:left;">Prowadzone przedmioty</label>
@@ -25,9 +25,9 @@
     
     </p>
     </div>
-      <input class="buttond" type="submit" @click="addSubject" value="+" >
-      <input class="buttond" type="submit" value="-" @click="delSubject" style="margin: 0px 8px">
-      <input class="buttonf btn btn-success mr-3" type="submit" value="Dodaj" @click="addTeacher">
+      <input class="buttond"  type="button" @click="addSubject" value="+" >
+      <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px">
+      <input class="buttonf btn btn-success mr-3" type="submit" value="Dodaj">
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">
