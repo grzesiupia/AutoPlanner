@@ -132,13 +132,10 @@ def add_class(request):
         try:
             user_data = jwt.decode(token, None, None)
             for i in lessons_list:
-                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = i['name'])
-                lesson.numbers_of_lesson = i['number']
-                teacher = Teachers.objects.get(teacher_name = i['teacher'])
-                lesson.teacher_email = teacher
-                lesson.class_name = name
+                teacher = Teachers.objects.get(planneremail = user_data['email'], teachername = i['teacher'])
+                lesson = Lessons(planneremail = user_data['email'], classname = name, lessonname = i['name'], teacheremail = teacher.teacheremail, lessoncount = i['number'])
                 lesson.save()
-            response=json.dumps({'message': lessons_list})
+            response=json.dumps({'message': 'pomyślnie dodano jednostki lekcyjne'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
