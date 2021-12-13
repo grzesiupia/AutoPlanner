@@ -150,17 +150,16 @@ def get_subjects(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Planners.objects.filter(planneremail = user_data['email'])
             subjects_list = []
             for i in array:
-                if i not in subjects_list:
-                    subjects_list.append({'subject_name': i.lesson_name})
+                subjects_list.append({'subject_name': i.subjectname})
             print(subjects_list)
             response=json.dumps(subjects_list)
             #response.setHeader("Access-Control-Allow-Origin", "*")
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
+            print(str(exc))
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
