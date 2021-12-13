@@ -16,7 +16,7 @@
       
       <div v-for="index in subjectNumber" :key="index">
       <p>
-      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].subject_name">
+      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
         <option v-for="subject in subjects" v-bind:key="subject.subject_name" >
         {{ subject.subject_name }}
@@ -25,7 +25,7 @@
     
     </p>
     </div>
-      <input class="buttond"  type="button" @click="addSubject" value="+" >
+      <input class="buttond" type="button" @click="addSubject" value="+" >
       <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px">
       <input class="buttonf btn btn-success mr-3" type="submit" value="Dodaj">
     </form>
