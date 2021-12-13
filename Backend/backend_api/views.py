@@ -6,7 +6,11 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301, R0914, C0413
 
 import json
+<<<<<<< HEAD
 import sys
+=======
+from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
+>>>>>>> oby zadzialalo teraz
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -313,11 +317,14 @@ def generate_plan(request):
                     # print(lessons)
                     for j in lessons:
 <<<<<<< HEAD
+<<<<<<< HEAD
                         teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
                         timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
                     classes[i['classname']] = timetable_data
 =======
 <<<<<<< Updated upstream
+=======
+>>>>>>> oby zadzialalo teraz
                         teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
                         timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
                     classes[i['classname']] = timetable_data
@@ -347,16 +354,17 @@ def generate_plan(request):
             return ResponseThen(response, do_after, content_type='text/json') 
 =======
             print(teachers)
-=======
-                        timetable_data[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
-                    classes[i['class_name']] = timetable_data
-            print(classes)
             def do_after():
-                print("xd")
->>>>>>> Stashed changes
+                timetable_data = main(classes, teachers, classrooms)
+                timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
+                timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
+<<<<<<< HEAD
             return ResponseThen(response, do_after, status=status.HTTP_200_OK) 
 >>>>>>> Gen plan endpoint change
+=======
+            return ResponseThen(response, do_after, conent_type = 'text/json') 
+>>>>>>> oby zadzialalo teraz
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
