@@ -207,13 +207,11 @@ def get_classes(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Lessons.objects.filter(planneremail = user_data['email'])
             class_list = []
             for i in array:
-                if i not in class_list:
-                    class_list.append({'class': i.class_name})
-            print(class_list)
+                if {'class': i.classname} not in class_list:
+                    class_list.append({'class': i.classname})
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
