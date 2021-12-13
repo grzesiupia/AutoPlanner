@@ -18,7 +18,7 @@ from Algorithm_Prototype.algorithm import main
 
 # Create your views here.
 
-class ResponseThen(Response):
+class ResponseThen(HttpResponse):
     def __init__(self, data, then_callback, **kwargs):
         super().__init__(data, **kwargs)
         self.then_callback = then_callback
