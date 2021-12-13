@@ -192,8 +192,8 @@ def get_classrooms(request):
             array = Classrooms.objects.filter(planneremail = user_data['email'])
             classroom_list = []
             for i in array:
-                if i not in classroom_list:
-                    classroom_list.append({'classroom': i.classroomid})
+                subjectslist = json.loads(i.preferredsubject)
+                classroom_list.append({'classroom': i.classroomid, 'list_of_subjects': subjectslist})
             response=json.dumps(classroom_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
