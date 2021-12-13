@@ -170,12 +170,10 @@ def get_teachers(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Teachers.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Teachers.objects.filter(planneremail = user_data['email'])
             teacher_list = []
             for i in array:
-                teacher_list.append({'surname': i.teacher_name})
-            print(teacher_list)
+                teacher_list.append({'name': i.teachername})
             response=json.dumps(teacher_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -190,13 +188,11 @@ def get_classrooms(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Classrooms.objects.filter(planneremail = user_data['email'])
             classroom_list = []
             for i in array:
                 if i not in classroom_list:
-                    classroom_list.append({'classroom': i.classroom})
-            print(classroom_list)
+                    classroom_list.append({'classroom': i.classroomid})
             response=json.dumps(classroom_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -211,13 +207,11 @@ def get_classes(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Lessons.objects.filter(planneremail = user_data['email'])
             class_list = []
             for i in array:
-                if i not in class_list:
-                    class_list.append({'class': i.class_name})
-            print(class_list)
+                if {'class': i.classname} not in class_list:
+                    class_list.append({'class': i.classname})
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
