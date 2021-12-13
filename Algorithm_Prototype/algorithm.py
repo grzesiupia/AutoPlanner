@@ -1,9 +1,11 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621
 import copy
 import random
+import json
+import time
 import numpy as np
 from joblib import Parallel, delayed
 
@@ -105,7 +107,6 @@ class Schedule:
             print("\n")
 
     def convert_schedule_to_json(self):
-        import json
         return json.dumps(self.time_table)
 
     def is_teacher_busy(self, teacher: str, day: int, hour: int) -> bool:
@@ -447,22 +448,20 @@ class Population:
 
 
 def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
-    import time
-
     population_size = 10
     num_of_generations = 1000
     num_of_mutations = 20
 
-    p = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    p.new_population(number_of_instances=population_size)
-    print(p.get_best_specimen().evaluation)
+    population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    population.new_population(number_of_instances=population_size)
+    print(population.get_best_specimen().evaluation)
     start = time.time()
-    p.evolute(num_of_generations, num_of_mutations)
+    population.evolute(num_of_generations, num_of_mutations)
     end = time.time()
     print(f"Nonparallel: {end - start} sec")
-    print(p.get_best_specimen().evaluation)
+    print(population.get_best_specimen().evaluation)
 
-    json = p.get_best_specimen().schedule.convert_schedule_to_json()
+    json = population.get_best_specimen().schedule.convert_schedule_to_json()
     return json
 
     # p2 = Population()
