@@ -159,7 +159,6 @@ def get_subjects(request):
             #response.setHeader("Access-Control-Allow-Origin", "*")
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
-            print(str(exc))
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
 
