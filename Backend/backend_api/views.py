@@ -150,7 +150,7 @@ def get_subjects(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Planners.objects.filter(planneremail = user_data['email'])
+            array = Subjects.objects.filter(planneremail = user_data['email'])
             subjects_list = []
             for i in array:
                 subjects_list.append({'subject_name': i.subjectname})
