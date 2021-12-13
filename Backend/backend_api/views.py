@@ -13,9 +13,19 @@ from django.core.mail import send_mail
 #from rest_framework_jwt.settings import api_settings
 import jwt
 from django.conf import settings
+from Algorithm_Prototype.algorithm import main
 
 
 # Create your views here.
+
+class ResponseThen(Response):
+    def __init__(self, data, then_callback, **kwargs):
+        super().__init__(data, **kwargs)
+        self.then_callback = then_callback
+
+    def close(self):
+        super().close()
+        self.then_callback()
 
 @csrf_exempt
 def add_user(request):
@@ -270,25 +280,46 @@ def add_poll_data(request, poll_number):
 @csrf_exempt
 def generate_plan(request):
     '''A function that sends all the necessary data to the generator '''
-    if request.method == 'POST':
-        payload = json.loads(request.body)
-        token = payload['token']
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
         try:
-            user_data = jwt.decode(token, None, None)
-            lessons_list = Lessons.objects.filter(email = user_data['email']).order_by().values('class_name').distinct()
+            user_data = jwt.decode(payload, None, None)
+            lessons_list = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
             print(lessons_list)
             classes = {}
             for i in lessons_list:
-                if i['class_name'] is not None:
+                if i['classname'] is not None:
                     timetable_data = {}
-                    lessons = Lessons.objects.filter(email = user_data['email'], class_name = i['class_name'])
+                    lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
                     # print(lessons)
                     for j in lessons:
+<<<<<<< Updated upstream
+                        teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
+                        timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
+                    classes[i['classname']] = timetable_data
+            #print(classes)
+            classrooms = {}
+            classrooms_list = Classrooms.objects.filter(planneremail = user_data['email'])
+            for i in classrooms_list:
+                pref_subject = json.loads(i.preferredsubject)
+                classrooms[i.classroomid] = [n['name'] for n in pref_subject]
+            #print(classrooms)
+            teachers = {}
+            teachers_list = Teachers.objects.filter(planneremail = user_data['email'])
+            for i in teachers_list:
+                pref_subject = json.loads(i.teachsubject)
+                pref_sub_list = [n['name'] for n in pref_subject]
+                teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {}}
+            print(teachers)
+=======
                         timetable_data[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
                     classes[i['class_name']] = timetable_data
             print(classes)
+            def do_after():
+                print("xd")
+>>>>>>> Stashed changes
             response = json.dumps({'message': 'OK'})
-            return HttpResponse(response, content_type='text/json')
+            return ResponseThen(response, do_after, status=status.HTTP_200_OK) 
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
