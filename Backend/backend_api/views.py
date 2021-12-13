@@ -170,12 +170,10 @@ def get_teachers(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Teachers.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Teachers.objects.filter(planneremail = user_data['email'])
             teacher_list = []
             for i in array:
-                teacher_list.append({'surname': i.teacher_name})
-            print(teacher_list)
+                teacher_list.append({'name': i.teachername})
             response=json.dumps(teacher_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
