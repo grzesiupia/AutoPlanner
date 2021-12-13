@@ -14,9 +14,9 @@ class Classroom:
         Class Classroom is representation of data about classrooms in school
     """
 
-    def __init__(self, class_number, preferred_subject):
+    def __init__(self, class_number, preferred_subjects):
         self.class_number = class_number
-        self.preferred_subject = preferred_subject
+        self.preferred_subject = preferred_subjects
 
 
 class Teacher:
@@ -196,8 +196,8 @@ class School:
     @staticmethod
     def __process_classrooms(classes_data):
         temp = []
-        for class_number, preferred_subject in classes_data.items():
-            temp.append(Classroom(class_number=class_number, preferred_subject=preferred_subject))
+        for class_number, preferred_subjects in classes_data.items():
+            temp.append(Classroom(class_number=class_number, preferred_subjects=preferred_subjects))
         return temp
 
     def __process_classrooms_to_set(self):

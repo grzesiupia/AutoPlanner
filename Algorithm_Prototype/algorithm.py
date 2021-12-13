@@ -1,9 +1,11 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621
 import copy
 import random
+import json
+import time
 import numpy as np
 from joblib import Parallel, delayed
 
@@ -104,6 +106,9 @@ class Schedule:
                     print('-----')
             print("\n")
 
+    def convert_schedule_to_json(self):
+        return json.dumps(self.time_table)
+
     def is_teacher_busy(self, teacher: str, day: int, hour: int) -> bool:
         """
         Check if teacher is busy in particular hour of the day
@@ -148,7 +153,8 @@ class Schedule:
             return None
         # Iterate throgh free classrooms in particular hour in the day
         for classroom in self.free_classrooms_table[day][hour]:
-            if required_type_of_classroom == classrooms_with_type[classroom.class_number]:
+
+            if required_type_of_classroom in classrooms_with_type[classroom.class_number]:
                 # If required type of classroom is same as type of classroom in iteration
                 # number of this classroom is returned
                 self.free_classrooms_table[day][hour].remove(classroom)
@@ -389,14 +395,17 @@ class Population:
         Class population is responsible for handling genetic algorithm
     """
 
-    def __init__(self):
+    def __init__(self, groups_data, teachers_data, classrooms_data):
         self.population = []
+        self.groups_data = groups_data
+        self.teachers_data = teachers_data
+        self.classrooms_data = classrooms_data
 
     def new_population(self, number_of_instances=100):
         for _ in range(number_of_instances):
-            temp = Algorithm(School(groups_data=GROUP,
-                                    teachers_data=TEACHERS,
-                                    classrooms_data=CLASSES,
+            temp = Algorithm(School(groups_data=self.groups_data,
+                                    teachers_data=self.teachers_data,
+                                    classrooms_data=self.classrooms_data,
                                     classroom_req=CLASSES_REQ))
             self.population.append([temp, temp.evaluation])
         self.population.sort(key=lambda a: a[1], reverse=True)
@@ -438,33 +447,37 @@ class Population:
             self.parallel_reproduce(number_of_mutation)
 
 
-if __name__ == "__main__":
-    import time
+def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
+    population_size = 10
+    num_of_generations = 1000
+    num_of_mutations = 20
 
-    POPULATION_SIZE = 10
-    NUM_OF_GENERATIONS = 1000
-    NUM_OF_MUTATIONS = 20
-
-    p = Population()
-    p.new_population(number_of_instances=POPULATION_SIZE)
-    print(p.get_best_specimen().evaluation)
+    population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    population.new_population(number_of_instances=population_size)
+    print(population.get_best_specimen().evaluation)
     start = time.time()
-    p.evolute(NUM_OF_GENERATIONS, NUM_OF_MUTATIONS)
+    population.evolute(num_of_generations, num_of_mutations)
     end = time.time()
     print(f"Nonparallel: {end - start} sec")
-    print(p.get_best_specimen().evaluation)
-    # print(p.get_best_specimen().schedule.print_group_schedule('1a'))
+    print(population.get_best_specimen().evaluation)
 
-    p2 = Population()
-    p2.new_population(number_of_instances=POPULATION_SIZE)
-    print(p2.get_best_specimen().evaluation)
-    start = time.time()
-    p2.parallel_evolute(NUM_OF_GENERATIONS, NUM_OF_MUTATIONS)
-    end = time.time()
-    print(f"Parallel: {end - start} sec")
-    print(p2.get_best_specimen().evaluation)
-    # print(p2.get_best_specimen().schedule.print_group_schedule('1a'))
-    # print(p2.get_best_specimen().schedule.print_group_schedule('2a'))
+    json = population.get_best_specimen().schedule.convert_schedule_to_json()
+    return json
+
+    # p2 = Population()
+    # p2.new_population(number_of_instances=population_size)
+    # print(p2.get_best_specimen().evaluation)
+    # start = time.time()
+    # p2.parallel_evolute(num_of_generations, num_of_mutations)
+    # end = time.time()
+    # print(f"Parallel: {end - start} sec")
+    # print(p2.get_best_specimen().evaluation)
+    # # print(p2.get_best_specimen().schedule.print_group_schedule('1a'))
+    # # print(p2.get_best_specimen().schedule.print_group_schedule('2a'))
+
+
+if __name__ == "__main__":
+    main()
 
 # TODO 1.zrozumienie co tu sie dzieje z parallel
 # TODO 2.Rozwiniecie oceny o klasy, i poprawienie punktow
