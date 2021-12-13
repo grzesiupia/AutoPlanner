@@ -1,10 +1,11 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721
 import copy
 import random
 import numpy as np
+from joblib import Parallel, delayed
 
 from data_structures import School
 from teachers import TEACHERS
@@ -417,8 +418,6 @@ class Population:
         self.population.sort(key=lambda a: a[1], reverse=True)
 
     def parallel_reproduce(self, mutation=10):
-        from joblib import Parallel, delayed
-
         def generate_new_specimens(specimen: [Algorithm, int]):
             Algorithm.shuffle_list_of_subjects(specimen[0].school.list_of_all_subjects, mutation)
             temp = Algorithm(specimen[0].school)
@@ -442,25 +441,25 @@ class Population:
 if __name__ == "__main__":
     import time
 
-    population_size = 10
-    generation_num = 1000
-    mutation_num = 20
+    POPULATION_SIZE = 10
+    NUM_OF_GENERATIONS = 1000
+    NUM_OF_MUTATIONS = 20
 
     p = Population()
-    p.new_population(number_of_instances=population_size)
+    p.new_population(number_of_instances=POPULATION_SIZE)
     print(p.get_best_specimen().evaluation)
     start = time.time()
-    p.evolute(generation_num, mutation_num)
+    p.evolute(NUM_OF_GENERATIONS, NUM_OF_MUTATIONS)
     end = time.time()
     print(f"Nonparallel: {end - start} sec")
     print(p.get_best_specimen().evaluation)
     print(p.get_best_specimen().schedule.print_group_schedule('1a'))
 
     p2 = Population()
-    p2.new_population(number_of_instances=population_size)
+    p2.new_population(number_of_instances=POPULATION_SIZE)
     print(p2.get_best_specimen().evaluation)
     start = time.time()
-    p2.parallel_evolute(generation_num, mutation_num)
+    p2.parallel_evolute(NUM_OF_GENERATIONS, NUM_OF_MUTATIONS)
     end = time.time()
     print(f"Parallel: {end - start} sec")
     print(p2.get_best_specimen().evaluation)
