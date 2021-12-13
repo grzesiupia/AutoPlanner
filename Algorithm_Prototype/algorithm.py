@@ -453,7 +453,7 @@ if __name__ == "__main__":
     end = time.time()
     print(f"Nonparallel: {end - start} sec")
     print(p.get_best_specimen().evaluation)
-    print(p.get_best_specimen().schedule.print_group_schedule('1a'))
+    # print(p.get_best_specimen().schedule.print_group_schedule('1a'))
 
     p2 = Population()
     p2.new_population(number_of_instances=POPULATION_SIZE)
@@ -463,8 +463,8 @@ if __name__ == "__main__":
     end = time.time()
     print(f"Parallel: {end - start} sec")
     print(p2.get_best_specimen().evaluation)
-    print(p2.get_best_specimen().schedule.print_group_schedule('1a'))
-    print(p2.get_best_specimen().schedule.print_group_schedule('2a'))
+    # print(p2.get_best_specimen().schedule.print_group_schedule('1a'))
+    # print(p2.get_best_specimen().schedule.print_group_schedule('2a'))
 
 # TODO 1.zrozumienie co tu sie dzieje z parallel
 # TODO 2.Rozwiniecie oceny o klasy, i poprawienie punktow
