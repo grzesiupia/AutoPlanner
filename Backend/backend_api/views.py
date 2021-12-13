@@ -188,13 +188,11 @@ def get_classrooms(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Classrooms.objects.filter(planneremail = user_data['email'])
             classroom_list = []
             for i in array:
                 if i not in classroom_list:
-                    classroom_list.append({'classroom': i.classroom})
-            print(classroom_list)
+                    classroom_list.append({'classroom': i.classroomid})
             response=json.dumps(classroom_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
