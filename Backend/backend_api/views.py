@@ -92,7 +92,7 @@ def add_teacher(request):
         try:
             user_data = jwt.decode(token, None, None)
             pref_list = json.dumps(subjects)
-            teacher = Teachers(email, name, pref_list, user_data['email'])
+            teacher = Teachers(teacheremail = email, teachername = name, teachsubject = pref_list, planneremail = user_data['email'])
             teacher.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano nauczyciela'})
             return HttpResponse(response, content_type='text/json')
