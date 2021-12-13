@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'django_backend.wsgi.application'
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'TEST002',
-         'USER': 'uni',
-         'PASSWORD': '123',
-         'HOST': '185.66.213.128',
+         'NAME': 'schedule_gen',
+         'USER': 'admin',
+         'PASSWORD': '12345678',
+         'HOST': 'schoolschedulegenerator.cyqrq4hopj2q.eu-central-1.rds.amazonaws.com',
          'PORT': '3306',
          'OPTIONS': {
           "init_command": "SET foreign_key_checks = 0;",

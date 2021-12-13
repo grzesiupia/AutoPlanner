@@ -6,7 +6,7 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301
 #from django.shortcuts import render
 import json
-from backend_api.models import Planners, Lessons, Teachers, Polls
+from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -26,7 +26,7 @@ def add_user(request):
         username = payload['username']
         dbemail = payload['email']
         dbpassword = payload['password']
-        user = Planners(login = username, password = dbpassword, email = dbemail)
+        user = Planners(login = username, password = dbpassword, planneremail = dbemail)
         try:
             user.save(force_insert = True)
             response = json.dumps({'Sukces': 'Pomyslnie dodano uzytkownika'})
@@ -43,18 +43,18 @@ def get_user(request):
         get_email = payload['email']
         get_password = payload['password']
         try:
-            user = Planners.objects.get(email=get_email, password=get_password)
+            user = Planners.objects.get(planneremail=get_email, password=get_password)
 
 
             access_token_payload = {
-            'email': user.email,
+            'email': user.planneremail,
             'login': user.login,
             'password': user.password
             }
 
             token = jwt.encode(access_token_payload, settings.SECRET_KEY, algorithm='HS256').decode('utf-8')
 
-            response = json.dumps({'userId': user.email, 'accessToken': format(token)})
+            response = json.dumps({'userId': user.planneremail, 'accessToken': format(token)})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
@@ -69,13 +69,9 @@ def add_subject(request):
         name = payload['subject_name']
         token = payload['token']
         try:
-            rows = Lessons.objects.all().count()
-            #print(rows)
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            planner = Planners.objects.get(email = user_data['email'])
-            lesson = Lessons(lesson_id = rows+1, lesson_name = name, teacher_email = None, email = planner, classroom = None, lesson_pref = None, numbers_of_lesson = None)
-            lesson.save(force_insert = True)
+            subject = Subjects(subjectname = name, planneremail = user_data["email"])
+            subject.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano lekcje'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -89,14 +85,14 @@ def add_teacher(request):
     if request.method == 'POST':
         payload = json.loads(request.body)
         name = payload['name']
-        surname = payload['surname']
         email = payload['email']
         token = payload['token']
+        subjects = payload['list_of_subjects']
         #sub_list = payload['list_of_subjects']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            teacher = Teachers(email, name +" "+ surname, user_data['email'])
+            pref_list = json.dumps(subjects)
+            teacher = Teachers(email, name, pref_list, user_data['email'])
             teacher.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano nauczyciela'})
             return HttpResponse(response, content_type='text/json')
@@ -112,15 +108,13 @@ def add_classroom(request):
         payload = json.loads(request.body)
         name = payload['name']
         token = payload['token']
-        class_list = payload['list_of_subjects']
+        subjects = payload['list_of_subjects']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            for i in class_list:
-                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = i['name'])
-                lesson.classroom = name
-                lesson.save()
-            response=json.dumps({'message': class_list})
+            pref_list = json.dumps(subjects)
+            classroom = Classrooms(name, pref_list, user_data['email'])
+            classroom.save(force_insert = True)
+            response=json.dumps({'message': subjects})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
@@ -138,13 +132,11 @@ def add_class(request):
         try:
             user_data = jwt.decode(token, None, None)
             for i in lessons_list:
-                lesson = Lessons.objects.get(email = user_data['email'], lesson_name = i['name'])
-                lesson.numbers_of_lesson = i['number']
-                teacher = Teachers.objects.get(teacher_name = i['teacher'])
-                lesson.teacher_email = teacher
-                lesson.class_name = name
-                lesson.save()
-            response=json.dumps({'message': lessons_list})
+                print (i['name'])
+                teacher = Teachers.objects.get(planneremail = user_data['email'], teachername = i['teacher'])
+                lesson = Lessons(planneremail = user_data['email'], classname = name, lessonname = i['name'], teacheremail = teacher.teacheremail, lessoncount = i['number'])
+                lesson.save(force_insert = True)
+            response=json.dumps({'message': 'pomyślnie dodano jednostki lekcyjne'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
@@ -158,12 +150,10 @@ def get_subjects(request):
         print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(email = user_data['email'])
-            print(user_data['email'])
+            array = Planners.objects.filter(planneremail = user_data['email'])
             subjects_list = []
             for i in array:
-                if i not in subjects_list:
-                    subjects_list.append({'subject_name': i.lesson_name})
+                subjects_list.append({'subject_name': i.subjectname})
             print(subjects_list)
             response=json.dumps(subjects_list)
             #response.setHeader("Access-Control-Allow-Origin", "*")
