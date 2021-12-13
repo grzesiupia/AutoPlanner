@@ -26,7 +26,6 @@ class Lessons(models.Model):
     classname = models.CharField(db_column='className', max_length=255)  # Field name made lowercase.
     lessonname = models.CharField(db_column='lessonName', max_length=255)  # Field name made lowercase.
     teacheremail = models.CharField(db_column='teacherEmail', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    classroomname = models.CharField(db_column='classroomName', max_length=255, blank=True, null=True)  # Field name made lowercase.
     lessoncount = models.IntegerField(db_column='lessonCount')  # Field name made lowercase.
 
     class Meta:
