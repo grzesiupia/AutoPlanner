@@ -28,6 +28,7 @@ from Algorithm.algorithm import main
 # Create your views here.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class ResponseThen(HttpResponse):
     """
     Used to response and still do sth
@@ -35,6 +36,9 @@ class ResponseThen(HttpResponse):
 =======
 class ResponseThen(Response):
 >>>>>>> Gen plan endpoint change
+=======
+class ResponseThen(HttpResponse):
+>>>>>>> fix
     def __init__(self, data, then_callback, **kwargs):
         super().__init__(data, **kwargs)
         self.then_callback = then_callback
