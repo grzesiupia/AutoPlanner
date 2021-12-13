@@ -17,7 +17,7 @@
         <header class="masthead text-center text-white">
             <div class="masthead-content">
                 <div class="container px-5">
-                    <h1 class="masthead-heading mb-0">Auto Planner</h1>
+                    <h1 class="masthead-heading mb-0">AutoPlanner</h1>
                     <h2 class="masthead-subheading mb-0">Automatyczne układanie planów zajęć</h2>
                     <router-link to="/register">
                       <button class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Dołącz</button>

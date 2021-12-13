@@ -1,9 +1,11 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-light bg-light pl-5 pr-5 fixed-top">
   <router-link to="/">
-      <img src="../assets/logo.png" style="width:50px;height:50px;" />
+      <img src="../assets/logo.png" style="width:40px;height:40px;" />
     </router-link>
-    <p class="customfont">Autoplanner</p>
+    <router-link to="/" style="text-decoration: none; color: inherit;">
+    <p class="customfont">AutoPlanner</p>
+    </router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -59,7 +61,7 @@ export default {
 p.customfont { 
     font-family: 'Righteous', cursive;
     display: block;
-    font-size:30px;
+    font-size:25px;
     text-align: center;
 }
 #nav {

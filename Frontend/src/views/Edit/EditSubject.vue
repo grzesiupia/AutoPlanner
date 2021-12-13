@@ -11,7 +11,7 @@
     <a>
     <form class=topform onsubmit="editSubject">
       <p><input id="Subject" v-model="subjectName" type="text" placeholder="Nazwa przedmiotu" required></p>
-      <input class="buttonm btn btn-success mr-3" type="submit" value="Zapisz zmiany" >
+      <input class="buttonm btn btn-success mr-3" type="submit" @click="editSubject" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteSubject" value="Usuń przedmiot">

@@ -4,8 +4,8 @@
     <hr style="border: 1px solid green;">
     <h1 class=row2><b><p class=mbuttons>
     <br>
-        <my-component v-for="teacher in teachers" :key="teacher.surname">
-          <input class="buttonm btn btn-success mr-3" v-model="teacher.surname" @click="editTea(teacher)">
+        <my-component v-for="teacher in teachers" :key="teacher.name">
+          <input class="buttonm btn btn-success mr-3" v-model="teacher.name" @click="editTea(teacher)">
         </my-component>
     </p></b>
     <a>
@@ -23,7 +23,7 @@
     </select>
     </div>
       <input class="buttond" type="submit" @click="addSubject" value="+" >
-      <input class="buttonf btn btn-success mr-3" type="submit" value="Zapisz zmiany" >
+      <input class="buttonf btn btn-success mr-3" type="submit" @click="editTeacher" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="deleteTeacher" value="Usuń nauczyciela">
