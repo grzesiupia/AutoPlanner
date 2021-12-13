@@ -80,7 +80,7 @@ export default {
     return {
         preferedSubject:this.classroom.list_of_subjects.length, //bool
         subjectNumber: this.classroom.list_of_subjects.length,
-        classroom_name: this.classroom.name,
+        classroom_name: this.classroom.classroom,
         list_of_subjects: this.classroom.list_of_subjects
     };
   },
