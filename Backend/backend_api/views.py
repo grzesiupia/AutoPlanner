@@ -6,7 +6,7 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301
 #from django.shortcuts import render
 import json
-from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms
+from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -293,7 +293,6 @@ def generate_plan(request):
                     lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
                     # print(lessons)
                     for j in lessons:
-<<<<<<< Updated upstream
                         teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
                         timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
                     classes[i['classname']] = timetable_data
@@ -311,15 +310,12 @@ def generate_plan(request):
                 pref_sub_list = [n['name'] for n in pref_subject]
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {}}
             print(teachers)
-=======
-                        timetable_data[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
-                    classes[i['class_name']] = timetable_data
-            print(classes)
             def do_after():
-                print("xd")
->>>>>>> Stashed changes
+                timetable_data = main(classes, teachers, classrooms)
+                timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
+                timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
-            return ResponseThen(response, do_after, status=status.HTTP_200_OK) 
+            return ResponseThen(response, do_after, conent_type = 'text/json') 
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
