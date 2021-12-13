@@ -173,7 +173,8 @@ def get_teachers(request):
             array = Teachers.objects.filter(planneremail = user_data['email'])
             teacher_list = []
             for i in array:
-                teacher_list.append({'name': i.teachername})
+                subjectslist = json.loads(i.teachsubject)
+                teacher_list.append({'name': i.teachername, 'email': i.teacheremail, 'list_of_subjects': subjectslist})
             response=json.dumps(teacher_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -301,10 +302,7 @@ def del_subject(request):
         name = payload['subject_name']
         token = payload['token']
         try:
-            #rows = Lessons.objects.all().count()
-            #print(rows)
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
             planner = Planners.objects.get(email = user_data['email'])
             lesson = Lessons.objects.get(email = planner, lesson_name = name)
             lesson.delete()
