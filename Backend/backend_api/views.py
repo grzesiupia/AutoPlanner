@@ -338,9 +338,8 @@ def del_subject(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            planner = Planners.objects.get(email = user_data['email'])
-            lesson = Lessons.objects.get(email = planner, lesson_name = name)
-            lesson.delete()
+            subject = Subjects.objects.get(planneremail = user_data['email'], subjectname = name)
+            subject.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto lekcje'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -357,7 +356,7 @@ def del_teacher(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            teacher = Teachers.objects.get(teacher_email = email, email = user_data['email'])
+            teacher = Teachers.objects.get(teacheremail = email, planneremail = user_data['email'])
             teacher.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto nauczyciela'})
             return HttpResponse(response, content_type='text/json')
@@ -376,11 +375,9 @@ def del_classroom(request):
         try:
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
-            lessons = Lessons.objects.filter(email = user_data['email'], classroom = name)
-            for i in lessons:
-                i.classroom = None
-                i.save()
-            response=json.dumps({'message': lessons})
+            classroom = Classrooms.objects.get(planneremail = user_data['email'], classroomid = name)
+            classroom.delete()
+            response=json.dumps({'message': 'Pomyslnie usunieto sale'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
@@ -396,11 +393,9 @@ def del_class(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            lessons = Lessons.objects.filter(email = user_data['email'], class_name = name)
-            for i in lessons:
-                i.class_name = None
-                i.save()
-            response=json.dumps({'message': lessons})
+            lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = name)
+            lessons.delete()
+            response=json.dumps({'message': 'pomyslnie usunieto klase'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
