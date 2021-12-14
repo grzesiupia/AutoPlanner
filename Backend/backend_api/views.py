@@ -6,39 +6,25 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301, R0914, C0413
 
 import json
-<<<<<<< HEAD
 import sys
-=======
 from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
->>>>>>> oby zadzialalo teraz
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
-<<<<<<< HEAD
 import jwt
 sys.path.append("..")
-=======
 from Algorithm_Prototype.algorithm import main
->>>>>>> Gen plan endpoint change
 
 from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
 from Algorithm.algorithm import main
 
 # Create your views here.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 class ResponseThen(HttpResponse):
     """
     Used to response and still do sth
     """
-=======
-class ResponseThen(Response):
->>>>>>> Gen plan endpoint change
-=======
-class ResponseThen(HttpResponse):
->>>>>>> fix
     def __init__(self, data, then_callback, **kwargs):
         super().__init__(data, **kwargs)
         self.then_callback = then_callback
@@ -320,55 +306,26 @@ def generate_plan(request):
                     lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
                     # print(lessons)
                     for j in lessons:
-<<<<<<< HEAD
-<<<<<<< HEAD
                         teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
                         timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
                     classes[i['classname']] = timetable_data
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> oby zadzialalo teraz
-                        teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
-                        timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
-                    classes[i['classname']] = timetable_data
-            #print(classes)
->>>>>>> Gen plan endpoint change
             classrooms = {}
             classrooms_list = Classrooms.objects.filter(planneremail = user_data['email'])
             for i in classrooms_list:
                 pref_subject = json.loads(i.preferredsubject)
                 classrooms[i.classroomid] = [n['name'] for n in pref_subject]
-<<<<<<< HEAD
-=======
-            #print(classrooms)
->>>>>>> Gen plan endpoint change
             teachers = {}
             teachers_list = Teachers.objects.filter(planneremail = user_data['email'])
             for i in teachers_list:
                 pref_subject = json.loads(i.teachsubject)
                 pref_sub_list = [n['name'] for n in pref_subject]
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {}}
-<<<<<<< HEAD
             def do_after():
                 timetable_data = main()
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
                 timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
             return ResponseThen(response, do_after, content_type='text/json') 
-=======
-            print(teachers)
-            def do_after():
-                timetable_data = main(classes, teachers, classrooms)
-                timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
-                timetable.save(force_insert = True)
-            response = json.dumps({'message': 'OK'})
-<<<<<<< HEAD
-            return ResponseThen(response, do_after, status=status.HTTP_200_OK) 
->>>>>>> Gen plan endpoint change
-=======
-            return ResponseThen(response, do_after, conent_type = 'text/json') 
->>>>>>> oby zadzialalo teraz
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')

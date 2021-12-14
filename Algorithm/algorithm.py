@@ -1,19 +1,32 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
+<<<<<<< HEAD:Algorithm/algorithm.py
 # pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514, E0611, E0401
 
+=======
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621
+import sys
+>>>>>>> fix:Algorithm_Prototype/algorithm.py
 import copy
 import random
 import json
 import time
 import numpy as np
 from joblib import Parallel, delayed
+<<<<<<< HEAD:Algorithm/algorithm.py
 
 from Algorithm.data_structures import School
 from Algorithm.teachers import TEACHERS
 from Algorithm.groups import GROUP
 from Algorithm.classrooms import CLASSES, CLASSES_REQ
+=======
+sys.path.append("..")
+from .data_structures import School
+from .teachers import TEACHERS
+from .groups import GROUP
+from .classrooms import CLASSES, CLASSES_REQ
+>>>>>>> fix:Algorithm_Prototype/algorithm.py
 
 
 class Schedule:
@@ -457,7 +470,7 @@ class Population:
 
 def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     population_size = 10
-    num_of_generations = 1000
+    num_of_generations = 10
     num_of_mutations = 20
 
     population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
