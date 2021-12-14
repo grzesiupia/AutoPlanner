@@ -3,24 +3,25 @@ In this module, there are every endpoint functions.
 
 All of them takes some Web request and return Web response.
 """
-# pylint: disable=W0703, E1101, R1710, C0412, C0301
-#from django.shortcuts import render
+# pylint: disable=W0703, E1101, R1710, C0412, C0301, R0914
+
 import json
-import sys
-from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
-#from rest_framework_jwt.settings import api_settings
-import jwt
 from django.conf import settings
-sys.path.append("..")
-from Algorithm_Prototype.algorithm import main
+import jwt
 
+from models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
+from Algorithm_Prototype.algorithm import main
 
 # Create your views here.
 
 class ResponseThen(HttpResponse):
+    """
+    Used to response and still do sth
+    """
     def __init__(self, data, then_callback, **kwargs):
         super().__init__(data, **kwargs)
         self.then_callback = then_callback
