@@ -1,8 +1,8 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514
-import sys
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514, E0611, E0401
+
 import copy
 import random
 import json
