@@ -218,14 +218,21 @@ def get_classes(request):
     ''' A function that returns a list of classes for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
-        print(payload)
+        #print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(planneremail = user_data['email'])
+            array = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
+            print(array)
             class_list = []
             for i in array:
-                if {'class': i.classname} not in class_list:
-                    class_list.append({'class': i.classname})
+                timetable_data = []
+                lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
+                # print(lessons)
+                for j in lessons:
+                    teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
+                    timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': teacher.teachername})
+                class_list.append({'name': i['classname'], 'list_of_subjects': timetable_data})
+            print(class_list)
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -315,7 +322,7 @@ def generate_plan(request):
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
                 timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
-            return ResponseThen(response, do_after) 
+            return ResponseThen(response, do_after, content_type='text/json') 
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
