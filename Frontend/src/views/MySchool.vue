@@ -6,10 +6,10 @@
     <input class="buttonk btn btn-success mr-3" type="submit" @click="planClassroom" value="Plany dla sal">
     </p>
 <div v-if="this.selectedPlans==='class'">
-<table class="table table-striped" v-for="m in this.classes.length" :key="m" >
+<table class="table table-striped" v-for="(m,ii) in this.classes" :key="ii" >
   <thead>
     <tr>
-      <th>#</th>
+      <th>{{m.name}}</th>
       <th>Poniedziałek</th>
       <th>Wtorek</th>
       <th>Środa</th>
@@ -18,11 +18,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="n in plan2[m].length" :key="n">
+    <tr v-for="n in plan2[0].length" :key="n">
        <th scope="row">{{n}}</th>  
-       <td v-for="(pp,ii) in plan2" :key="ii">{{pp[n-1][m-1][1]}}</td>
+       <td v-for="(p,i) in plan2" :key="i"><div v-if="plan2[i][n-1] && m.name in plan2[i][n-1]">{{plan2[i][n-1][m.name][0]}}</div><div v-else></div></td>
     </tr>
-    
    </tbody>
 </table>
 </div>
