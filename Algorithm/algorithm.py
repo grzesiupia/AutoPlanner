@@ -2,10 +2,14 @@
     Module algorithm.py is responsible of creating final schedule.
 """
 <<<<<<< HEAD:Algorithm/algorithm.py
+<<<<<<< HEAD:Algorithm/algorithm.py
 # pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514, E0611, E0401
 
 =======
 # pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621
+=======
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514
+>>>>>>> pylint fix:Algorithm_Prototype/algorithm.py
 import sys
 >>>>>>> fix:Algorithm_Prototype/algorithm.py
 import copy
@@ -14,6 +18,7 @@ import json
 import time
 import numpy as np
 from joblib import Parallel, delayed
+<<<<<<< HEAD:Algorithm/algorithm.py
 <<<<<<< HEAD:Algorithm/algorithm.py
 
 from Algorithm.data_structures import School
@@ -27,6 +32,13 @@ from .teachers import TEACHERS
 from .groups import GROUP
 from .classrooms import CLASSES, CLASSES_REQ
 >>>>>>> fix:Algorithm_Prototype/algorithm.py
+=======
+
+from Algorithm_Prototype.data_structures import School
+from Algorithm_Prototype.teachers import TEACHERS
+from Algorithm_Prototype.groups import GROUP
+from Algorithm_Prototype.classrooms import CLASSES, CLASSES_REQ
+>>>>>>> pylint fix:Algorithm_Prototype/algorithm.py
 
 
 class Schedule:
