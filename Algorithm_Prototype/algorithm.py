@@ -1,7 +1,7 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514
 import sys
 import copy
 import random
@@ -9,11 +9,11 @@ import json
 import time
 import numpy as np
 from joblib import Parallel, delayed
-sys.path.append("..")
-from .data_structures import School
-from .teachers import TEACHERS
-from .groups import GROUP
-from .classrooms import CLASSES, CLASSES_REQ
+
+from Algorithm_Prototype.data_structures import School
+from Algorithm_Prototype.teachers import TEACHERS
+from Algorithm_Prototype.groups import GROUP
+from Algorithm_Prototype.classrooms import CLASSES, CLASSES_REQ
 
 
 class Schedule:
