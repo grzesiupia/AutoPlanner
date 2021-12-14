@@ -94,10 +94,10 @@ export default {
     };
   },
    mounted() {
-        this.lessonsNumber= this.class.list_of_lessons.length,
+        this.lessonsNumber= this.class.list_of_subjects.length,
         this.classname= this.class.name,
-        this.list_of_lessons= this.class.list_of_lessons,
-        this.disabled= new Array(this.class.list_of_lessons.length).fill(1)
+        this.list_of_lessons= this.class.list_of_subjects,
+        this.disabled= new Array(this.class.list_of_subjects.length).fill(1)
   },
   methods: {
     cancel() {
@@ -147,10 +147,10 @@ export default {
     editCla(clas){
       this.$store.commit("SET_CLASS",clas)
       router.push("/edit/class")
-       this.lessonsNumber= this.class.list_of_lessons.length,
+       this.lessonsNumber= this.class.list_of_subjects.length,
         this.classname= this.class.name,
-        this.list_of_lessons= this.class.list_of_lessons,
-        this.disabled= new Array(this.class.list_of_lessons.length).fill(1)
+        this.list_of_lessons= this.class.list_of_subjects,
+        this.disabled= new Array(this.class.list_of_subjects.length).fill(1)
     },
     changePref(index)
     {
