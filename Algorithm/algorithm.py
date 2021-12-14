@@ -1,7 +1,8 @@
 """
     Module algorithm.py is responsible of creating final schedule.
 """
-# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621
+# pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514, E0611, E0401
+
 import copy
 import random
 import json
@@ -9,10 +10,10 @@ import time
 import numpy as np
 from joblib import Parallel, delayed
 
-from data_structures import School
-from teachers import TEACHERS
-from groups import GROUP
-from classrooms import CLASSES, CLASSES_REQ
+from Algorithm.data_structures import School
+from Algorithm.teachers import TEACHERS
+from Algorithm.groups import GROUP
+from Algorithm.classrooms import CLASSES, CLASSES_REQ
 
 
 class Schedule:
@@ -105,6 +106,13 @@ class Schedule:
                 else:
                     print('-----')
             print("\n")
+
+    def save_schedule_to_file(self):
+        with open('schedule.txt', 'w') as file:
+            for day in self.time_table:
+                for hour in day:
+                    file.write(f"{hour}\n")
+                file.write("\n")
 
     def convert_schedule_to_json(self):
         return json.dumps(self.time_table)
@@ -461,19 +469,17 @@ def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     print(f"Nonparallel: {end - start} sec")
     print(population.get_best_specimen().evaluation)
 
-    json = population.get_best_specimen().schedule.convert_schedule_to_json()
-    return json
-
-    # p2 = Population()
-    # p2.new_population(number_of_instances=population_size)
-    # print(p2.get_best_specimen().evaluation)
+    # population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    # population2.new_population(number_of_instances=population_size)
+    # print(population2.get_best_specimen().evaluation)
     # start = time.time()
-    # p2.parallel_evolute(num_of_generations, num_of_mutations)
+    # population2.parallel_evolute(num_of_generations, num_of_mutations)
     # end = time.time()
     # print(f"Parallel: {end - start} sec")
-    # print(p2.get_best_specimen().evaluation)
-    # # print(p2.get_best_specimen().schedule.print_group_schedule('1a'))
-    # # print(p2.get_best_specimen().schedule.print_group_schedule('2a'))
+    # print(population2.get_best_specimen().evaluation)
+
+    json = population.get_best_specimen().schedule.convert_schedule_to_json()
+    return json
 
 
 if __name__ == "__main__":

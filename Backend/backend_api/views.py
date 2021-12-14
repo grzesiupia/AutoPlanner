@@ -3,19 +3,33 @@ In this module, there are every endpoint functions.
 
 All of them takes some Web request and return Web response.
 """
-# pylint: disable=W0703, E1101, R1710, C0412, C0301
-#from django.shortcuts import render
+# pylint: disable=W0703, E1101, R1710, C0412, C0301, R0914, C0413
+
 import json
-from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms
+import sys
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
-#from rest_framework_jwt.settings import api_settings
-import jwt
 from django.conf import settings
+import jwt
+sys.path.append("..")
 
+from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
+from Algorithm.algorithm import main
 
 # Create your views here.
+
+class ResponseThen(HttpResponse):
+    """
+    Used to response and still do sth
+    """
+    def __init__(self, data, then_callback, **kwargs):
+        super().__init__(data, **kwargs)
+        self.then_callback = then_callback
+
+    def close(self):
+        super().close()
+        self.then_callback()
 
 @csrf_exempt
 def add_user(request):
@@ -92,7 +106,7 @@ def add_teacher(request):
         try:
             user_data = jwt.decode(token, None, None)
             pref_list = json.dumps(subjects)
-            teacher = Teachers(email, name, pref_list, user_data['email'])
+            teacher = Teachers(teacheremail = email, teachername = name, teachsubject = pref_list, planneremail = user_data['email'])
             teacher.save(force_insert = True)
             response=json.dumps({'message': 'Pomyslnie dodano nauczyciela'})
             return HttpResponse(response, content_type='text/json')
@@ -205,14 +219,21 @@ def get_classes(request):
     ''' A function that returns a list of classes for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
-        print(payload)
+        #print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
-            array = Lessons.objects.filter(planneremail = user_data['email'])
+            array = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
+            print(array)
             class_list = []
             for i in array:
-                if {'class': i.classname} not in class_list:
-                    class_list.append({'class': i.classname})
+                timetable_data = []
+                lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
+                # print(lessons)
+                for j in lessons:
+                    teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
+                    timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': teacher.teachername})
+                class_list.append({'name': i['classname'], 'list_of_subjects': timetable_data})
+            print(class_list)
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -270,25 +291,39 @@ def add_poll_data(request, poll_number):
 @csrf_exempt
 def generate_plan(request):
     '''A function that sends all the necessary data to the generator '''
-    if request.method == 'POST':
-        payload = json.loads(request.body)
-        token = payload['token']
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
         try:
-            user_data = jwt.decode(token, None, None)
-            lessons_list = Lessons.objects.filter(email = user_data['email']).order_by().values('class_name').distinct()
+            user_data = jwt.decode(payload, None, None)
+            lessons_list = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
             print(lessons_list)
             classes = {}
             for i in lessons_list:
-                if i['class_name'] is not None:
+                if i['classname'] is not None:
                     timetable_data = {}
-                    lessons = Lessons.objects.filter(email = user_data['email'], class_name = i['class_name'])
+                    lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
                     # print(lessons)
                     for j in lessons:
-                        timetable_data[j.lesson_name] = [j.numbers_of_lesson, j.teacher_email, j.classroom]
-                    classes[i['class_name']] = timetable_data
-            print(classes)
+                        teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
+                        timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
+                    classes[i['classname']] = timetable_data
+            classrooms = {}
+            classrooms_list = Classrooms.objects.filter(planneremail = user_data['email'])
+            for i in classrooms_list:
+                pref_subject = json.loads(i.preferredsubject)
+                classrooms[i.classroomid] = [n['name'] for n in pref_subject]
+            teachers = {}
+            teachers_list = Teachers.objects.filter(planneremail = user_data['email'])
+            for i in teachers_list:
+                pref_subject = json.loads(i.teachsubject)
+                pref_sub_list = [n['name'] for n in pref_subject]
+                teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {}}
+            def do_after():
+                timetable_data = main()
+                timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
+                timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
-            return HttpResponse(response, content_type='text/json')
+            return ResponseThen(response, do_after, content_type='text/json') 
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
@@ -303,9 +338,8 @@ def del_subject(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            planner = Planners.objects.get(email = user_data['email'])
-            lesson = Lessons.objects.get(email = planner, lesson_name = name)
-            lesson.delete()
+            subject = Subjects.objects.get(planneremail = user_data['email'], subjectname = name)
+            subject.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto lekcje'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -322,8 +356,7 @@ def del_teacher(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
-            teacher = Teachers.objects.get(teacher_email = email, email = user_data['email'])
+            teacher = Teachers.objects.get(teacheremail = email, planneremail = user_data['email'])
             teacher.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto nauczyciela'})
             return HttpResponse(response, content_type='text/json')
@@ -342,11 +375,9 @@ def del_classroom(request):
         try:
             user_data = jwt.decode(token, None, None)
             #print(user_data['email'])
-            lessons = Lessons.objects.filter(email = user_data['email'], classroom = name)
-            for i in lessons:
-                i.classroom = None
-                i.save()
-            response=json.dumps({'message': lessons})
+            classroom = Classrooms.objects.get(planneremail = user_data['email'], classroomid = name)
+            classroom.delete()
+            response=json.dumps({'message': 'Pomyslnie usunieto sale'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
@@ -362,11 +393,9 @@ def del_class(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            lessons = Lessons.objects.filter(email = user_data['email'], class_name = name)
-            for i in lessons:
-                i.class_name = None
-                i.save()
-            response=json.dumps({'message': lessons})
+            lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = name)
+            lessons.delete()
+            response=json.dumps({'message': 'pomyslnie usunieto klase'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})

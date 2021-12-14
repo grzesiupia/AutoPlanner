@@ -28,10 +28,10 @@ jobs:
           name: Format .py files
           command:
             pip install black && black $(git ls-files '*.py')
-      - run:
-          name: pylint
-          command:
-            pylint $(git ls-files '*.py')
+#      - run:
+#          name: pylint
+#          command:
+#            pylint $(git ls-files '*.py')
   build_and_test_front:
     docker:
       - image: cimg/node:17.2.0
