@@ -547,3 +547,13 @@ export const fetchClassroomPlans = ({
         })
         .catch((err) => console.log(err));
 }
+export const genPlan = ({
+    commit
+},object) => {
+    axios.get("api/generatePlan",{ headers: { 'x-access-token': `${object.token}`}})
+        .then((response) => {
+            console.log(response)
+            commit("SET_GEN", response.data)
+        })
+        .catch((err) => console.log(err));
+}

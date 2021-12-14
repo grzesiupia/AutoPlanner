@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      this.$store.dispatch("genPlan",{ token:this.token});
       router.push("/")
     },
     back() {

@@ -7,7 +7,8 @@ const state = {
     getTeacherPlansSuccess: true,
     getTeacherPlansError: null,
     getClassroomPlansSuccess: true,
-    getClassroomPlansError: null
+    getClassroomPlansError: null,
+    gen:""
 }
 
 const mutations = {
@@ -38,6 +39,9 @@ const mutations = {
     'GET_CLASSROOM_PLANS_ERROR'(state, error) {
         state.getClassroomPlansError = error;
     },
+    "SET_GEN"(state, s) {
+        state.gen = s;
+    }
 }
 
 const getters = {
