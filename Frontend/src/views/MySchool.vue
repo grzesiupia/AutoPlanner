@@ -1,8 +1,12 @@
 <template>
   <div>
     <input class="buttonm btn btn-success mr-3" type="submit" @click="handleSubmit" value="Rozpocznij dodawanie danych">
-
-<table class="table table-striped" v-for="m in 2" :key="m">
+    <p><input class="buttonk btn btn-success mr-3" type="submit" @click="planClass" value="Plany dla klas">
+    <input class="buttonk btn btn-success mr-3" type="submit" @click="planTeacher" value="Plany dla nauczycieli">
+    <input class="buttonk btn btn-success mr-3" type="submit" @click="planClassroom" value="Plany dla sal">
+    </p>
+<div v-if="this.selectedPlans==='class'">
+<table class="table table-striped" v-for="m in 2" :key="m" >
   <thead>
     <tr>
       <th>#</th>
@@ -21,6 +25,7 @@
     
    </tbody>
 </table>
+</div>
   </div>
 </template>
 
@@ -28,8 +33,29 @@
 import router from '../router/index.js'
 export default {
   name: 'MySchool',
+  computed: {
+    classPlans(){
+      return this.$store.getters.getClassPlans;
+    },
+    teacherPlans(){
+      return this.$store.getters.getTeacherPlans;
+    },
+    classroomPlans(){
+      return this.$store.getters.getClassroomPlans;
+    },
+    token() 
+    {
+      return this.$store.getters.getToken;
+    },
+  },
+  created(){
+    this.$store.dispatch("fetchClassPlans",{ token:this.token});
+    this.$store.dispatch("fetchTeacherPlans",{ token:this.token});
+    this.$store.dispatch("fetchClassroomPlans",{ token:this.token});
+  },
   data: function() {
     return { 
+  selectedPlans:"class",
   plan:[[[["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
   [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
   [["IB", "matematyka", ["Marek Markowski", ""]], ["IA", "matematyka", ["Marcjanna Milik", ""]]],
@@ -67,6 +93,15 @@ export default {
   methods: {
     handleSubmit() {
       router.push("/step/1")
+    },
+    planClass() {
+      this.selectedPlans="class"
+    },
+    planTeacher() {
+      this.selectedPlans="teacher"
+    },
+    planClassroom() {
+      this.selectedPlans="classroom"
     },
   }
 }

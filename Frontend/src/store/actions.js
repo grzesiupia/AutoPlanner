@@ -514,3 +514,36 @@ export const deleteClass = ({
             }
         });
 }
+
+export const fetchClassPlans = ({
+    commit
+},object) => {
+    axios.get("api/get/plans/class",{ headers: { 'x-access-token': `${object.token}`}})
+        .then((response) => {
+            console.log(response)
+            commit("SET_CLASS_PLANS", response.data)
+        })
+        .catch((err) => console.log(err));
+}
+
+export const fetchTeacherPlans = ({
+    commit
+},object) => {
+    axios.get("api/get/plans/teacher",{ headers: { 'x-access-token': `${object.token}`}})
+        .then((response) => {
+            console.log(response)
+            commit("SET_TEACHER_PLANS", response.data)
+        })
+        .catch((err) => console.log(err));
+}
+
+export const fetchClassroomPlans = ({
+    commit
+},object) => {
+    axios.get("api/get/plans/classrooms",{ headers: { 'x-access-token': `${object.token}`}})
+        .then((response) => {
+            console.log(response)
+            commit("SET_CLASSROOM_PLANS", response.data)
+        })
+        .catch((err) => console.log(err));
+}

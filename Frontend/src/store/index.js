@@ -8,6 +8,7 @@ import subjects from './modules/subjects'
 import teachers from './modules/teachers'
 import classrooms from './modules/classrooms'
 import classes from './modules/classes'
+import plans from './modules/plans'
 import * as actions from './actions'
 
 Vue.use(Vuex)
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     subjects,
     teachers,
     classrooms,
-    classes
+    classes,
+    plans
   }
 })
