@@ -5,7 +5,7 @@
     <h1 class=row2><b><p class=mbuttons>
     <br>
         <my-component v-for="clas in classes" :key="clas.name">
-          <input class="buttonm btn btn-success mr-3" v-model="clas.class" @click="editCla(clas)">
+          <input class="buttonm btn btn-success mr-3" v-model="clas.name" @click="editCla(clas)">
         </my-component>
     </p></b>
     <a>
@@ -33,8 +33,8 @@
           </span>
         </p>
       </div>
-      <p><input class="buttond" type="submit" value="+" >
-      <input class="buttond" type="submit" value="-" @click="delSubject" style="margin: 0px 8px"></p>
+      <p><input class="buttond" type="button" value="+" @click="addSubject">
+      <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px"></p>
       <input class="buttonm btn btn-success mr-3" @click="editClass" type="submit" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
@@ -87,11 +87,17 @@ export default {
   },
    data: function() {
     return {
-        lessonsNumber: this.class.list_of_lessons.length,
-        classname: this.class.name,
-        list_of_lessons: this.class.list_of_lessons,
-        disabled: new Array(this.class.list_of_lessons.length).fill(1), 
+        lessonsNumber: 1,
+        classname: "",
+        list_of_lessons: [{"name":'',"number":'',"teacher":''}],
+        disabled: [1]
     };
+  },
+   mounted() {
+        this.lessonsNumber= this.class.list_of_lessons.length,
+        this.classname= this.class.name,
+        this.list_of_lessons= this.class.list_of_lessons,
+        this.disabled= new Array(this.class.list_of_lessons.length).fill(1)
   },
   methods: {
     cancel() {
@@ -141,7 +147,10 @@ export default {
     editCla(clas){
       this.$store.commit("SET_CLASS",clas)
       router.push("/edit/class")
-      router.go()
+       this.lessonsNumber= this.class.list_of_lessons.length,
+        this.classname= this.class.name,
+        this.list_of_lessons= this.class.list_of_lessons,
+        this.disabled= new Array(this.class.list_of_lessons.length).fill(1)
     },
     changePref(index)
     {

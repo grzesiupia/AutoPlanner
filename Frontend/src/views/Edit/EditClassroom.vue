@@ -78,11 +78,17 @@ export default {
   },
   data: function() {
     return {
-        preferedSubject:this.classroom.list_of_subjects.length, //bool
-        subjectNumber: this.classroom.list_of_subjects.length,
-        classroom_name: this.classroom.classroom,
-        list_of_subjects: this.classroom.list_of_subjects
+        preferedSubject:false, 
+        subjectNumber: 0,
+        classroom_name: "",
+        list_of_subjects: []
     };
+  },
+  mounted() {
+        this.preferedSubject= Boolean(this.classroom.list_of_subjects.length),
+        this.subjectNumber= this.classroom.list_of_subjects.length,
+        this.classroom_name= this.classroom.classroom,
+        this.list_of_subjects= this.classroom.list_of_subjects
   },
   methods: {
     changePrefered()
@@ -98,6 +104,7 @@ export default {
         this.list_of_subjects=[{"name":''}]
       }
     },
+    
     cancel() {
       router.push("/step/3")
     },
@@ -144,7 +151,10 @@ export default {
     editCla(classroom){
       this.$store.commit("SET_CLASSROOM",classroom)
       router.push("/edit/classroom")
-      router.go()
+      this.preferedSubject= Boolean(this.classroom.list_of_subjects.length),
+        this.subjectNumber= this.classroom.list_of_subjects.length,
+        this.classroom_name= this.classroom.classroom,
+        this.list_of_subjects= this.classroom.list_of_subjects
     }
   }
 }

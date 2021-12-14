@@ -23,7 +23,7 @@
     </div>
     </div>
       <div v-if="preferedSubject">
-      <input class="buttond" type="button" value="+" >
+      <input class="buttond" type="button" value="+" @click="addSubject">
       <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px">
       </div>
       <input class="buttonm btn btn-success mr-3" type="submit" value="Dodaj" >

@@ -15,7 +15,7 @@
       <label style="float:left;">Prowadzone przedmioty</label>
       
       <div v-for="index in subjectNumber" :key="index">
-      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].subject_name">
+      <select name="subjects" id="subjects" v-model="list_of_subjects[index-1].name">
         <option disabled selected value> -- wybierz przedmiot -- </option>
         <option v-for="subject in subjects" v-bind:key="subject.subject_name" >
         {{ subject.subject_name }}
@@ -23,6 +23,7 @@
     </select>
     </div>
       <input class="buttond" type="submit" @click="addSubject" value="+" >
+      <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px">
       <input class="buttonf btn btn-success mr-3" type="submit" @click="editTeacher" value="Zapisz zmiany" >
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="cancel" value="Wróć bez zapisywania">
@@ -75,11 +76,17 @@ export default {
   },
    data: function() {
     return {
-        subjectNumber: this.teacher.list_of_subjects.length,
-        name: this.teacher.name,
-        email: this.teacher.email,
-        list_of_subjects: this.teacher.list_of_subjects
+        subjectNumber: 1,
+        name: "",
+        email: "",
+        list_of_subjects: [{"name":''}]
     };
+  },
+  mounted() {
+        this.subjectNumber= this.teacher.list_of_subjects.length,
+        this.name= this.teacher.name,
+        this.email= this.teacher.email,
+        this.list_of_subjects= this.teacher.list_of_subjects
   },
   methods: {
     cancel() {
@@ -129,7 +136,10 @@ export default {
     editTea(teacher){
       this.$store.commit("SET_TEACHER",teacher)
       router.push("/edit/teacher")
-      router.go()
+      this.subjectNumber= this.teacher.list_of_subjects.length,
+        this.name= this.teacher.name,
+        this.email= this.teacher.email,
+        this.list_of_subjects= this.teacher.list_of_subjects
     }
   }
 }
