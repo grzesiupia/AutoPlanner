@@ -36,5 +36,9 @@ urlpatterns = [
     path('api/delete/subject', views.del_subject),
     path('api/delete/teacher', views.del_teacher),
     path('api/delete/classroom', views.del_classroom),
-    path('api/delete/class', views.del_class)
+    path('api/delete/class', views.del_class),
+    path('api/edit/subject', views.edit_subject),
+    path('api/edit/teacher', views.edit_teacher),
+    path('api/edit/classroom', views.edit_classroom),
+    path('api/edit/class', views.edit_class)
 ]
