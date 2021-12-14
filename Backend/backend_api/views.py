@@ -405,7 +405,7 @@ def del_class(request):
 
 @csrf_exempt
 def edit_subject(request):
-    '''Function that takes delete subject request and returns response with the appropriate message,
+    '''Function that takes edit subject request and returns response with the appropriate message,
      depending on whether the removal of a subject was successful    '''
     if request.method == 'POST':
         payload = json.loads(request.body)
@@ -414,12 +414,77 @@ def edit_subject(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            subject = Subjects.objects.get(planneremail = user_data['email'], subjectname = name)
-            subject.subjectname = new_name
-            subject.save()
-            response=json.dumps({'message': 'Pomyslnie usunieto lekcje'})
+            subject = Subjects.objects.filter(planneremail = user_data['email'], subjectname = name).update(subjectname = new_name)
+            response=json.dumps({'message': 'Pomyslnie edytowano lekcje'})
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def edit_teacher(request):
+    '''Function that takes edit teacher request and returns response with the appropriate message,
+     depending on whether the removal of a subject was successful    '''
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        email = payload['email']
+        new_name = payload['new_name']
+        new_email = payload['new_email']
+        new_list_of_subjects = payload['new_list_of_subjects']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            teacher = Teachers.objects.filter(planneremail = user_data['email'], teacheremail = email).update(teachername = new_name, teacheremail = new_email, teachsubject = json.dumps(new_list_of_subjects))
+            response=json.dumps({'message': 'Pomyslnie edytowano nauczyciela'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def edit_classroom(request):
+    '''Function that takes edit classroom request and returns response with the appropriate message,
+     depending on whether the removal of a subject was successful    '''
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        new_name = payload['new_name']
+        new_list_of_subjects = payload['new_list_of_subjects']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            classroom = Classrooms.objects.filter(planneremail = user_data['email'], classroomid = name).update(classroomid = new_name, preferredsubject = json.dumps(new_list_of_subjects))
+            response=json.dumps({'message': 'Pomyslnie edytowano sale'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json')
+
+@csrf_exempt
+def edit_class(request):
+    '''Function that takes edit class request and 
+        returns response with the appropriate message'''
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['name']
+        new_name = payload['new_name']
+        new_list_of_lessons = payload['new_list_of_lessons']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = name)
+            lessons.delete()
+            for i in new_list_of_lessons:
+                if i['teacher'] != "":
+                    teacher = Teachers.objects.get(planneremail = user_data['email'], teachername = i['teacher'])
+                    lesson = Lessons(planneremail = user_data['email'], classname = new_name, lessonname = i['name'], teacheremail = teacher.teacheremail, lessoncount = i['number'])
+                else:
+                    lesson = Lessons(planneremail = user_data['email'], classname = new_name, lessonname = i['name'], teacheremail = "", lessoncount = i['number'])
+                lesson.save(force_insert = True)
+            response=json.dumps({'message': 'pomyslnie edytowano klase'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json', status = 403)
+
 
