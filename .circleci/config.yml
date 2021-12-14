@@ -24,6 +24,7 @@ jobs:
           name: Install requirements
           command:
             sudo apt-get update;
+            sudo apt install libmysqlclient-dev python3-dev;
             pip install --upgrade pip && pip install -r requirements.txt && pip install pylint
       - run:
           name: Format .py files
