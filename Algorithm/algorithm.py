@@ -434,13 +434,18 @@ class Population:
         self.population += temp_list
         self.population.sort(key=lambda a: a[1], reverse=True)
 
-    def parallel_reproduce(self, mutation=10):
-        def generate_new_specimens(specimen: [Algorithm, int]):
-            Algorithm.shuffle_list_of_subjects(specimen[0].school.list_of_all_subjects, mutation)
-            temp = Algorithm(specimen[0].school)
-            return [temp, temp.evaluation]
+    @staticmethod
+    def generate_new_specimens(input_data: [[Algorithm, int], int]):
+        specimen = input_data[0]
+        mutation = input_data[1]
+        Algorithm.shuffle_list_of_subjects(specimen[0].school.list_of_all_subjects, mutation)
+        temp = Algorithm(specimen[0].school)
+        return [temp, temp.evaluation]
 
-        answer = Parallel(n_jobs=7)(delayed(generate_new_specimens)(specimen) for specimen in self.population)
+    def parallel_reproduce(self, mutation=10):
+        import multiprocessing as mp
+        with mp.Pool(50) as p:
+            answer = p.map(self.generate_new_specimens, [[specimen, mutation] for specimen in self.population])
         self.population += answer
         self.population.sort(key=lambda a: a[1], reverse=True)
 
@@ -457,14 +462,14 @@ class Population:
 
 def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     population_size = 10
-    num_of_generations = 1000
+    num_of_generations = 10
     num_of_mutations = 20
 
     population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
     population.new_population(number_of_instances=population_size)
     print(population.get_best_specimen().evaluation)
     start = time.time()
-    population.evolute(num_of_generations, num_of_mutations)
+    population.parallel_evolute(num_of_generations, num_of_mutations)
     end = time.time()
     print(f"Nonparallel: {end - start} sec")
     print(population.get_best_specimen().evaluation)
