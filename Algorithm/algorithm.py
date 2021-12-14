@@ -4,6 +4,7 @@
 # pylint: disable=C0301, W0511, R1735, C0116, R0913, R0912, R0914, R0915, R1721, W0102, W0621, W1514, E0611, E0401
 
 import copy
+import multiprocessing
 import random
 import json
 import time
@@ -444,9 +445,9 @@ class Population:
 
     def parallel_reproduce(self, mutation=10):
         import multiprocessing as mp
-        with mp.Pool(50) as p:
-            answer = p.map(self.generate_new_specimens, [[specimen, mutation] for specimen in self.population])
-        self.population += answer
+
+        p = mp.Pool(processes=multiprocessing.cpu_count()-1)
+        self.population += p.map_async(self.generate_new_specimens, [[spe, mutation] for spe in self.population]).get()
         self.population.sort(key=lambda a: a[1], reverse=True)
 
     def evolute(self, number_of_generation: int, number_of_mutation: int):
@@ -461,34 +462,37 @@ class Population:
 
 
 def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
-    population_size = 10
-    num_of_generations = 10
-    num_of_mutations = 20
+    population_size = 1000
+    num_of_generations = 5000
+    num_of_mutations = 10
 
-    population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    population.new_population(number_of_instances=population_size)
-    print(population.get_best_specimen().evaluation)
-    start = time.time()
-    population.parallel_evolute(num_of_generations, num_of_mutations)
-    end = time.time()
-    print(f"Nonparallel: {end - start} sec")
-    print(population.get_best_specimen().evaluation)
-
-    # population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    # population2.new_population(number_of_instances=population_size)
-    # print(population2.get_best_specimen().evaluation)
+    # population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    # population.new_population(number_of_instances=population_size)
+    # print(population.get_best_specimen().evaluation)
     # start = time.time()
-    # population2.parallel_evolute(num_of_generations, num_of_mutations)
+    # population.evolute(num_of_generations, num_of_mutations)
     # end = time.time()
-    # print(f"Parallel: {end - start} sec")
-    # print(population2.get_best_specimen().evaluation)
+    # print(f"Nonparallel: {end - start} sec")
+    # print(population.get_best_specimen().evaluation)
 
-    json = population.get_best_specimen().schedule.convert_schedule_to_json()
+    population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    population2.new_population(number_of_instances=population_size)
+    print(population2.get_best_specimen().evaluation)
+    start = time.time()
+    population2.parallel_evolute(num_of_generations, num_of_mutations)
+    end = time.time()
+    print(f"Parallel: {end - start} sec")
+    print(population2.get_best_specimen().evaluation)
+
+    json = population2.get_best_specimen().schedule.convert_schedule_to_json()
     return json
 
 
 if __name__ == "__main__":
-    main()
+    to_save = main()
+    file = open('output.json', 'w')
+    file.write(to_save)
+    file.close()
 
 # TODO 1.zrozumienie co tu sie dzieje z parallel
 # TODO 2.Rozwiniecie oceny o klasy, i poprawienie punktow
