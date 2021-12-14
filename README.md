@@ -1,4 +1,4 @@
-# AutoPlanner
+# AutoPlanner [![python 3.9.9](https://img.shields.io/badge/python-3.9-green.svg)](https://www.python.org/downloads/release/python-399/) [![Node.js](https://img.shields.io/badge/Node.js-16.13.1-green)](https://nodejs.org/en/download/) [![Django](https://img.shields.io/badge/Django-3.1.7-green)](https://www.djangoproject.com/download/)
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -32,16 +32,38 @@ The purpouse of creating this app was to make planners job easier and as overhel
 
 
 ## Features
-List the ready features here:
 - Sign up & Sign in
-- Add subjects to data-base
-- Awesome feature 3
+- Add/rm subjects to data base
+- Add/rm teachers to data base
+- Set preferred subjects for teacher
+- Add/rm classrooms to data base
+- Set preferred subjcets for classroom
+- Add/rm Groups to data base
+- Setup each group subject per week count 
+  and preffered teachers
+- Generate schedule
+- Display school schedule
+- Display techaer schedule
+- Display group schedule
+- Display classroom schedule
+- #### More features will be added soon...
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
-
-Proceed to describe how to install / setup one's local environment / get started with the project.
+Project requirements can be found in requirements.txt file.
+### To setup project to run locally:
+ - #### Frontend:
+    - To run frontend server Node.js is needed. 
+    - Preferred versions of Node.js are LTS ones.
+    - Step-by-step setup of installation Node.js with [nvm](https://gist.github.com/d2s/372b5943bce17b964a79)
+    - When Node.js up and working, install dependencies like:
+      - ``` cd {pathtorepo}/AutoPlanner/Frontend ```
+      - ``` npm install ```
+    - To run server:
+      - ``` npm run serve ```
+ - #### Backend/Algorithm:
+    - Python 3.9.9 is recommended
+    - 
 
 
 ## Usage
