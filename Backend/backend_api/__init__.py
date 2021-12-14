@@ -1,1 +1,1 @@
-# pylint disable=C0114
+# pylint disable=C0114, C0103
