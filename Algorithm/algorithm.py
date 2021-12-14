@@ -470,7 +470,7 @@ class Population:
 
 def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     population_size = 10
-    num_of_generations = 10
+    num_of_generations = 1000
     num_of_mutations = 20
 
     population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
