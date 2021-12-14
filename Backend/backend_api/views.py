@@ -15,7 +15,7 @@ import jwt
 sys.path.append("..")
 
 from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
-from Algorithm_Prototype.algorithm import main
+from Algorithm.algorithm import main
 
 # Create your views here.
 
