@@ -146,9 +146,11 @@ def add_class(request):
         try:
             user_data = jwt.decode(token, None, None)
             for i in lessons_list:
-                print (i['name'])
-                teacher = Teachers.objects.get(planneremail = user_data['email'], teachername = i['teacher'])
-                lesson = Lessons(planneremail = user_data['email'], classname = name, lessonname = i['name'], teacheremail = teacher.teacheremail, lessoncount = i['number'])
+                if i['teacher'] != "":
+                    teacher = Teachers.objects.get(planneremail = user_data['email'], teachername = i['teacher'])
+                    lesson = Lessons(planneremail = user_data['email'], classname = name, lessonname = i['name'], teacheremail = teacher.teacheremail, lessoncount = i['number'])
+                else:
+                    lesson = Lessons(planneremail = user_data['email'], classname = name, lessonname = i['name'], teacheremail = "", lessoncount = i['number'])
                 lesson.save(force_insert = True)
             response=json.dumps({'message': 'pomyślnie dodano jednostki lekcyjne'})
             return HttpResponse(response, content_type='text/json')
@@ -400,4 +402,24 @@ def del_class(request):
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
+
+@csrf_exempt
+def edit_subject(request):
+    '''Function that takes delete subject request and returns response with the appropriate message,
+     depending on whether the removal of a subject was successful    '''
+    if request.method == 'POST':
+        payload = json.loads(request.body)
+        name = payload['subject_name']
+        new_name = payload['new_subject_name']
+        token = payload['token']
+        try:
+            user_data = jwt.decode(token, None, None)
+            subject = Subjects.objects.get(planneremail = user_data['email'], subjectname = name)
+            subject.subjectname = new_name
+            subject.save()
+            response=json.dumps({'message': 'Pomyslnie usunieto lekcje'})
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json')
 
