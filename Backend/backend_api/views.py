@@ -6,7 +6,7 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301, R0914, C0413
 
 import json
-
+import sys
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.mail import send_mail
