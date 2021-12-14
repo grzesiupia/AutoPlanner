@@ -131,8 +131,8 @@ export default {
         "editClassroom",
         {
           token: this.token,
-          name: this.classroom.classroom_name,
-          new_name: this.name,
+          name: this.classroom.classroom,
+          new_name: this.classroom_name,
           new_list_of_subjects: this.list_of_subjects
         }
       )
@@ -144,7 +144,7 @@ export default {
         "deleteClassroom",
         {
           token: this.token,
-          name: this.classroom.classroom_name
+          name: this.classroom.classroom
         }
       )
     },
