@@ -298,22 +298,19 @@ def generate_plan(request):
                         teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
                         timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
                     classes[i['classname']] = timetable_data
-            #print(classes)
             classrooms = {}
             classrooms_list = Classrooms.objects.filter(planneremail = user_data['email'])
             for i in classrooms_list:
                 pref_subject = json.loads(i.preferredsubject)
                 classrooms[i.classroomid] = [n['name'] for n in pref_subject]
-            #print(classrooms)
             teachers = {}
             teachers_list = Teachers.objects.filter(planneremail = user_data['email'])
             for i in teachers_list:
                 pref_subject = json.loads(i.teachsubject)
                 pref_sub_list = [n['name'] for n in pref_subject]
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {}}
-            print(teachers)
             def do_after():
-                timetable_data = main(classes, teachers, classrooms)
+                timetable_data = main()
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
                 timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
@@ -351,7 +348,6 @@ def del_teacher(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
             teacher = Teachers.objects.get(teacher_email = email, email = user_data['email'])
             teacher.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto nauczyciela'})
