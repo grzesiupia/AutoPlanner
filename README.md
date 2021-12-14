@@ -13,23 +13,28 @@
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+AutoPlanner is a web application with view to planners in all type of schools up to highschool.
+Let's say on the begining, it isn't generating optimal plans but decent ones with which creation planner would not be ashamed of.
+The purpouse of creating this app was to make planners job easier and as overhelming as it is now.
 
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- Frontend
+  - Vue.js
+- Backend
+  - Django  
+- Algorithm
+  - Python
+- CI/CD
+  - circleci
+  - AWS
+  - 
 
 
 ## Features
 List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
+- Sign up & Sign in
+- Add subjects to data-base
 - Awesome feature 3
 
 
