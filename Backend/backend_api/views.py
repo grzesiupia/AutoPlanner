@@ -6,6 +6,7 @@ All of them takes some Web request and return Web response.
 # pylint: disable=W0703, E1101, R1710, C0412, C0301
 #from django.shortcuts import render
 import json
+import sys
 from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -13,6 +14,7 @@ from django.core.mail import send_mail
 #from rest_framework_jwt.settings import api_settings
 import jwt
 from django.conf import settings
+sys.path.append("..")
 from Algorithm_Prototype.algorithm import main
 
 
@@ -315,7 +317,7 @@ def generate_plan(request):
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
                 timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
-            return ResponseThen(response, do_after, conent_type = 'text/json') 
+            return ResponseThen(response, do_after) 
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json')
