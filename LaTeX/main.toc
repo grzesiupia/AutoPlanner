@@ -1,17 +1,23 @@
 \babel@toc {polish}{}\relax 
 \babel@toc {polish}{}\relax 
 \contentsline {chapter}{\chapternumberline {1}Wstęp}{1}{chapter.1}%
-\contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{2}{chapter.2}%
-\contentsline {chapter}{\chapternumberline {3}Analiza i porównanie możliwych rozwiązań}{3}{chapter.3}%
-\contentsline {chapter}{\chapternumberline {4}Przygotowanie infrastruktury informatycznej}{4}{chapter.4}%
-\contentsline {appendix}{\chapternumberline {A}Składanie dokumentu w systemie \LaTeX }{5}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Struktura dokumentu}{5}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Akapity i znaki specjalne}{5}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Wypunktowania}{5}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Polecenia pakietu \texttt {ppfcmthesis}}{6}{section.A.4}%
-\contentsline {paragraph}{Makra zdefiniowane dla języka angielskiego.}{6}{section*.4}%
-\contentsline {paragraph}{Makra zdefiniowane dla języka polskiego.}{6}{section*.5}%
-\contentsline {section}{\numberline {A.5}Rysunki}{6}{section.A.5}%
-\contentsline {subsection}{\numberline {A.5.1}Tablice}{7}{subsection.A.5.1}%
-\contentsline {subsection}{\numberline {A.5.2}Checklista}{7}{subsection.A.5.2}%
-\contentsline {section}{\numberline {A.6}Literatura i materiały dodatkowe}{8}{section.A.6}%
+\contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{3}{chapter.2}%
+\contentsline {chapter}{\chapternumberline {3}Analiza i porównanie możliwych rozwiązań}{4}{chapter.3}%
+\contentsline {chapter}{\chapternumberline {4}Przygotowanie infrastruktury informatycznej}{5}{chapter.4}%
+\contentsline {chapter}{\chapternumberline {5}Projekt i implementacja aplikacji internetowej w technologii Vue.js}{6}{chapter.5}%
+\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django}{7}{chapter.6}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{8}{chapter.7}%
+\contentsline {chapter}{\chapternumberline {8}Testy}{9}{chapter.8}%
+\contentsline {chapter}{\chapternumberline {9}Wnioski}{10}{chapter.9}%
+\contentsline {chapter}{\chapternumberline {10}Zakończenie}{11}{chapter.10}%
+\contentsline {appendix}{\chapternumberline {A}Składanie dokumentu w systemie \LaTeX }{12}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Struktura dokumentu}{12}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Akapity i znaki specjalne}{12}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Wypunktowania}{12}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Polecenia pakietu \texttt {ppfcmthesis}}{13}{section.A.4}%
+\contentsline {paragraph}{Makra zdefiniowane dla języka angielskiego.}{13}{section*.9}%
+\contentsline {paragraph}{Makra zdefiniowane dla języka polskiego.}{13}{section*.10}%
+\contentsline {section}{\numberline {A.5}Rysunki}{13}{section.A.5}%
+\contentsline {subsection}{\numberline {A.5.1}Tablice}{14}{subsection.A.5.1}%
+\contentsline {subsection}{\numberline {A.5.2}Checklista}{14}{subsection.A.5.2}%
+\contentsline {section}{\numberline {A.6}Literatura i materiały dodatkowe}{15}{section.A.6}%
