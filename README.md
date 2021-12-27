@@ -5,7 +5,6 @@
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Setup](#setup)
-* [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
 <!-- * [License](#license) -->
@@ -68,12 +67,6 @@ Project requirements can be found in requirements.txt file.
     - To run django server locally: 
       - ``` cd {pathtorepo}/AutoPlanner/Backend ```
       - ``` python -m manage.py runserver ```
-
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
 
 
 ## Project Status
