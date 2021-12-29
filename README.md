@@ -5,10 +5,8 @@
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Setup](#setup)
-* [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-* [Acknowledgements](#acknowledgements)
 <!-- * [License](#license) -->
 
 
@@ -54,7 +52,7 @@ Project requirements can be found in requirements.txt file.
 ### To setup project to run locally:
  - #### Frontend:
     - To run frontend server Node.js is needed. 
-    - Preferred versions of Node.js are LTS ones.
+    - Preferred and checked version of Node.js is LTS one.
     - Step-by-step setup of installation Node.js with [nvm](https://gist.github.com/d2s/372b5943bce17b964a79)
     - When Node.js up and working, install dependencies like:
       - ``` cd {pathtorepo}/AutoPlanner/Frontend ```
@@ -62,46 +60,24 @@ Project requirements can be found in requirements.txt file.
     - To run server:
       - ``` npm run serve ```
  - #### Backend/Algorithm:
-    - Python 3.9.9 is recommended
-    - 
-
-
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
+    - Python 3.9.9 is checked and recommended.
+    - Preferred and checked version of django is 3.1.7.
+    - To install requirements wen in repo root, run:
+      - ``` python -m pip install -r requiements.txt ```
+    - To run django server locally: 
+      - ``` cd {pathtorepo}/AutoPlanner/Backend ```
+      - ``` python -m manage.py runserver ```
 
 
 ## Project Status
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
+Project is: _in progress_
 
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
 Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
+- Possibility of spliting groups to subject groups. (e2e)
+- Possibility of providing manual changes in generated schedule. (e2e) 
+- Statistics of generated schedule. (Frontend)
 
 To do:
-- Feature to be added 1
-- Feature to be added 2
-
-
-## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
-
-
-## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
-
-
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
+- Mark classrooms for particular subject. (e2e)
