@@ -313,8 +313,11 @@ def generate_plan(request):
                     lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
                     # print(lessons)
                     for j in lessons:
-                        teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
-                        timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
+                        if j.teacheremail == "":
+                            timetable_data[j.lessonname] = [j.lessoncount, None]
+                        else:    
+                            teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
+                            timetable_data[j.lessonname] = [j.lessoncount, teacher.teachername]
                     classes[i['classname']] = timetable_data
             classrooms = {}
             classrooms_list = Classrooms.objects.filter(planneremail = user_data['email'])
@@ -501,7 +504,8 @@ def get_timetable(request):
         try:
             user_data = jwt.decode(payload, None, None)
             timetable = Timetables.objects.get(planneremail = user_data['email'])
-            response = timetable
+            timetable_data = timetable.data
+            response = timetable_data
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
