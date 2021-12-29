@@ -331,7 +331,7 @@ def generate_plan(request):
                 pref_sub_list = [n['name'] for n in pref_subject]
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {'Monday': None, 'Tuesday' : None, 'Wednesday': None, 'Thursday': None,'Friday': None}}
             def do_after():
-                timetable_data = main()
+                timetable_data = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
                 timetable.save(force_insert = True)
             response = json.dumps({'message': 'OK'})
