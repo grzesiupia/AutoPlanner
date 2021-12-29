@@ -225,17 +225,24 @@ def get_classes(request):
         try:
             user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
-            print(array)
+            #print(array)
             class_list = []
             for i in array:
                 timetable_data = []
                 lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
                 # print(lessons)
                 for j in lessons:
-                    teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
-                    timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': teacher.teachername})
+                    #print(j.teacheremail)
+                    if j.teacheremail == "":
+                        timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': ""})
+                        #print("1")
+                    else:
+                        teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
+                        timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': teacher.teachername})
+                        #print("2")
+                    #print(timetable_data)
                 class_list.append({'name': i['classname'], 'list_of_subjects': timetable_data})
-            print(class_list)
+            #print(class_list)
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
