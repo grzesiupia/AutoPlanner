@@ -328,7 +328,7 @@ export const editSubject = ({
         .then(function (response) {
             console.log(response);
             commit("EDIT_SUBJECT_SUCCESS", true)
-            router.go();
+            router.push("/step/1")
         })
         .catch(function (error) {
             commit("EDIT_SUBJECT_SUCCESS", false)
@@ -355,7 +355,7 @@ export const editTeacher = ({
         .then(function (response) {
             console.log(response);
             commit("EDIT_TEACHER_SUCCESS", true)
-            router.go();
+            router.push("/step/2")
         })
         .catch(function (error) {
             commit("EDIT_TEACHER_SUCCESS", false)
@@ -381,7 +381,7 @@ export const editClassroom = ({
         .then(function (response) {
             console.log(response);
             commit("EDIT_CLASSROOM_SUCCESS", true)
-            router.go();
+            router.push("/step/3")
         })
         .catch(function (error) {
             commit("EDIT_CLASSROOM_SUCCESS", false)
@@ -407,7 +407,7 @@ export const editClass = ({
         .then(function (response) {
             console.log(response);
             commit("EDIT_CLASS_SUCCESS", true)
-            router.go();
+            router.push("/step/4")
         })
         .catch(function (error) {
             commit("EDIT_CLASSES_SUCCESS", false)
