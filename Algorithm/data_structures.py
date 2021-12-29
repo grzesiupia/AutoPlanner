@@ -16,7 +16,14 @@ class Classroom:
 
     def __init__(self, class_number, preferred_subjects):
         self.class_number = class_number
-        self.preferred_subject = preferred_subjects
+        self.preferred_subject = self.set_preferred_subject(preferred_subjects)
+
+    @staticmethod
+    def set_preferred_subject(preferred_subjects):
+        if not preferred_subjects:
+            temp = ['zw']
+            return temp
+        return preferred_subjects
 
 
 class Teacher:
