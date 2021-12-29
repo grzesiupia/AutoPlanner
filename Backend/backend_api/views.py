@@ -326,7 +326,7 @@ def generate_plan(request):
             for i in teachers_list:
                 pref_subject = json.loads(i.teachsubject)
                 pref_sub_list = [n['name'] for n in pref_subject]
-                teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {}}
+                teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {'Monday': None, 'Tuesday' : None, 'Wednesday': None, 'Thursday': None,'Friday': None}}
             def do_after():
                 timetable_data = main()
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
@@ -494,4 +494,15 @@ def edit_class(request):
             response = json.dumps({'message': str(exc)})
             return HttpResponse(response, content_type='text/json', status = 403)
 
-
+@csrf_exempt
+def get_timetable(request):
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
+        try:
+            user_data = jwt.decode(payload, None, None)
+            timetable = Timetables.objects.get(planneremail = user_data['email'])
+            response = timetable
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json')

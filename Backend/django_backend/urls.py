@@ -40,5 +40,6 @@ urlpatterns = [
     path('api/edit/subject', views.edit_subject),
     path('api/edit/teacher', views.edit_teacher),
     path('api/edit/classroom', views.edit_classroom),
-    path('api/edit/class', views.edit_class)
+    path('api/edit/class', views.edit_class),
+    path('api/get/timetable', views.get_timetable)
 ]
