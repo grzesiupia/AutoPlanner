@@ -518,7 +518,7 @@ export const deleteClass = ({
 export const fetchClassPlans = ({
     commit
 },object) => {
-    axios.get("api/get/plans/class",{ headers: { 'x-access-token': `${object.token}`}})
+    axios.get("api/get/timetable",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_CLASS_PLANS", response.data)
