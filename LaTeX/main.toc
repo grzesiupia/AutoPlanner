@@ -15,30 +15,30 @@
 \contentsline {subsection}{\numberline {5.1.7}Visual Studio Code}{8}{subsection.5.1.7}%
 \contentsline {subsection}{\numberline {5.1.8}Axios}{8}{subsection.5.1.8}%
 \contentsline {subsection}{\numberline {5.1.9}Bootstrap}{8}{subsection.5.1.9}%
-\contentsline {section}{\numberline {5.2}Widoki}{8}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Strona główna}{8}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Widok szkoły}{8}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Rejestracja}{9}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.2}Widoki}{9}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Strona główna}{9}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Widok szkoły}{9}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Rejestracja}{10}{subsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.2.4}Logowanie}{10}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Ankieta}{10}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Dodawanie przedmiotów}{10}{subsection.5.2.6}%
-\contentsline {subsection}{\numberline {5.2.7}Dodawanie nauczycieli}{10}{subsection.5.2.7}%
-\contentsline {subsection}{\numberline {5.2.8}Dodawanie sali lekcyjnych}{10}{subsection.5.2.8}%
-\contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{10}{subsection.5.2.9}%
-\contentsline {subsection}{\numberline {5.2.10}Edycja danych}{10}{subsection.5.2.10}%
-\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django}{13}{chapter.6}%
-\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{14}{chapter.7}%
-\contentsline {chapter}{\chapternumberline {8}Testy}{15}{chapter.8}%
-\contentsline {chapter}{\chapternumberline {9}Wnioski}{16}{chapter.9}%
-\contentsline {chapter}{\chapternumberline {10}Zakończenie}{17}{chapter.10}%
-\contentsline {appendix}{\chapternumberline {A}Składanie dokumentu w systemie \LaTeX }{18}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Struktura dokumentu}{18}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Akapity i znaki specjalne}{18}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Wypunktowania}{18}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Polecenia pakietu \texttt {ppfcmthesis}}{19}{section.A.4}%
-\contentsline {paragraph}{Makra zdefiniowane dla języka angielskiego.}{19}{section*.8}%
-\contentsline {paragraph}{Makra zdefiniowane dla języka polskiego.}{19}{section*.9}%
-\contentsline {section}{\numberline {A.5}Rysunki}{19}{section.A.5}%
-\contentsline {subsection}{\numberline {A.5.1}Tablice}{20}{subsection.A.5.1}%
-\contentsline {subsection}{\numberline {A.5.2}Checklista}{20}{subsection.A.5.2}%
-\contentsline {section}{\numberline {A.6}Literatura i materiały dodatkowe}{21}{section.A.6}%
+\contentsline {subsection}{\numberline {5.2.5}Ankieta}{11}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Dodawanie przedmiotów}{11}{subsection.5.2.6}%
+\contentsline {subsection}{\numberline {5.2.7}Dodawanie nauczycieli}{12}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.8}Dodawanie sali lekcyjnych}{12}{subsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{12}{subsection.5.2.9}%
+\contentsline {subsection}{\numberline {5.2.10}Edycja danych}{13}{subsection.5.2.10}%
+\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django}{14}{chapter.6}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{15}{chapter.7}%
+\contentsline {chapter}{\chapternumberline {8}Testy}{16}{chapter.8}%
+\contentsline {chapter}{\chapternumberline {9}Wnioski}{17}{chapter.9}%
+\contentsline {chapter}{\chapternumberline {10}Zakończenie}{18}{chapter.10}%
+\contentsline {appendix}{\chapternumberline {A}Składanie dokumentu w systemie \LaTeX }{19}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Struktura dokumentu}{19}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Akapity i znaki specjalne}{19}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Wypunktowania}{19}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Polecenia pakietu \texttt {ppfcmthesis}}{20}{section.A.4}%
+\contentsline {paragraph}{Makra zdefiniowane dla języka angielskiego.}{20}{section*.8}%
+\contentsline {paragraph}{Makra zdefiniowane dla języka polskiego.}{20}{section*.9}%
+\contentsline {section}{\numberline {A.5}Rysunki}{20}{section.A.5}%
+\contentsline {subsection}{\numberline {A.5.1}Tablice}{21}{subsection.A.5.1}%
+\contentsline {subsection}{\numberline {A.5.2}Checklista}{21}{subsection.A.5.2}%
+\contentsline {section}{\numberline {A.6}Literatura i materiały dodatkowe}{22}{section.A.6}%
