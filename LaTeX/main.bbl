@@ -1,0 +1,71 @@
+\begin{thebibliography}{10}
+
+\bibitem{asc}
+a{S}c {T}ime{T}ables.
+\newblock [on-line] \url{https://www.asctimetables.com/#!/home}.
+
+\bibitem{axios}
+Axios.
+\newblock [on-line]
+  \url{https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html}.
+
+\bibitem{boot}
+Bootstrap.
+\newblock [on-line]
+  \url{https://getbootstrap.com/docs/5.1/getting-started/introduction/}.
+
+\bibitem{jest}
+Jest.
+\newblock [on-line] \url{https://vue-test-utils.vuejs.org/guides/}.
+
+\bibitem{jwt}
+Json web tokens.
+\newblock [on-line] \url{https://jwt.io/introduction}.
+
+\bibitem{node}
+Node.js.
+\newblock [on-line] \url{https://nodejs.org/en/about/}.
+
+\bibitem{postman}
+Postman.
+\newblock [on-line] \url{https://www.postman.com/product/what-is-postman/}.
+
+\bibitem{prime}
+Prime {T}imetable.
+\newblock [on-line] \url{https://primetimetable.com/help/#overview&q}.
+
+\bibitem{saas}
+Super{S}aa{S}.
+\newblock [on-line] \url{https://www.supersaas.com/info/doc/getting_started}.
+
+\bibitem{vscode}
+Visual studio code.
+\newblock [on-line] \url{https://code.visualstudio.com/docs}.
+
+\bibitem{vue}
+Vue.js.
+\newblock [on-line] \url{https://vuejs.org/v2/guide/}.
+
+\bibitem{vuex}
+Vuex.
+\newblock [on-line] \url{https://vuex.vuejs.org/}.
+
+\bibitem{Drozdowski2006}
+Maciej Drozdowski.
+\newblock Jak pisać prace dyplomowe -- uwagi o formie.
+\newblock [on-line]
+  \url{http://www.cs.put.poznan.pl/mdrozdowski/dyd/txt/jak_mgr.html}, 2006.
+
+\bibitem{Knuth1986}
+Donald~E. Knuth.
+\newblock {\em The {\TeX}book}.
+\newblock Computers and Typesetting. Ad{\-d}i{\-s}on-Wes{\-l}ey, Reading, MA,
+  USA, 1986.
+
+\bibitem{Lamport1985}
+Leslie Lamport.
+\newblock {\em {\LaTeX} --- A Document Preparation System --- User's Guide and
+  Reference Manual}.
+\newblock Ad{\-d}i{\-s}on-Wes{\-l}ey, Reading, MA, USA, 1985.
+
+\end{thebibliography}
