@@ -82,9 +82,8 @@ class Teachers(models.Model):
 
 class Timetables(models.Model):
     '''This class represents the tables that hold the timetable '''
-    timetableid = models.IntegerField(db_column='timetableId', primary_key=True)  # Field name made lowercase.
     data = models.JSONField()
-    planneremail = models.CharField(db_column='plannerEmail', max_length=255)  # Field name made lowercase.
+    planneremail = models.CharField(db_column='plannerEmail', primary_key=True, max_length=255)  # Field name made lowercase.
 
     class Meta:
         managed = False
