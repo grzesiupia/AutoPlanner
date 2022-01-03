@@ -1,36 +1,67 @@
 
 \chapter{Projekt i implementacja algorytmu generującego plan lekcji}
 
-Rozdziały dokumentujące pracę własną studenta: opisujące ideę, sposób lub metodę 
-rozwiązania postawionego problemu oraz rozdziały opisujące techniczną stronę rozwiązania 
---- dokumentacja techniczna, przeprowadzone testy, badania i uzyskane wyniki. 
+\section{Działanie algorytmu}
+Problem ułożenia najlepszego planu zajęć jest problemem Np-Zupełnym. W projekcie zostało zaimplementowane podejście ewolucyjne. Na rysunek X została zobrazowana struktura implementowanego planu zajęć.
 
-Praca musi zawierać elementy pracy własnej autora adekwatne do jego wiedzy praktycznej uzyskanej w
-okresie studiów. Za pracę własną autora można uznać np.: stworzenie aplikacji informatycznej lub jej
-fragmentu, zaproponowanie algorytmu rozwiązania problemu szczegółowego, przedstawienie projektu 
-np.~systemu informatycznego lub sieci komputerowej, analizę i ocenę nowych technologii lub rozwiązań
-informatycznych wykorzystywanych w przedsiębiorstwach, itp. 
+Rysunek struktury danych
 
-Autor powinien zadbać o właściwą dokumentację pracy własnej obejmującą specyfikację założeń i 
-sposób realizacji poszczególnych zadań
-wraz z ich oceną i opisem napotkanych problemów. W przypadku prac o charakterze 
-projektowo-implementacyjnym, ta część pracy jest zastępowana dokumentacją techniczną i użytkową systemu. 
 
-W pracy \textbf{nie należy zamieszczać całego kodu źródłowego} opracowanych programów. Kod źródłowy napisanych
-programów, wszelkie oprogramowanie wytworzone i wykorzystane w pracy, wyniki przeprowadzonych
-eksperymentów powinny być umieszczone np. na płycie CD, stanowiącej dodatek do pracy.
+Zagadnienie implementacji algorytmu można podzielić na cztery główne części: 
+\begin{itemize}
+	\item przygotowanie danych wejściowych,
+	\item ułożenie planu zajęć,
+	\item ocena planu zajęć,
+	\item ewolucja planu zajęć.
+\end{itemize}
 
-\section*{Styl tekstu}
 
-Należy\footnote{Uwagi o stylu pochodzą częściowo ze stron prof. Macieja Drozdowskiego~\cite{Drozdowski2006}.} 
-stosować formę bezosobową, tj.~\emph{w pracy rozważono ......, 
-w ramach pracy zaprojektowano ....}, a nie: \emph{w pracy rozważyłem, w ramach pracy zaprojektowałem}. 
-Odwołania do wcześniejszych fragmentów tekstu powinny mieć następującą postać: ,,Jak wspomniano wcześniej, ....'', 
-,,Jak wykazano powyżej ....''. Należy unikać długich zdań. 
 
-Niedopuszczalne są zwroty używane w języku potocznym. W pracy należy używać terminologii informatycznej, która ma 
-sprecyzowaną treść i znaczenie. 
+    
+    Przygotowanie danych wejściowych jest kluczowe w działaniu algorytmu. Na podstawie danych otrzymanych od back-end, zostaje ułożona lista czteroelementowych krotek, gdzie pierwszym elementem jest nazwa grupy, drugim elementem jest nazwa przedmiotu, trzecim elementem jest nazwa nauczyciela, a czwartym elementem jest nazwa sali. Wartość elementu sali jest na początku wartością pustą null, a wartość elementu nauczyciela, jest wartością pustą null, wtedy i tylko wtedy kiedy nie został wskazany nauczyciel dla konkretnej klasy. W takiej liście znajdują się wszystkie jednostki lekcyjne występujące w całej szkole. Przykładowo jeżeli pewna klasa IIC ma mieć 5 matematyk w tygodniu z nauczycielem Jan Kowalski, to do listy dostanie dodane pięć krotek postaci (IIC, matematyka, Jan Kowalski, null). Struktura wspomnianej listy znajduje się na ~rysunku~\ref{rys:krotki}.
 
-Niedopuszczalne jest pisanie pracy metodą \emph{cut\&paste}, bo jest to plagiat i dowód intelektualnej indolencji autora.
-Dane zagadnienie należy opisać własnymi słowami. Zawsze trzeba powołać się na zewnętrzne źródła. 
+
+\begin{figure}[]
+\begin{tabular}{llll}
+NAZWA GRUPY & NAZWA PRZEDMIOTU & NAZWA NAUCZYCIELA & NAZWA SALI \\
+IIC         & matematyka       & Jan Kowalski      & null       \\
+IIC         & matematyka       & Jan Kowalski      & null       \\
+IIC         & matematyka       & Jan Kowalski      & null       \\
+IIC         & język polski     & Andrzej Nowak     & null       \\
+IIC         & język polski     & Andrzej Nowak     & null       \\
+IA          & język polski     & null              & null      
+\end{tabular}
+\caption{Struktura listy krotek} \label{rys:krotki}
+\end{figure}
+
+    Głównym założeniem układania planu zajęć jest to, że na podstawie tej samej listy krotek, zawsze zostanie wygenerowany konkretny plan zajęć. 
+Układanie planu zajęć przebiega następująco:
+\begin{enumerate}
+	\item z listy krotek zostaje zabrana pierwsza z brzegu krotka,
+	\item wybrana krotka zostaje przydzielona do pierwszej możliwej konkretnej godziny w 		\item konkretnym dniu (czyli do takiej jednostki godzinowej, wtórej są spełnione 			\item wprowadzone przez użytkownika założenia oraz jest wolna sala),
+	\item poprzednie czynności zostają powtarzane tak długo, aż cała lista zostanie przeiterowana.
+\end{enumerate}
+Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek nie będzie pusta, to ułożony plan zajęć jest niekompletny i niepoprawny. Proces układania planu zajęć został przedstawiony na rysunek X.
+
+Rysunek proces układania planu zajęć
+
+    Funkcja oceny przyznaje planu zajęć pewną ilość punktów. Ocena może mieć wartość z zakresu od minus nieskończoności do 0, gdzie im wartość większa, tym lepsza ocena.
+
+TODO LEPSZY AKAPIT FUNKCJI OCENY 
+
+    Część ewolucyjna algorytmu wykorzystuje wszystkie poprzednie części. Na początku algorytm generuje pewną populację planów zajęć, która będzie nazywana dalej pierwszą generacją. Zawartość listy krotek jest identyczna dla każdej jednostki z populacji, ale kolejność krotek w liście jest pseudo losowo zmieniona. Dzięki takiemu rozwiązaniu, każda jednostka w populacji może wygenerować zupełnie inny plan zajęć. Za pomocą funkcji oceny, do każdego z planów zostaje przydzielona pewna ilość punktów. 
+
+Połowa najgorzej ocenionych planów zostaje zabita. Z każdego planu zajęć, któremu udało się przeżyć, generowany jest kolejny plan. Plan, z którego został wygenerowany nowy plan, będzie nazywany w dalszej części pracy rodzicem, natomiast nowo wygenerowany plan będzie nazywany potomkiem. Lista krotek potomka, będzie zawierała tą samą kolejność co rodzic, ale losowo wybrane rekordy zamienią się w sposób pseudolosowy pozycjami w liście, taka zamiana będzie nazywana dalej mutacją. Nowo wygenerowane jednostki zostają ocenione oraz dodane do populacji, w ten sposób powstaje druga generacja planów zajęć.
+
+    Czynność z poprzedniego akapitu powtarza się jeszcze g-razy, gdzie g to liczba wszystkich generacji. Działanie całego algorytmu zostało przedstawione na diagramie poniżej.
+
+
+DIAGRAM ALGORYTM
+
+AKAPIT O ZŁOŻONOŚCI
+
+AKAPIT O WIELOWĄTKOWOŚCI
+
+AKAPIT O POTRZEBNYCH ZASOBACH
+
 
