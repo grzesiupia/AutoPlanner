@@ -1,6 +1,7 @@
 
 \chapter{Projekt i implementacja algorytmu generującego plan lekcji}
 
+\section{Działanie algorytmu}
 Problem ułożenia najlepszego planu zajęć jest problemem Np-Zupełnym. W projekcie zostało zaimplementowane podejście ewolucyjne. Na rysunek X została zobrazowana struktura implementowanego planu zajęć.
 
 Rysunek struktury danych
@@ -17,15 +18,29 @@ Zagadnienie implementacji algorytmu można podzielić na cztery główne częśc
 
 
     
-    Przygotowanie danych wejściowych jest kluczowe w działaniu algorytmu. Na podstawie danych otrzymanych od back-end, zostaje ułożona lista czteroelementowych krotek, gdzie pierwszym elementem jest nazwa grupy, drugim elementem jest nazwa przedmiotu, trzecim elementem jest nazwa nauczyciela, a czwartym elementem jest nazwa sali. Wartość elementu sali jest na początku wartością pustą null, a wartość elementu nauczyciela, jest wartością pustą null, wtedy i tylko wtedy kiedy nie został wskazany nauczyciel dla konkretnej klasy. W takiej liście znajdują się wszystkie jednostki lekcyjne występujące w całej szkole. Przykładowo jeżeli pewna klasa IIC ma mieć 5 matematyk w tygodniu z nauczycielem Jan Kowalski, to do listy dostanie dodane pięć krotek postaci (IIC, matematyka, Jan Kowalski, null). Struktura wspomnianej listy znajduje się na rysunku X.
+    Przygotowanie danych wejściowych jest kluczowe w działaniu algorytmu. Na podstawie danych otrzymanych od back-end, zostaje ułożona lista czteroelementowych krotek, gdzie pierwszym elementem jest nazwa grupy, drugim elementem jest nazwa przedmiotu, trzecim elementem jest nazwa nauczyciela, a czwartym elementem jest nazwa sali. Wartość elementu sali jest na początku wartością pustą null, a wartość elementu nauczyciela, jest wartością pustą null, wtedy i tylko wtedy kiedy nie został wskazany nauczyciel dla konkretnej klasy. W takiej liście znajdują się wszystkie jednostki lekcyjne występujące w całej szkole. Przykładowo jeżeli pewna klasa IIC ma mieć 5 matematyk w tygodniu z nauczycielem Jan Kowalski, to do listy dostanie dodane pięć krotek postaci (IIC, matematyka, Jan Kowalski, null). Struktura wspomnianej listy znajduje się na ~rysunku~\ref{rys:krotki}.
 
 
-Rysunek struktury listy krotek.
+\begin{figure}[]
+\begin{tabular}{llll}
+NAZWA GRUPY & NAZWA PRZEDMIOTU & NAZWA NAUCZYCIELA & NAZWA SALI \\
+IIC         & matematyka       & Jan Kowalski      & null       \\
+IIC         & matematyka       & Jan Kowalski      & null       \\
+IIC         & matematyka       & Jan Kowalski      & null       \\
+IIC         & język polski     & Andrzej Nowak     & null       \\
+IIC         & język polski     & Andrzej Nowak     & null       \\
+IA          & język polski     & null              & null      
+\end{tabular}
+\caption{Struktura listy krotek} \label{rys:krotki}
+\end{figure}
 
-    Głównym założeniem układania planu zajęć jest to, że na podstawie tej samej listy krotek, zawsze zostanie wygenerowany konkretny plan zajęć. Układanie planu zajęć przebiega następująco:
-z listy krotek zostaje zabrana pierwsza z brzegu krotka,
-wybrana krotka zostaje przydzielona do pierwszej możliwej konkretnej godziny w konkretnym dniu (czyli do takiej jednostki godzinowej, wtórej są spełnione wprowadzone przez użytkownika założenia oraz jest wolna sala),
-poprzednie czynności zostają powtarzane tak długo, aż cała lista zostanie przeiterowana.
+    Głównym założeniem układania planu zajęć jest to, że na podstawie tej samej listy krotek, zawsze zostanie wygenerowany konkretny plan zajęć. 
+Układanie planu zajęć przebiega następująco:
+\begin{enumerate}
+	\item z listy krotek zostaje zabrana pierwsza z brzegu krotka,
+	\item wybrana krotka zostaje przydzielona do pierwszej możliwej konkretnej godziny w 		\item konkretnym dniu (czyli do takiej jednostki godzinowej, wtórej są spełnione 			\item wprowadzone przez użytkownika założenia oraz jest wolna sala),
+	\item poprzednie czynności zostają powtarzane tak długo, aż cała lista zostanie przeiterowana.
+\end{enumerate}
 Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek nie będzie pusta, to ułożony plan zajęć jest niekompletny i niepoprawny. Proces układania planu zajęć został przedstawiony na rysunek X.
 
 Rysunek proces układania planu zajęć
