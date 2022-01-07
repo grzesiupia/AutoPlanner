@@ -1,7 +1,11 @@
 \babel@toc {polish}{}\relax 
 \babel@toc {polish}{}\relax 
 \contentsline {chapter}{\chapternumberline {1}Wstęp}{1}{chapter.1}%
-\contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{3}{chapter.2}%
+\contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{2}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Problem optymalizacyjny}{2}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Problem NP-trudny}{2}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Heurystyka}{2}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Algorytm ewolucyjny}{2}{section.2.4}%
 \contentsline {chapter}{\chapternumberline {3}Analiza i porównanie możliwych rozwiązań}{4}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Analiza problemu}{4}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Aktualnie dostępne rozwiązania}{4}{section.3.2}%
@@ -26,17 +30,16 @@
 \contentsline {subsection}{\numberline {5.2.2}Widok szkoły}{10}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}Rejestracja}{11}{subsection.5.2.3}%
 \contentsline {subsection}{\numberline {5.2.4}Logowanie}{11}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Ankieta}{12}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.5}Ankieta}{11}{subsection.5.2.5}%
 \contentsline {subsection}{\numberline {5.2.6}Dodawanie przedmiotów}{12}{subsection.5.2.6}%
-\contentsline {subsection}{\numberline {5.2.7}Dodawanie nauczycieli}{13}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.7}Dodawanie nauczycieli}{12}{subsection.5.2.7}%
 \contentsline {subsection}{\numberline {5.2.8}Dodawanie sali lekcyjnych}{13}{subsection.5.2.8}%
-\contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{14}{subsection.5.2.9}%
+\contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{13}{subsection.5.2.9}%
 \contentsline {subsection}{\numberline {5.2.10}Edycja danych}{14}{subsection.5.2.10}%
-\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django}{16}{chapter.6}%
-\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{17}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Działanie algorytmu}{17}{section.7.1}%
-\contentsline {chapter}{\chapternumberline {8}Testy}{19}{chapter.8}%
-\contentsline {chapter}{\chapternumberline {9}Wnioski}{20}{chapter.9}%
-\contentsline {chapter}{\chapternumberline {10}Zakończenie}{21}{chapter.10}%
-\contentsline {chapter}{Literatura}{22}{chapter*.2}%
-\contentsline {appendix}{\chapternumberline {A}Załącznik do pracy}{23}{appendix.A}%
+\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django}{15}{chapter.6}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{16}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Działanie algorytmu}{16}{section.7.1}%
+\contentsline {chapter}{\chapternumberline {8}Testy}{18}{chapter.8}%
+\contentsline {chapter}{\chapternumberline {9}Wnioski}{19}{chapter.9}%
+\contentsline {chapter}{\chapternumberline {10}Zakończenie}{20}{chapter.10}%
+\contentsline {chapter}{Literatura}{21}{chapter*.2}%
