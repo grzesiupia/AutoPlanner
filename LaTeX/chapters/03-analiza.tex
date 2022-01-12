@@ -1,6 +1,13 @@
-
 \chapter{Analiza i porównanie możliwych rozwiązań}
 \section{Analiza problemu}
+Największym problemem w automatycznym generowaniu planu jest mnogość warunków koniecznych do utworzenia poprawnego planu. Warunki te można podzielić na niezbędne do utworzenia poprawnego planu oraz warunki dodatkowe, których spełnienie zwiększa przydatność planu z punktu widzenia użytkownika, ale których spełnienie nie jest wymagane do utworzenia planu możliwego do wykorzystana w praktyce.
+
+Wśród warunków niezbędnych należy wyróżnić warunek braku konfliktów. Konflikt ma miejsce, gdy występuje jedna z następujących sytuacji:
+\begin{itemize}
+    \item w jednej godzinie lekcyjnej, jednej klasie została przyporządkowana więcej niż jedna lekcja,
+    \item w jednej godzinie lekcyjnej, jednemu nauczycielowi została przyporządkowana więcej niż jedna klasa,
+    \item w jednej godzinie lekcyjnej jednej sali została przyporządkowana więcej niż jedna klasa.
+\end{enumerate}
 \section{Aktualnie dostępne rozwiązania}
 \subsection{aSc TimeTables}
 aSc TimeTables~\cite{asc} to aplikacja desktopowa wspomagająca przygotowywanie planów zajęć. Narzędzie umożliwia generowanie planów na podstawie zdefiniowanych wymagań, wprowadzenie do nich ręcznych poprawek oraz wyszukiwanie konfliktów we wprowadzonych zmianach. aSc TimeTables jest najbardziej rozbudowanym rozwiązaniem tego typu dostępnym na rynku, pozwalającym na tworzenie planów zajęć dla szkół i uczelni. Do dodatkowych funkcji programu należy możliwość importu danych z pliku, zdolność mapowania szkoły oraz udostępnienia planów uczniom i nauczycielom za pomocą aplikacji mobilnej. Z wszechstronnością i bogactwem funkcji wiąże się wysoki poziom umiejętności potrzebny do poprawnego wykorzystania aplikacji. Do pozostałych wad programu należy brak regularnych aktualizacji, podatność na błędy w generacji planu, wysoka cena oraz dostępność ograniczona do systemu Windows.

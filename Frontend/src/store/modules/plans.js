@@ -31,7 +31,7 @@ const mutations = {
         state.getTeacherPlansError = error;
     },
     'SET_CLASSROOM_PLANS'(state, s) {
-        state.classPlans = s
+        state.classroomPlans = s
     },
     'GET_CLASSROOM_PLANS_SUCCESS'(state, success) {
         state.getClassroomPlansSuccess = success
@@ -55,7 +55,7 @@ const getters = {
         return state.getClassPlansError;
     },
     getTeacherPlans: state => {
-        return state.classPlans;
+        return state.teacherPlans;
     },
     getTeacherPlansSuccess: state => {
         return state.getTeacherPlansSuccess;

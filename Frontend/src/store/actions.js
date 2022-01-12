@@ -518,12 +518,20 @@ export const deleteClass = ({
 export const fetchClassPlans = ({
     commit
 },object) => {
-    axios.get("api/get/timetable",{ headers: { 'x-access-token': `${object.token}`}})
+    axios.get("api/get/plans/class",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_CLASS_PLANS", response.data)
+            commit("GET_CLASS_PLANS_SUCCESS", true)
         })
-        .catch((err) => console.log(err));
+        .catch(function (error) {
+            commit("GET_CLASS_PLANS_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("GET_CLASS_PLANS_ERROR", error.response.data.message)
+            } else {
+                commit("GET_CLASS_PLANS_ERROR", error.response.data.message)
+            }
+        });
 }
 
 export const fetchTeacherPlans = ({
@@ -533,20 +541,37 @@ export const fetchTeacherPlans = ({
         .then((response) => {
             console.log(response)
             commit("SET_TEACHER_PLANS", response.data)
+            commit("GET_TEACHER_PLANS_SUCCESS", true)
         })
-        .catch((err) => console.log(err));
+        .catch(function (error) {
+            commit("GET_TEACHER_PLANS_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("GET_TEACHER_PLANS_ERROR", error.response.data.message)
+            } else {
+                commit("GET_TEACHER_PLANS_ERROR", error.response.data.message)
+            }
+        });
 }
 
 export const fetchClassroomPlans = ({
     commit
 },object) => {
-    axios.get("api/get/plans/classrooms",{ headers: { 'x-access-token': `${object.token}`}})
+    axios.get("api/get/plans/classroom",{ headers: { 'x-access-token': `${object.token}`}})
         .then((response) => {
             console.log(response)
             commit("SET_CLASSROOM_PLANS", response.data)
+            commit("GET_CLASSROOM_PLANS_SUCCESS", true)
         })
-        .catch((err) => console.log(err));
+        .catch(function (error) {
+            commit("GET_CLASSROOM_PLANS_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("GET_CLASSROOM_PLANS_ERROR", error.response.data.message)
+            } else {
+                commit("GET_CLASSROOM_PLANS_ERROR", error.response.data.message)
+            }
+        });
 }
+
 export const genPlan = ({
     commit
 },object) => {
