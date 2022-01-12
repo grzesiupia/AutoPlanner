@@ -509,4 +509,4 @@ def get_timetable(request):
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
             response = json.dumps({'message': str(exc)})
-            return HttpResponse(response, content_type='text/json')
+            return HttpResponse(response, content_type='text/json', status = 400)
