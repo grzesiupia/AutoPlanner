@@ -333,7 +333,7 @@ def generate_plan(request):
             def do_after():
                 timetable_data = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
                 timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
-                timetable.save(force_insert = True)
+                timetable.save(force_update=True)
             response = json.dumps({'message': 'OK'})
             return ResponseThen(response, do_after, content_type='text/json') 
         except Exception as exc:
