@@ -71,6 +71,28 @@ class Schedule:
         """
         self.time_table[day][hour][group_name] = [*lesson_value, classroom]
 
+    def create_teachers_time_table(self):
+        temp = [[], [], [], [], []]
+
+        for day_index, day in enumerate(self.time_table):
+            for hour in day:
+                hour_dict_temp = {}
+                for group_name, values in hour.items():
+                    hour_dict_temp[values[1]] = [values[0], group_name, values[2]]
+                temp[day_index].append(hour_dict_temp)
+        return temp
+
+    def create_classrooms_time_table(self):
+        temp = [[], [], [], [], []]
+
+        for day_index, day in enumerate(self.time_table):
+            for hour in day:
+                hour_dict_temp = {}
+                for group_name, values in hour.items():
+                    hour_dict_temp[values[2]] = [values[0], values[1], group_name]
+                temp[day_index].append(hour_dict_temp)
+        return temp
+
     def print_teacher_schedule(self, teacher):
         """
         Prints schedule for particular teacher
@@ -81,8 +103,6 @@ class Schedule:
                 for group, values in hour.items():
                     if values[1] == teacher:
                         print(hour[group])
-                    else:
-                        print('-----')
             print("\n")
 
     def print_schedule(self):
@@ -115,7 +135,10 @@ class Schedule:
                 file.write("\n")
 
     def convert_schedule_to_json(self):
-        return json.dumps(self.time_table)
+        school_schedule = json.dumps(self.time_table)
+        teachers_schedule = json.dumps(self.create_teachers_time_table())
+        classrooms_schedule = json.dumps(self.create_classrooms_time_table())
+        return school_schedule, teachers_schedule, classrooms_schedule
 
     def is_teacher_busy(self, teacher: str, day: int, hour: int) -> bool:
         """
@@ -147,7 +170,7 @@ class Schedule:
         self.busy_teachers_table[day][hour].add(teacher)
 
     # classes_with_preferences musi mieć postać słownika postaci {sala: preferencja, ...} ({int: str, ...})
-    def pop_correct_classroom(self, required_type_of_classroom: str, classrooms_with_type: dict, day: int, hour: int):
+    def pop_correct_classroom(self, required_type_of_classroom: str, day: int, hour: int):
         """
         Checks if for particular hour in the day, there is free classroom of required type
         @param required_type_of_classroom: type of required classroom e.g.:'wf'
@@ -214,7 +237,6 @@ class Algorithm:
                     # if no classroom meeting requirement free -> classroom_to_assign = None
                     classroom_to_assign = self.schedule.pop_correct_classroom(
                         required_type_of_classroom=self.school.get_req_name(subject_name),
-                        classrooms_with_type=self.school.classrooms,
                         day=day,
                         hour=hour)
                     # If classroom_to_assign is None then this lesson is not valid for this hour
@@ -474,10 +496,13 @@ def main(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLAS
     end = time.time()
     print(f"Parallel: {end - start} sec")
     print(population2.get_best_specimen().evaluation)
-    print(population2.get_best_specimen().schedule.print_schedule())
+    print(population2.get_best_specimen().schedule.time_table)
+    print(population2.get_best_specimen().schedule.create_teachers_time_table())
+    print(population2.get_best_specimen().schedule.create_classrooms_time_table())
+    # print(population2.get_best_specimen().schedule.print_teacher_schedule("Robert Lewandowski"))
 
-    json = population2.get_best_specimen().schedule.convert_schedule_to_json()
-    return json
+    school_schedule_json, teachers_schedule_json, classrooms_schedule_json = population2.get_best_specimen().schedule.convert_schedule_to_json()
+    return school_schedule_json, teachers_schedule_json, classrooms_schedule_json
 
 
 if __name__ == "__main__":
