@@ -162,7 +162,7 @@ class Schedule:
         # Iterate throgh free classrooms in particular hour in the day
         for classroom in self.free_classrooms_table[day][hour]:
 
-            if required_type_of_classroom in classrooms_with_type[classroom.class_number]:
+            if [required_type_of_classroom] == classroom.preferred_subject:
                 # If required type of classroom is same as type of classroom in iteration
                 # number of this classroom is returned
                 self.free_classrooms_table[day][hour].remove(classroom)
@@ -214,10 +214,9 @@ class Algorithm:
                     # if no classroom meeting requirement free -> classroom_to_assign = None
                     classroom_to_assign = self.schedule.pop_correct_classroom(
                         required_type_of_classroom=self.school.get_req_name(subject_name),
-                        classrooms_with_type=self.school.classrooms_data,
+                        classrooms_with_type=self.school.classrooms,
                         day=day,
                         hour=hour)
-
                     # If classroom_to_assign is None then this lesson is not valid for this hour
                     if classroom_to_assign is not None:
                         # Add lesson to schedule
@@ -413,7 +412,6 @@ class Population:
             temp = Algorithm(School(groups_data=self.groups_data,
                                     teachers_data=self.teachers_data,
                                     classrooms_data=self.classrooms_data))
-            print(temp.school.classrooms_req)
             self.population.append([temp, temp.evaluation])
         self.population.sort(key=lambda a: a[1], reverse=True)
 
@@ -454,7 +452,7 @@ class Population:
             self.parallel_reproduce(number_of_mutation)
 
 
-def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
+def main(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLASSES_OLD):
     population_size = 10
     num_of_generations = 1000
     num_of_mutations = 20
