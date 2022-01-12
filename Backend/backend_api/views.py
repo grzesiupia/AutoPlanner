@@ -498,13 +498,41 @@ def edit_class(request):
             return HttpResponse(response, content_type='text/json', status = 403)
 
 @csrf_exempt
-def get_timetable(request):
+def get_classes_timetable(request):
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
         try:
             user_data = jwt.decode(payload, None, None)
             timetable = Timetables.objects.get(planneremail = user_data['email'])
-            timetable_data = timetable.data
+            timetable_data = timetable.classestimetable
+            response = timetable_data
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json', status = 400)
+
+@csrf_exempt
+def get_classrooms_timetable(request):
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
+        try:
+            user_data = jwt.decode(payload, None, None)
+            timetable = Timetables.objects.get(planneremail = user_data['email'])
+            timetable_data = timetable.classroomstimetable
+            response = timetable_data
+            return HttpResponse(response, content_type='text/json')
+        except Exception as exc:
+            response = json.dumps({'message': str(exc)})
+            return HttpResponse(response, content_type='text/json', status = 400)
+
+@csrf_exempt
+def get_teachers_timetable(request):
+    if request.method == 'GET':
+        payload = request.headers.get('x-access-token')
+        try:
+            user_data = jwt.decode(payload, None, None)
+            timetable = Timetables.objects.get(planneremail = user_data['email'])
+            timetable_data = timetable.teacherstimetable
             response = timetable_data
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
