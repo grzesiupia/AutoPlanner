@@ -5,7 +5,6 @@
 import string
 from random import shuffle
 
-
 TOUGH_SUBJECTS = ("matematyka", "fizyka", "j.polski", "biologia", "chemia")
 
 
@@ -52,6 +51,7 @@ class Group:
     """
         Classroom is representation of data about groups of students in school
     """
+
     def __init__(self, group_name: string, subjects: dict, tough_subjects=TOUGH_SUBJECTS):
         self.name = group_name
         self.subjects = subjects
@@ -119,25 +119,27 @@ class School:
     """
         Class School is representation of data about all of instances in school
     """
-    def __init__(self, groups_data: dict, teachers_data: dict, classrooms_data: dict, classroom_req: set):
+
+    def __init__(self, groups_data: dict, teachers_data: dict, classrooms_data: dict):
+        self.classrooms_req = []
         self.school_name = None
-        self.classrooms = self.__process_classrooms(classrooms_data)
-        self.classrooms_set = self.__process_classrooms_to_set()
+        self.classrooms = self._process_classrooms(classrooms_data)
+        self.classrooms_set = self._process_classrooms_to_set()
         self.classrooms_data = classrooms_data
-        self.classroom_req = classroom_req
-        self.groups = self.__process_groups(groups_data)
+        self._process_classroom_req()
+        self.groups = self._process_groups(groups_data)
         self.list_of_tough_subjects = self.groups.copy().popitem()[1].list_of_tough_subjects
-        self.teachers = self.__process_teachers(teachers_data)
-        self.max_lessons_per_day_for_school = int(self.__set_max_lessons_per_day())
-        self.__assign_teachers_to_groups()
-        self.list_of_all_subjects = self.__process_list_of_all_subjects()
+        self.teachers = self._process_teachers(teachers_data)
+        self.max_lessons_per_day_for_school = int(self._set_max_lessons_per_day())
+        self._assign_teachers_to_groups()
+        self.list_of_all_subjects = self._process_list_of_all_subjects()
 
-    def get_req_name(self, sub_name):
-        if sub_name not in self.classroom_req:
-            return 'zw'
-        return sub_name
+    def get_req_name(self, subject_name):
+        if subject_name in self.classrooms_req:
+            return subject_name
+        return 'zw'
 
-    def __assign_teachers_to_groups(self):
+    def _assign_teachers_to_groups(self):
         """
             Assigns teachers to all of groups with unassigned teachers
         """
@@ -175,7 +177,7 @@ class School:
             # Increase teacher's work hours
             self.teachers[teacher_not_busy.name].increase_work_hours(subject_hours)
 
-    def __set_max_lessons_per_day(self):
+    def _set_max_lessons_per_day(self):
         max_lessons = 0
         for group in self.groups.values():
             if group.max_lessons_per_day > max_lessons:
@@ -183,13 +185,13 @@ class School:
         return max_lessons
 
     @staticmethod
-    def __process_groups(school_class_data):
+    def _process_groups(school_class_data):
         temp = {}
         for group, subjects in school_class_data.items():
             temp[group] = Group(group_name=group, subjects=subjects)
         return temp
 
-    def __process_teachers(self, teachers_data):
+    def _process_teachers(self, teachers_data):
         temp = {}
         for name, data in teachers_data.items():
             temp[name] = Teacher(name=name, data=data)
@@ -201,19 +203,26 @@ class School:
         return temp
 
     @staticmethod
-    def __process_classrooms(classes_data):
+    def _process_classrooms(classes_data):
         temp = []
         for class_number, preferred_subjects in classes_data.items():
             temp.append(Classroom(class_number=class_number, preferred_subjects=preferred_subjects))
         return temp
 
-    def __process_classrooms_to_set(self):
+    def _process_classroom_req(self):
+        for classroom in self.classrooms:
+            for subject in classroom.preferred_subject:
+                if subject not in self.classrooms_req \
+                        and subject != 'zw':
+                    self.classrooms_req.append(subject)
+
+    def _process_classrooms_to_set(self):
         temp = set()
         for classroom_number in self.classrooms:
             temp.add(classroom_number)
         return temp
 
-    def __process_list_of_all_subjects(self):
+    def _process_list_of_all_subjects(self):
         temp = []
         for group in self.groups.values():
             for sub in group.list_of_subjects:

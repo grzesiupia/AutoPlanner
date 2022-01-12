@@ -523,5 +523,77 @@ TEACHERS = {
             'Friday': [1, 2, 3, 4, 5]
         }
     },
+}
 
+TEACHERS_OLD = {
+    "Janusz Walczuk": {
+        'subject': "matematyka",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Krystyna Pawłowicz": {
+        'subject': "j.polski",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Robert Lewandowski": {
+        'subject': "wf",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Waldemar Kiepski": {
+        'subject': "chemia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Ksiądz Robak": {
+        'subject': "religia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': None,
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': None
+        }
+    },
+    "Snoop Dogg": {
+        'subject': "biologia",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    },
+    "Albert Einstein": {
+        'subject': "fizyka",
+        'work_hours': {
+            'Monday': [1, 2, 3, 4, 5],
+            'Tuesday': [1, 2, 3, 4, 5],
+            'Wednesday': [1, 2, 3, 4, 5],
+            'Thusday': [1, 2, 3, 4, 5],
+            'Friday': [1, 2, 3, 4, 5]
+        }
+    }
 }

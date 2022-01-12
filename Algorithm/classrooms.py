@@ -37,6 +37,12 @@ CLASSES = {
     's4': ["wf"],
 }
 
-CLASSES_REQ = {
-    'wf'
+CLASSES_OLD = {
+    100: ["biologia"],
+    101: ["fizyka"],
+    102: ["matematyka"],
+    103: [],
+    104: ["chemia"],
+    105: [],
+    200: ["wf"]
 }

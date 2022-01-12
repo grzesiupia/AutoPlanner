@@ -284,3 +284,42 @@ GROUP = {
         "geografia": [4, "CK"],
     },
 }
+
+GROUP_OLD = {
+    'IB': {
+        "matematyka": [8,None],
+        "fizyka": [4,None],
+        "j.polski": [6,None],
+        "biologia": [2,None],
+        "chemia": [1,None],
+        "wf": [2,None],
+        "religia": [2,None],
+    },
+    'IA':{
+        "matematyka": [6,None],
+        "fizyka": [2,None],
+        "j.polski": [4,None],
+        "biologia": [4,None],
+        "chemia": [3,None],
+        "wf": [4,None],
+        "religia": [2,None],
+    },
+    'IC':{
+        "matematyka": [5,None],
+        "fizyka": [4,None],
+        "j.polski": [4,None],
+        "biologia": [2,None],
+        "chemia": [4,None],
+        "wf": [4,None],
+        "religia": [2,None],
+    },
+    'ID':{
+        "matematyka": [6,None],
+        "fizyka": [2,None],
+        "j.polski": [7,None],
+        "biologia": [3,None],
+        "chemia": [2,None],
+        "wf": [4,None],
+        "religia": [1,None],
+    }
+}

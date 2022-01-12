@@ -11,9 +11,9 @@ import numpy as np
 from joblib import Parallel, delayed
 
 from Algorithm.data_structures import School
-from Algorithm.teachers import TEACHERS
-from Algorithm.groups import GROUP
-from Algorithm.classrooms import CLASSES, CLASSES_REQ
+from Algorithm.teachers import TEACHERS, TEACHERS_OLD
+from Algorithm.groups import GROUP, GROUP_OLD
+from Algorithm.classrooms import CLASSES, CLASSES_OLD
 
 
 class Schedule:
@@ -402,7 +402,6 @@ class Population:
     """
         Class population is responsible for handling genetic algorithm
     """
-
     def __init__(self, groups_data, teachers_data, classrooms_data):
         self.population = []
         self.groups_data = groups_data
@@ -413,8 +412,8 @@ class Population:
         for _ in range(number_of_instances):
             temp = Algorithm(School(groups_data=self.groups_data,
                                     teachers_data=self.teachers_data,
-                                    classrooms_data=self.classrooms_data,
-                                    classroom_req=CLASSES_REQ))
+                                    classrooms_data=self.classrooms_data))
+            print(temp.school.classrooms_req)
             self.population.append([temp, temp.evaluation])
         self.population.sort(key=lambda a: a[1], reverse=True)
 
@@ -460,25 +459,26 @@ def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     num_of_generations = 1000
     num_of_mutations = 20
 
-    population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    population.new_population(number_of_instances=population_size)
-    print(population.get_best_specimen().evaluation)
-    start = time.time()
-    population.evolute(num_of_generations, num_of_mutations)
-    end = time.time()
-    print(f"Nonparallel: {end - start} sec")
-    print(population.get_best_specimen().evaluation)
-
-    # population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    # population2.new_population(number_of_instances=population_size)
-    # print(population2.get_best_specimen().evaluation)
+    # population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    # population.new_population(number_of_instances=population_size)
+    # print(population.get_best_specimen().evaluation)
     # start = time.time()
-    # population2.parallel_evolute(num_of_generations, num_of_mutations)
+    # population.evolute(num_of_generations, num_of_mutations)
     # end = time.time()
-    # print(f"Parallel: {end - start} sec")
-    # print(population2.get_best_specimen().evaluation)
+    # print(f"Nonparallel: {end - start} sec")
+    # print(population.get_best_specimen().evaluation)
 
-    json = population.get_best_specimen().schedule.convert_schedule_to_json()
+    population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    population2.new_population(number_of_instances=population_size)
+    print(population2.get_best_specimen().evaluation)
+    start = time.time()
+    population2.parallel_evolute(num_of_generations, num_of_mutations)
+    end = time.time()
+    print(f"Parallel: {end - start} sec")
+    print(population2.get_best_specimen().evaluation)
+    print(population2.get_best_specimen().schedule.print_schedule())
+
+    json = population2.get_best_specimen().schedule.convert_schedule_to_json()
     return json
 
 
