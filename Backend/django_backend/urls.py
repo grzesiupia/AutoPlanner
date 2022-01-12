@@ -41,7 +41,7 @@ urlpatterns = [
     path('api/edit/teacher', views.edit_teacher),
     path('api/edit/classroom', views.edit_classroom),
     path('api/edit/class', views.edit_class),
-    path('api/get/classestimetable', views.get_classes_timetable),
-    path('api/get/classroomstimetable', views.get_classrooms_timetable),
-    path('api/get/teacherstimetable', views.get_teachers_timetable)
+    path('api/get/plans/class', views.get_classes_timetable),
+    path('api/get/plans/classroom', views.get_classrooms_timetable),
+    path('api/get/plans/teacher', views.get_teachers_timetable)
 ]
