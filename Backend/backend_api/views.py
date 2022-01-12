@@ -305,7 +305,7 @@ def generate_plan(request):
         try:
             user_data = jwt.decode(payload, None, None)
             lessons_list = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
-            print(lessons_list)
+            #print(lessons_list)
             classes = {}
             for i in lessons_list:
                 if i['classname'] is not None:
@@ -331,8 +331,8 @@ def generate_plan(request):
                 pref_sub_list = [n['name'] for n in pref_subject]
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {'Monday': None, 'Tuesday' : None, 'Wednesday': None, 'Thursday': None,'Friday': None}}
             def do_after():
-                timetable_data = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
-                timetable = Timetables(data = timetable_data, planneremail = user_data['email'])
+                classes_timetables, teachers_timetables, classrooms_timetables = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
+                timetable = Timetables(planneremail = user_data['email'], classestimetable = classes_timetables, teacherstimetable = teachers_timetables, classroomstimetable = classrooms_timetables)
                 timetable.save()
             response = json.dumps({'message': 'OK'})
             return ResponseThen(response, do_after, content_type='text/json') 
