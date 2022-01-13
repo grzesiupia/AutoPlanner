@@ -82,7 +82,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'schedule_gen',
          'USER': 'admin',
-         'PASSWORD': '12345678',
+         'PASSWORD': 'DominikToKox',
          'HOST': 'schoolgen.cyqrq4hopj2q.eu-central-1.rds.amazonaws.com',
          'PORT': '3306',
          'OPTIONS': {
