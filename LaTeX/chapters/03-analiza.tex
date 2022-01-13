@@ -1,13 +1,24 @@
 \chapter{Analiza i porównanie możliwych rozwiązań}
 \section{Analiza problemu}
-Największym problemem w automatycznym generowaniu planu jest mnogość warunków koniecznych do utworzenia poprawnego planu. Warunki te można podzielić na niezbędne do utworzenia poprawnego planu oraz warunki dodatkowe, których spełnienie zwiększa przydatność planu z punktu widzenia użytkownika, ale których spełnienie nie jest wymagane do utworzenia planu możliwego do wykorzystana w praktyce.
+Podstawowym problemem w automatycznym tworzeniu planu zajęć jest dobór warunków wykorzystywanym przy generacji. Warunki te można podzielić na niezbędne do utworzenia poprawnego planu oraz warunki dodatkowe, których spełnienie zwiększa użyteczność planu z punktu widzenia planisty. 
 
 Wśród warunków niezbędnych należy wyróżnić warunek braku konfliktów. Konflikt ma miejsce, gdy występuje jedna z następujących sytuacji:
 \begin{itemize}
-    \item w jednej godzinie lekcyjnej, jednej klasie została przyporządkowana więcej niż jedna lekcja,
+    \item w jednej godzinie lekcyjnej, jednej klasie została przyporządkowana więcej niż jeden przedmiot,
     \item w jednej godzinie lekcyjnej, jednemu nauczycielowi została przyporządkowana więcej niż jedna klasa,
     \item w jednej godzinie lekcyjnej jednej sali została przyporządkowana więcej niż jedna klasa.
-\end{enumerate}
+\end{itemize}
+W przypadku szkół podstawowych oraz średnich do warunków niezbędnych należy również zaliczyć brak niewykorzystanych godzin w środku dnia lekcyjnego dla uczniów. Dodatkowo niektóre zajęcia, takie jak wychowanie fizyczne, mogą być przeprowadzone tylko w specjalnie przeznaczonych do tego salach.
+
+Warunki dodatkowe mogą różnić się w zależności od czynników, które należy wziąć pod uwagę przy pod uwagę przy generacji plany wynikające ze specyfikacji szkoły oraz wymagań personelu dydaktycznego. Do tych czynników można zaliczyć:
+\begin{itemize}
+    \item ograniczenia dostępności nauczycieli, wynikające z pracy w innych placówkach oświatowych lub innych powodów,
+    \item ograniczenia wynikające z odległości między salami,
+    \item obecność zajęć nieobowiązkowych, które muszą w danym dniu lekcyjnym być skrajnie pierwsze lub ostatnie,
+    \item  minimalizację niewykorzystanych godzin w środku dnia lekcyjnego dla uczniów,
+    \item konieczność grupowania zajęć w przypadku kilku godzin lekcyjnych tego samego przedmiotu jednego dnia -- w takim przypadku zajęcia te powinny następować bezpośrednio po sobie oraz w tej samej sali,
+    \item możliwie jak najbardziej równomierne rozłożenie przedmiotów trakcie tygodnia lekcyjnego.
+\end{itemize}
 \section{Aktualnie dostępne rozwiązania}
 \subsection{aSc TimeTables}
 aSc TimeTables~\cite{asc} to aplikacja desktopowa wspomagająca przygotowywanie planów zajęć. Narzędzie umożliwia generowanie planów na podstawie zdefiniowanych wymagań, wprowadzenie do nich ręcznych poprawek oraz wyszukiwanie konfliktów we wprowadzonych zmianach. aSc TimeTables jest najbardziej rozbudowanym rozwiązaniem tego typu dostępnym na rynku, pozwalającym na tworzenie planów zajęć dla szkół i uczelni. Do dodatkowych funkcji programu należy możliwość importu danych z pliku, zdolność mapowania szkoły oraz udostępnienia planów uczniom i nauczycielom za pomocą aplikacji mobilnej. Z wszechstronnością i bogactwem funkcji wiąże się wysoki poziom umiejętności potrzebny do poprawnego wykorzystania aplikacji. Do pozostałych wad programu należy brak regularnych aktualizacji, podatność na błędy w generacji planu, wysoka cena oraz dostępność ograniczona do systemu Windows.
@@ -16,3 +27,5 @@ Prime Timetables~\cite{prime} to aplikacja internetowa przeznaczona dla organiza
 \subsection{SuperSaas}
 SuperSaas~\cite{saas} to program do zarządzania szkołami i innymi instytucjami, którego głównym atutem jest wbudowany system rezerwacji. Przy pomocy konta WordPress użytkownicy aplikacji mogą umawiać terminy wizyt, a także dokonywać za nie płatności. SuperSaas cechuje niska cena oraz dostępność z poziomu przeglądarki. Duża część funkcjonalności aplikacji nie jest przeznaczona dla szkół. Pomimo możliwości wspomagania ręcznego układania planów zajęć, program nie pozwala na automatyczną ich generację, ani nawet wykrywanie konfliktów. 
 \section{Możliwe podejścia}
+Możliwe rozwiązania można podzielić w zależności od kilku aspektów. Pierwszym z nich jest wybór rodzaju aplikacji -- desktopowej, mobilnej lub internetowej. Ze względu na fakt, że korzystanie z aplikacji wymagać ma wprowadzania dużej ilości danych można założyć, że z punktu widzenia użytkownika najwygodniejsze będzie użycie w tym celu fizycznej klawiatury. Powoduje to odrzucenie wyboru aplikacji mobilnej. Zaletami  wyboru aplikacji desktopowej jest możliwość korzystania z niej bez dostępu do internetu oraz bezpieczeństwo związane z lokalnym przechowywaniem danych. Pomimo tych korzyści rozwiązanie to nie oferuje zalet związanych z wyborem aplikacji internetowej -- dostępu z dowolnego urządzenia wyposażonego w kompatybilną przeglądarkę, braku wymagań systemowych związanych z obliczeniami i przechowywaniem danych oraz braku konieczności aktualizowania aplikacji przez użytkownika.
+\section{Wymagania funkcjonalne i niefunkcjonalne}
