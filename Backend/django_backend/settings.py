@@ -83,7 +83,7 @@ DATABASES = {
          'NAME': 'schedule_gen',
          'USER': 'admin',
          'PASSWORD': '12345678',
-         'HOST': 'schoolschedulegenerator.cyqrq4hopj2q.eu-central-1.rds.amazonaws.com',
+         'HOST': 'schoolgen.cyqrq4hopj2q.eu-central-1.rds.amazonaws.com',
          'PORT': '3306',
          'OPTIONS': {
           "init_command": "SET foreign_key_checks = 0;",
