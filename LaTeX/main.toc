@@ -1,46 +1,45 @@
 \babel@toc {polish}{}\relax 
 \babel@toc {polish}{}\relax 
 \contentsline {chapter}{\chapternumberline {1}Wstęp}{1}{chapter.1}%
-\contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{2}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Problem optymalizacyjny}{2}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Problem NP-trudny}{2}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Heurystyka}{2}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Algorytm ewolucyjny}{2}{section.2.4}%
-\contentsline {chapter}{\chapternumberline {3}Analiza i porównanie możliwych rozwiązań}{4}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Analiza problemu}{4}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Aktualnie dostępne rozwiązania}{5}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}aSc TimeTables}{5}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Prime Timetable}{5}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}SuperSaas}{5}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Możliwe podejścia}{5}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Wymagania funkcjonalne i niefunkcjonalne}{6}{section.3.4}%
-\contentsline {chapter}{\chapternumberline {4}Przygotowanie infrastruktury informatycznej}{7}{chapter.4}%
-\contentsline {chapter}{\chapternumberline {5}Projekt i implementacja aplikacji internetowej w technologii Vue.js}{8}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Narzędzia i techonologie}{8}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Node.js}{8}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Vue.js}{8}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Vuex}{8}{subsection.5.1.3}%
-\contentsline {subsection}{\numberline {5.1.4}Jest}{9}{subsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.1.5}Json Web Tokens}{9}{subsection.5.1.5}%
-\contentsline {subsection}{\numberline {5.1.6}Postman}{9}{subsection.5.1.6}%
-\contentsline {subsection}{\numberline {5.1.7}Visual Studio Code}{10}{subsection.5.1.7}%
-\contentsline {subsection}{\numberline {5.1.8}Axios}{10}{subsection.5.1.8}%
-\contentsline {subsection}{\numberline {5.1.9}Bootstrap}{10}{subsection.5.1.9}%
-\contentsline {section}{\numberline {5.2}Widoki}{11}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Strona główna}{11}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Widok szkoły}{11}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Rejestracja}{12}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Logowanie}{12}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Ankieta}{12}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Dodawanie przedmiotów}{13}{subsection.5.2.6}%
-\contentsline {subsection}{\numberline {5.2.7}Dodawanie nauczycieli}{13}{subsection.5.2.7}%
-\contentsline {subsection}{\numberline {5.2.8}Dodawanie sali lekcyjnych}{14}{subsection.5.2.8}%
-\contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{14}{subsection.5.2.9}%
-\contentsline {subsection}{\numberline {5.2.10}Edycja danych}{15}{subsection.5.2.10}%
-\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django}{16}{chapter.6}%
-\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{17}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Działanie algorytmu}{17}{section.7.1}%
-\contentsline {chapter}{\chapternumberline {8}Testy}{19}{chapter.8}%
-\contentsline {chapter}{\chapternumberline {9}Wnioski}{20}{chapter.9}%
-\contentsline {chapter}{\chapternumberline {10}Zakończenie}{21}{chapter.10}%
+\contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Problem optymalizacyjny}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Problem NP-trudny}{3}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Heurystyka}{3}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Algorytm ewolucyjny}{3}{section.2.4}%
+\contentsline {chapter}{\chapternumberline {3}Analiza i porównanie możliwych rozwiązań}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Analiza problemu}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Aktualnie dostępne rozwiązania}{6}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}aSc TimeTables}{6}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Prime Timetable}{6}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}SuperSaas}{6}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Możliwe podejścia}{6}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Wymagania funkcjonalne i niefunkcjonalne}{7}{section.3.4}%
+\contentsline {chapter}{\chapternumberline {4}Przygotowanie infrastruktury informatycznej}{8}{chapter.4}%
+\contentsline {chapter}{\chapternumberline {5}Projekt i implementacja aplikacji internetowej w technologii Vue.js}{9}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Narzędzia i techonologie}{9}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Node.js}{9}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Vue.js}{9}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Vuex}{9}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Jest}{10}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Json Web Tokens}{10}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {5.1.6}Postman}{10}{subsection.5.1.6}%
+\contentsline {subsection}{\numberline {5.1.7}Visual Studio Code}{11}{subsection.5.1.7}%
+\contentsline {subsection}{\numberline {5.1.8}Axios}{11}{subsection.5.1.8}%
+\contentsline {subsection}{\numberline {5.1.9}Bootstrap}{11}{subsection.5.1.9}%
+\contentsline {section}{\numberline {5.2}Widoki}{12}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Strona główna}{12}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Widok szkoły}{12}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Rejestracja}{13}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Logowanie}{13}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Ankieta}{13}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Dodawanie przedmiotów}{14}{subsection.5.2.6}%
+\contentsline {subsection}{\numberline {5.2.7}Dodawanie nauczycieli}{14}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.8}Dodawanie sali lekcyjnych}{15}{subsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{15}{subsection.5.2.9}%
+\contentsline {subsection}{\numberline {5.2.10}Edycja danych}{16}{subsection.5.2.10}%
+\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}{17}{chapter.6}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{18}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Działanie algorytmu}{18}{section.7.1}%
+\contentsline {chapter}{\chapternumberline {8}Instrukcja użytkowania}{20}{chapter.8}%
+\contentsline {chapter}{\chapternumberline {9}Zakończenie}{21}{chapter.9}%
 \contentsline {chapter}{Literatura}{22}{chapter*.2}%
