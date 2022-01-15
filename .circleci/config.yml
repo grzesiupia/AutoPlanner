@@ -67,15 +67,15 @@ jobs:
             PUBLIC_IP=$(curl ipinfo.io/ip)
             
             # 2- Add an ingress rule to the security group
-            aws ec2 authorize-security-group-ingress \
-            --region $AWS_DEFAULT_REGION \
-            --group-id $SG_ID_FRONT \
-            --protocol tcp \
-            --port 22 \
-            --cidr $PUBLIC_IP/24
+            # aws ec2 authorize-security-group-ingress \
+            # --region $AWS_DEFAULT_REGION \
+            # --group-id $SG_ID_FRONT \
+            # --protocol tcp \
+            # --port 22 \
+            # --cidr $PUBLIC_IP/24
             
             # 3- Give the ingress rule some time to propogate
-            sleep 5
+            # sleep 5
               
             # 4- SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_FRONT 'cd GroupProject; 
@@ -90,12 +90,12 @@ jobs:
             exit'
 
             # 5- Remove the ingress rule
-            aws ec2 revoke-security-group-ingress \
-            --region $AWS_DEFAULT_REGION \
-            --group-id $SG_ID_FRONT \
-            --protocol tcp \
-            --port 22 \
-            --cidr $PUBLIC_IP/24
+            # aws ec2 revoke-security-group-ingress \
+            # --region $AWS_DEFAULT_REGION \
+            # --group-id $SG_ID_FRONT \
+            # --protocol tcp \
+            # --port 22 \
+            # --cidr $PUBLIC_IP/24
 
             echo DONE! Successfully deployed to Frontend EC2 server.
 
@@ -115,21 +115,21 @@ jobs:
             PUBLIC_IP=$(curl ipinfo.io/ip)
             
             # 2- Add an ingress rule to the security group
-            aws ec2 authorize-security-group-ingress \
-            --region $AWS_DEFAULT_REGION \
-            --group-id $SG_ID_BACK \
-            --protocol tcp \
-            --port 22 \
-            --cidr $PUBLIC_IP/24
+            # aws ec2 authorize-security-group-ingress \
+            # --region $AWS_DEFAULT_REGION \
+            # --group-id $SG_ID_BACK \
+            # --protocol tcp \
+            # --port 22 \
+            # --cidr $PUBLIC_IP/24
             
             # 3- Give the ingress rule some time to propogate
-            sleep 5
+            # sleep 5
               
             # 4- SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'cd GroupProject; 
             git pull --rebase;
-            cd Backend;
             python -m pip install requirements.txt;
+            cd Backend;
             tmux new-session -d -s "DUMMY";
             sleep 2
             tmux kill-server;
@@ -138,12 +138,12 @@ jobs:
             exit'
 
             # 5- Remove the ingress rule
-            aws ec2 revoke-security-group-ingress \
-            --region $AWS_DEFAULT_REGION \
-            --group-id $SG_ID_BACK \
-            --protocol tcp \
-            --port 22 \
-            --cidr $PUBLIC_IP/24
+            # aws ec2 revoke-security-group-ingress \
+            # --region $AWS_DEFAULT_REGION \
+            # --group-id $SG_ID_BACK \
+            # --protocol tcp \
+            # --port 22 \
+            # --cidr $PUBLIC_IP/24
 
             echo DONE! Successfully deployed to Backend EC2 server.    
 
