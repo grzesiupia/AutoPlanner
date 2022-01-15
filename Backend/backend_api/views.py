@@ -280,7 +280,7 @@ def send_email(request):
             return HttpResponse(response, content_type='text/json')
 
 @csrf_exempt
-def add_poll_data(request, poll_number):
+def add_poll_data(request, pollNumber):
     '''The function saves the survey filled by the user to the database and
      returns the appropriate message depending on the success of sending the survey '''
     if request.method == 'POST':
@@ -289,7 +289,7 @@ def add_poll_data(request, poll_number):
         # response = json.dumps(payload)
         # return HttpResponse(response, content_type='text/json')
         try:
-            poll = Polls.objects.get(pollid = poll_number)
+            poll = Polls.objects.get(pollid = pollNumber)
             poll.teacherpref = json.dumps(payload)
             poll.save()
             response = json.dumps({"message": "Pomyslnie wyslano ankiete"})
