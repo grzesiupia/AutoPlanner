@@ -6,7 +6,9 @@ const state = {
     editTeacherSuccess: true,
     editTeacherError: null,
     getTeachersSuccess: true,
-    getTeachersError: null
+    getTeachersError: null,
+    sendEmailsSuccess: true,
+    sendEmailsError: null,
 }
 
 const mutations = {
@@ -34,6 +36,12 @@ const mutations = {
     'GET_TEACHERS_ERROR'(state, error) {
         state.getTeachersError = error;
     },  
+    'SEND_EMAILS_SUCCESS'(state, success) {
+        state.sendEmailsSuccess = success
+    },
+    'SEND_EMAILS_ERROR'(state, error) {
+        state.sendEmailsError = error;
+    },  
 }
 
 const getters = {
@@ -60,6 +68,12 @@ const getters = {
     },
     getTeachersError: state => {
         return state.getTeachersError;
+    },
+    getSendEmailsSuccess: state => {
+        return state.sendEmailsSuccess;
+    },
+    getSendEmailsErrors: state => {
+        return state.sendEmailsError;
     },
 }
 

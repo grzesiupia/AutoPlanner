@@ -18,6 +18,7 @@ import EditSubject from '../views/Edit/EditSubject.vue'
 import EditTeacher from '../views/Edit/EditTeacher.vue'
 import EditClassroom from '../views/Edit/EditClassroom.vue'
 import EditClass from '../views/Edit/EditClass.vue'
+import Wait from '../views/Add/Spinner.vue'
 
 Vue.use(VueRouter)
 
@@ -106,6 +107,11 @@ const routes = [
     path: '/edit/class',
     name: 'EditClass',
     component: EditClass
+  },
+  {
+    path: '/wait',
+    name: 'Wait',
+    component: Wait
   },
   {
     path: "*",
