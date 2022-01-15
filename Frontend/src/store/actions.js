@@ -583,16 +583,25 @@ export const genPlan = ({
         .catch((err) => console.log(err));
 }
 
-export const sendPolls = (object) => {
+export const sendPolls = ({
+    commit
+}, object) => {
     console.log(object.token)
     axios
         .post("api/sendEmail", {
-            token:object.token,
+            token: object.token,
         })
-        .then(async () => {
-            router.push("/");
+        .then(function (response) {
+            console.log(response);
+            commit("SEND_EMAILS_SUCCESS", true)
+            router.push("/")
         })
         .catch(function (error) {
-            console.log(error)
+            commit("SEND_EMAILS_SUCCESS", false)
+            if (error.response.data.message === "Validation error") {
+                commit("SEND_EMAILS_ERROR", error.response.data.message)
+            } else {
+                commit("SEND_EMAILS_ERROR", error.response.data.message)
+            }
         });
 }
