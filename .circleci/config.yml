@@ -47,10 +47,6 @@ jobs:
           command:
             npm install ./Frontend
       - run:
-          name: Install bootstrap
-          command:
-            npm install --save bootstrap-vue
-      - run:
           name: unit_tests
           command:
             cd Frontend &&
