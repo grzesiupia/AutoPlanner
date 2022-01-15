@@ -254,23 +254,24 @@ def send_email(request):
     ''' The function that sends e-mails to teachers with a link to the survey,
      returns the appropriate message depending on the success of sending the e-mails  '''
     if request.method == 'POST':
+        print(request.get_host())
         payload = json.loads(request.body)
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            planner = Planners.objects.get(email = user_data['email'])
-            teachers = Teachers.objects.filter(email = user_data['email'])
+            planner = Planners.objects.get(planneremail = user_data['email'])
+            teachers = Teachers.objects.filter(planneremail = user_data['email'])
             teacher_mail_list = []
             for i in teachers:
                 rows = Polls.objects.all().count()
-                poll = Polls(pool_id = rows + 1, email = planner, teacher_email = i, teacher_pref = None)
+                poll = Polls(pollid = rows + 1, planneremail = planner.planneremail, teacheremail = i.teacheremail, teacherpref = None)
                 poll.save(force_insert = True)
-                teacher_mail_list.append({'teacher_email': i.teacher_email})
+                teacher_mail_list.append(str(i.teacheremail))
                 send_mail(
                     'Wypelnij ankiete!',
-                    'Link do ankiety to:  http://localhost:8080/poll/' + str(rows + 1),
-                    'plan@generator.pl',
-                    [str(i.teacher_email)],
+                    'Link do ankiety to: ' + request.META.get("REMOTE_ADDR") +  '/poll/' + str(rows + 1),
+                    'schedulegenerator1@gmail.com',
+                    [str(i.teacheremail)],
                 ) 
             response = json.dumps(teacher_mail_list)
             return HttpResponse(response, content_type='text/json')
@@ -288,8 +289,8 @@ def add_poll_data(request, poll_number):
         # response = json.dumps(payload)
         # return HttpResponse(response, content_type='text/json')
         try:
-            poll = Polls.objects.get(pool_id = poll_number)
-            poll.teacher_pref = payload
+            poll = Polls.objects.get(pollid = poll_number)
+            poll.teacherpref = json.dumps(payload)
             poll.save()
             response = json.dumps({"message": "Pomyslnie wyslano ankiete"})
             return HttpResponse(response, content_type='text/json')
