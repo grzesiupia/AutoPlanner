@@ -594,7 +594,6 @@ export const sendPolls = ({
         .then(function (response) {
             console.log(response);
             commit("SEND_EMAILS_SUCCESS", true)
-            router.push("/")
         })
         .catch(function (error) {
             commit("SEND_EMAILS_SUCCESS", false)

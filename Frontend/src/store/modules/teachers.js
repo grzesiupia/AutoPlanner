@@ -7,7 +7,7 @@ const state = {
     editTeacherError: null,
     getTeachersSuccess: true,
     getTeachersError: null,
-    sendEmailsSuccess: true,
+    sendEmailsSuccess: false,
     sendEmailsError: null,
 }
 

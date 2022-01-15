@@ -32,6 +32,7 @@
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="sendPolls" value="Wyślij ankiety">
+    <label class="alert" v-show="sendEmailSuccess== true">Wysłano e-maile z ankietami do nauczycieli</label>
     </a>
     </h1>
   </div>
@@ -42,6 +43,9 @@ import router from '../../router/index.js'
 export default {
   name: 'Step2',
   computed: {
+    sendEmailSuccess(){
+      return this.$store.getters.getSendEmailsSuccess;
+    },
     addSuccess(){
       return this.$store.getters.getAddTeacherSuccess;
     },
@@ -68,6 +72,7 @@ export default {
   created(){
     this.$store.dispatch("fetchTeachers",{ token:this.token});
     this.$store.dispatch("fetchSubjects",{ token:this.token});
+    this.$store.commit("SEND_EMAILS_SUCCESS", false)
   },
    data: function() {
     return {
@@ -131,6 +136,16 @@ export default {
 </script>
 
 <style scoped>
+.alert {
+  padding: 15px 00px 15px 0px;
+  font-size: 20px;
+  background-color: #007e0085;
+  color: white;
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+}
 input[type=text],input[type=password],input[type=email], select 
 {
   padding: 15px 15px;

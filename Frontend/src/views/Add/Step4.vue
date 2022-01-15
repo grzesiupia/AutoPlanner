@@ -37,7 +37,7 @@
       <input class="buttond" type="button" value="-" @click="delSubject" style="margin: 0px 8px"></p>
       <input class="buttonm btn btn-success mr-3"  type="submit" value="Dodaj" >
     </form>
-    <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Generuj plan">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">
     </a>
     </h1>
@@ -93,7 +93,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$store.dispatch("genPlan",{ token:this.token});
-      router.push("/")
+      router.push("/wait")
     },
     back() {
       router.push("/step/3")

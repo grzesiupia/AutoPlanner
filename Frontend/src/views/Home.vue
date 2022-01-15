@@ -39,7 +39,7 @@
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
                             <h2 class="display-4">Dla planistów</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                            <p>Ułatwiamy pracę planistom umożliwiając zapisywanie danych online, dzięki czemu bedą dostępne z dowolnego urządzenia i pozwolą na automatyczne wygenerowanie planu.</p>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                     <div class="col-lg-6">
                         <div class="p-5">
                             <h2 class="display-4">Dla nauczycieli</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                            <p>Aplikacja pozwala nauczycielom na wypełnienie ankiet dostępności bez zakładania konta. Ankiety umożliwiają ustalenie preferowanych godzin pracy, które są brane pod uwagę przy generacji planu.</p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
                             <h2 class="display-4">Dla uczniów</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                            <p>Dzięki automatycznie wygenerowanych planom czas uczniów może zostać optymalnie wykorzystany.</p>
                         </div>
                     </div>
                 </div>
