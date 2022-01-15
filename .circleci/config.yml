@@ -58,6 +58,10 @@ jobs:
       - aws-cli/setup:
           aws-access-key-id: AWS_ACCESS_KEY_ID_FRONT
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_FRONT
+      - run:  
+          name: Update node.js
+          command:
+            npm install node.js@latest
       - run:
           name: deploy_frontend
           command: |
