@@ -81,6 +81,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_FRONT 'cd GroupProject; 
             git pull --rebase;
             cd Frontend;
+            npm install;
             tmux new-session -d -s "DUMMY";
             sleep 2
             tmux kill-server;
@@ -128,6 +129,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'cd GroupProject; 
             git pull --rebase;
             cd Backend;
+            python -m pip install requirements.txt;
             tmux new-session -d -s "DUMMY";
             sleep 2
             tmux kill-server;
