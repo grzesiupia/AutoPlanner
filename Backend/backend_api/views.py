@@ -269,7 +269,7 @@ def send_email(request):
                 teacher_mail_list.append(str(i.teacheremail))
                 send_mail(
                     'Wypelnij ankiete!',
-                    'Link do ankiety to: ' + request.META.get("REMOTE_ADDR") +  '/poll/' + str(rows + 1),
+                    'Link do ankiety to: ' + request.get_host() +  '/poll/' + str(rows + 1),
                     'schedulegenerator1@gmail.com',
                     [str(i.teacheremail)],
                 ) 
