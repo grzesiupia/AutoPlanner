@@ -47,9 +47,9 @@ class Planners(models.Model):
 
 class Polls(models.Model):
     '''This class represents tables that hold survey data'''
-    pollid = models.IntegerField(db_column='pollId', primary_key=True)  # Field name made lowercase.
-    teacheremail = models.CharField(db_column='teacherEmail', max_length=255)  # Field name made lowercase.
-    teacherpref = models.JSONField(db_column='teacherPref')  # Field name made lowercase.
+    pollid = models.IntegerField(db_column='pollId')  # Field name made lowercase.
+    teacheremail = models.CharField(db_column='teacherEmail', primary_key=True, max_length=255)  # Field name made lowercase.
+    teacherpref = models.JSONField(db_column='teacherPref', blank=True, null=True)  # Field name made lowercase.
     planneremail = models.CharField(db_column='plannerEmail', max_length=255)  # Field name made lowercase.
 
     class Meta:
