@@ -2,10 +2,10 @@
   <div>
     <label style="font-size:50px;display: block;text-align:center">Edycja danych nauczyciela</label>
     <hr style="border: 1px solid green;">
-    <h1 class=row2><b><p class=mbuttons>
+    <h1 class=row2><b><p class=mbuttons style="overflow-y: scroll;height: 80%;overflow-x: hidden">
     <br>
         <my-component v-for="teacher in teachers" :key="teacher.name">
-          <input class="buttonm btn btn-success mr-3" v-model="teacher.name" @click="editTea(teacher)">
+          <input class="buttonm btn btn-success mr-3" type="button" v-model="teacher.name" @click="editTea(teacher)">
         </my-component>
     </p></b>
     <a>
@@ -163,6 +163,11 @@ position: absolute;
 left:20px;
 top: 125px;
 width:18%;
+-ms-overflow-style: none; 
+scrollbar-width: none;
+}
+.mbuttons::-webkit-scrollbar {
+  display: none;
 }
 .buttonm 
 {

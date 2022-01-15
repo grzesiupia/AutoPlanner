@@ -582,3 +582,17 @@ export const genPlan = ({
         })
         .catch((err) => console.log(err));
 }
+
+export const sendPolls = (object) => {
+    console.log(object.token)
+    axios
+        .post("api/sendEmail", {
+            token:object.token,
+        })
+        .then(async () => {
+            router.push("/");
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
+}

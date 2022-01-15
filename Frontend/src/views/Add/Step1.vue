@@ -2,10 +2,10 @@
   <div>
     <label style="font-size:50px;display: block;text-align:center">Krok 1 - Dodaj przedmioty</label>
     <hr style="border: 1px solid green;">
-    <h1 class=row2><b><p class=mbuttons>
+    <h1 class=row2><b><p class=mbuttons style="overflow-y: scroll;height: 80%;overflow-x: hidden">
     <br>
         <my-component v-for="subject in subjects" :key="subject.subject_name">
-          <input class="buttonm btn btn-success mr-3" v-model="subject.subject_name" @click="editSubject(subject.subject_name)">
+          <input class="buttonm btn btn-success mr-3" type="button" v-model="subject.subject_name" @click="editSubject(subject.subject_name)">
         </my-component>
     </p></b>
     <a>
@@ -96,6 +96,11 @@ position: absolute;
 left:20px;
 top: 125px;
 width:18%;
+-ms-overflow-style: none; 
+scrollbar-width: none;
+}
+.mbuttons::-webkit-scrollbar {
+  display: none;
 }
 .buttonm 
 {
@@ -104,7 +109,8 @@ width:18%;
   text-decoration: none;
   display: block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin-top: 4px;
+  margin-right: 10px;
   cursor: pointer;
   width:100%;
 }
@@ -166,7 +172,6 @@ width:18%;
     position:relative;
     top: 0px;
     left:0px;
-    
   }
   .buttonc 
   {

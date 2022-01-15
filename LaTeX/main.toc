@@ -14,6 +14,7 @@
 \contentsline {subsection}{\numberline {3.2.3}SuperSaas}{6}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}Możliwe podejścia}{6}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Wymagania funkcjonalne i niefunkcjonalne}{7}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Przypadki użycia}{7}{section.3.5}%
 \contentsline {chapter}{\chapternumberline {4}Przygotowanie infrastruktury informatycznej}{8}{chapter.4}%
 \contentsline {chapter}{\chapternumberline {5}Projekt i implementacja aplikacji internetowej w technologii Vue.js}{9}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Narzędzia i techonologie}{9}{section.5.1}%
@@ -37,6 +38,7 @@
 \contentsline {subsection}{\numberline {5.2.8}Dodawanie sali lekcyjnych}{15}{subsection.5.2.8}%
 \contentsline {subsection}{\numberline {5.2.9}Dodawanie klas}{15}{subsection.5.2.9}%
 \contentsline {subsection}{\numberline {5.2.10}Edycja danych}{16}{subsection.5.2.10}%
+\contentsline {section}{\numberline {5.3}Połączenie z backendem}{16}{section.5.3}%
 \contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}{17}{chapter.6}%
 \contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{18}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Działanie algorytmu}{18}{section.7.1}%

@@ -19,9 +19,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="n in 10" :key="n">
+    <tr v-for="n in classPlan[0].length" :key="n">
        <th scope="row">{{n}}</th>  
-       <td v-for="(p,i) in plan2" :key="i"><div v-if="plan2[i][n-1] && m.name in plan2[i][n-1]">{{plan2[i][n-1][m.name][0]}}</div><div v-else></div></td>
+       <td v-for="(p,i) in classPlan" :key="i"><div v-if="classPlan[i][n-1] && m.name in classPlan[i][n-1]">{{classPlan[i][n-1][m.name][0]}}</div><div v-else></div></td>
     </tr>
    </tbody>
 </table>
@@ -39,9 +39,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="n in 10" :key="n">
+    <tr v-for="n in classPlan[0].length" :key="n">
        <th scope="row">{{n}}</th>  
-       <td v-for="(p,i) in plan3" :key="i"><div v-if="plan3[i][n-1] && m.name in plan3[i][n-1]">{{plan3[i][n-1][m.name][1]}}</div><div v-else></div></td>
+       <td v-for="(p,i) in teacherPlans" :key="i"><div v-if="teacherPlans[i][n-1] && m.name in teacherPlans[i][n-1]">{{teacherPlans[i][n-1][m.name][1]}}</div><div v-else></div></td>
     </tr>
    </tbody>
 </table>
@@ -59,9 +59,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="n in 10" :key="n">
+    <tr v-for="n in classPlan[0].length" :key="n">
        <th scope="row">{{n}}</th>  
-       <td v-for="(p,i) in plan4" :key="i"><div v-if="plan4[i][n-1] && m.classroom in plan4[i][n-1]">{{plan4[i][n-1][m.classroom][2]}}</div><div v-else></div></td>
+       <td v-for="(p,i) in classroomPlans" :key="i"><div v-if="classroomPlans[i][n-1] && m.classroom in classroomPlans[i][n-1]">{{classroomPlans[i][n-1][m.classroom][2]}}</div><div v-else></div></td>
     </tr>
    </tbody>
 </table>
@@ -115,15 +115,7 @@ export default {
   data: function() {
     return { 
       selectedPlans:"class",
-      plan2:[],
-      plan3:[],
-      plan4:[]
     };
-  },
-  mounted() {
-        this.plan2 = this.classPlan,
-        this.plan3 = this.teacherPlans,
-        this.plan4 = this.classroomPlans
   },
   methods: {
     handleSubmit() {

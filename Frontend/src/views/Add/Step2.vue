@@ -2,10 +2,10 @@
   <div>
     <label style="font-size:50px;display: block;text-align:center">Krok 2 - Dodaj nauczycieli</label>
     <hr style="border: 1px solid green;">
-    <h1 class=row2><b><p class=mbuttons>
+    <h1 class=row2><b><p class=mbuttons style="overflow-y: scroll;height: 80%;overflow-x: hidden">
     <br>
         <my-component v-for="teacher in teachers" :key="teacher.surname">
-          <input class="buttonm btn btn-success mr-3" v-model="teacher.name" @click="editTeacher(teacher)">
+          <input class="buttonm btn btn-success mr-3" type="button" v-model="teacher.name" @click="editTeacher(teacher)">
         </my-component>
     </p></b>
     <a>
@@ -31,6 +31,7 @@
     </form>
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="handleSubmit" value="Przejdź dalej">
     <input class="buttonc btn btn-success mr-3"  type="submit" @click="back" value="Poprzedni krok">
+    <input class="buttonc btn btn-success mr-3"  type="submit" @click="sendPolls" value="Wyślij ankiety">
     </a>
     </h1>
   </div>
@@ -115,6 +116,15 @@ export default {
     editTeacher(teacher){
       this.$store.commit("SET_TEACHER",teacher)
       router.push("/edit/teacher")
+    },
+     sendPolls(e){
+      e.preventDefault();
+       this.$store.dispatch(
+        "sendPolls",
+        {
+          token: this.token,
+        }
+      )
     }
   }
 }
@@ -138,6 +148,11 @@ position: absolute;
 left:20px;
 top: 125px;
 width:18%;
+-ms-overflow-style: none; 
+scrollbar-width: none;
+}
+.mbuttons::-webkit-scrollbar {
+  display: none;
 }
 .buttonm 
 {
