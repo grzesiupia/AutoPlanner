@@ -46,7 +46,7 @@ Układanie planu zajęć przebiega następująco:
 	\item wybrana krotka zostaje przydzielona do pierwszej możliwej konkretnej godziny w 		\item konkretnym dniu (czyli do takiej jednostki godzinowej, wtórej są spełnione 			\item wprowadzone przez użytkownika założenia oraz jest wolna sala),
 	\item poprzednie czynności zostają powtarzane tak długo, aż cała lista zostanie przeiterowana.
 \end{enumerate}
-Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek nie będzie pusta, to ułożony plan zajęć jest niekompletny i niepoprawny. Proces układania planu zajęć został przedstawiony na rysunek X.
+Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek nie będzie pusta, to ułożony plan zajęć jest niekompletny i niepoprawny. Proces układania planu zajęć został przedstawiony na ~rysunku~\ref{rys:time_table_prep}.
 
 \begin{figure}[h]
 \centering\includegraphics[width=\textwidth]{figures/time_table_prep}
@@ -56,8 +56,15 @@ Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek
 \section{Funkcja oceny}
 
     Funkcja oceny przyznaje planu zajęć pewną ilość punktów. Ocena może mieć wartość z zakresu od minus nieskończoności do 0, gdzie im wartość większa, tym lepsza ocena.
+    Wpływ na końcową ocenę mają następujące elementy:
+\begin{enumerate}
+	\item liczba tzw. okienek występujących w planie zajęć każdego nauczyciela,
+	\item liczba tzw. okienek występujących w planie zajęć każdej grupy,
+	\item liczba trudnych przedmiotów w ciągu jednego dnia w planie zajęć każdej grupy,
+	\item liczba sytuacji, w których grupa ma rozdzielone zajęcia tego samego przedmiotu innym przedmiotem (np. 1 godzina lekcyjna - matematyka, 2 godzina lekcyjna - biologia, 3 godzina lekcyjna - matematyka),
+	\item liczba sytuacji, w których zajęcia wychowania fizycznego nie występują na początku lub na końcu planu zajęć dnia.
+\end{enumerate}
 
-TODO LEPSZY AKAPIT FUNKCJI OCENY 
 
 \section{Ewolucja planów zajęć}
 
