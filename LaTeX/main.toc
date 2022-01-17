@@ -58,4 +58,5 @@
 \contentsline {section}{\numberline {8.9}Dodawanie klas}{29}{section.8.9}%
 \contentsline {section}{\numberline {8.10}Edycja danych}{29}{section.8.10}%
 \contentsline {chapter}{\chapternumberline {9}Zakończenie}{31}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Możliwości rozwoju aplikacji}{31}{section.9.1}%
 \contentsline {chapter}{Literatura}{32}{chapter*.2}%
