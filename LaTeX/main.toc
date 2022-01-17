@@ -15,36 +15,47 @@
 \contentsline {section}{\numberline {3.3}Możliwe podejścia}{6}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Wymagania funkcjonalne i niefunkcjonalne}{7}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Przypadki użycia}{8}{section.3.5}%
-\contentsline {chapter}{\chapternumberline {4}Przygotowanie infrastruktury informatycznej}{13}{chapter.4}%
-\contentsline {chapter}{\chapternumberline {5}Projekt i implementacja aplikacji internetowej w technologii Vue.js}{14}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Narzędzia i techonologie}{14}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Node.js}{14}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Vue.js}{14}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Vuex}{14}{subsection.5.1.3}%
-\contentsline {subsection}{\numberline {5.1.4}Jest}{15}{subsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.1.5}Json Web Tokens}{15}{subsection.5.1.5}%
-\contentsline {subsection}{\numberline {5.1.6}Postman}{15}{subsection.5.1.6}%
-\contentsline {subsection}{\numberline {5.1.7}Visual Studio Code}{16}{subsection.5.1.7}%
-\contentsline {subsection}{\numberline {5.1.8}Axios}{16}{subsection.5.1.8}%
-\contentsline {subsection}{\numberline {5.1.9}Bootstrap}{16}{subsection.5.1.9}%
-\contentsline {section}{\numberline {5.2}Połączenie z backendem}{16}{section.5.2}%
-\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}{18}{chapter.6}%
-\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{19}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Wstęp}{19}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{19}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{19}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Funkcja oceny}{21}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{21}{section.7.5}%
-\contentsline {chapter}{\chapternumberline {8}Instrukcja użytkowania}{24}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Strona główna}{24}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Widok szkoły}{24}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Rejestracja}{25}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Logowanie}{25}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Ankieta}{26}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Dodawanie przedmiotów}{26}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Dodawanie nauczycieli}{27}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Dodawanie sali lekcyjnych}{27}{section.8.8}%
-\contentsline {section}{\numberline {8.9}Dodawanie klas}{28}{section.8.9}%
-\contentsline {section}{\numberline {8.10}Edycja danych}{28}{section.8.10}%
-\contentsline {chapter}{\chapternumberline {9}Zakończenie}{30}{chapter.9}%
-\contentsline {chapter}{Literatura}{31}{chapter*.2}%
+\contentsline {chapter}{\chapternumberline {4}Metodyka pracy oraz przygotowanie infrastruktury informatycznej}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Wstęp}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Pojęcia}{13}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}DevOps}{13}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Continous Integration}{13}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Kontrola wersji}{14}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Narzędzia i technologie}{14}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Amazon Web Services}{14}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Git}{14}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}GitHub}{14}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}CircleCI}{14}{subsection.4.3.4}%
+\contentsline {section}{\numberline {4.4}Przygotowanie infrastruktury informatycznej}{14}{section.4.4}%
+\contentsline {chapter}{\chapternumberline {5}Projekt i implementacja aplikacji internetowej w technologii Vue.js}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Narzędzia i techonologie}{15}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Node.js}{15}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Vue.js}{15}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Vuex}{15}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Jest}{16}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Json Web Tokens}{16}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {5.1.6}Postman}{16}{subsection.5.1.6}%
+\contentsline {subsection}{\numberline {5.1.7}Visual Studio Code}{17}{subsection.5.1.7}%
+\contentsline {subsection}{\numberline {5.1.8}Axios}{17}{subsection.5.1.8}%
+\contentsline {subsection}{\numberline {5.1.9}Bootstrap}{17}{subsection.5.1.9}%
+\contentsline {section}{\numberline {5.2}Połączenie z backendem}{17}{section.5.2}%
+\contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}{19}{chapter.6}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{20}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Wstęp}{20}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{20}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{20}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Funkcja oceny}{22}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{22}{section.7.5}%
+\contentsline {chapter}{\chapternumberline {8}Instrukcja użytkowania}{25}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Strona główna}{25}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Widok szkoły}{25}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Rejestracja}{26}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Logowanie}{26}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Ankieta}{27}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Dodawanie przedmiotów}{27}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Dodawanie nauczycieli}{28}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Dodawanie sali lekcyjnych}{28}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Dodawanie klas}{29}{section.8.9}%
+\contentsline {section}{\numberline {8.10}Edycja danych}{29}{section.8.10}%
+\contentsline {chapter}{\chapternumberline {9}Zakończenie}{31}{chapter.9}%
+\contentsline {chapter}{Literatura}{32}{chapter*.2}%
