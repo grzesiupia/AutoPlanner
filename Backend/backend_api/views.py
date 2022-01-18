@@ -322,25 +322,28 @@ def generate_plan(request):
                 pref_sub_list = [n['name'] for n in pref_subject]
                 poll = Polls.objects.get(planneremail = user_data['email'], teacheremail = i.teacheremail)
                 work_hours = {}
-                pref_hours = json.loads(poll.teacherpref)
-                for day, j in enumerate(pref_hours['poll']):
-                    hours=[]
-                    for z in j:
-                        if z['Selected'] == True:
-                            hours.append(z['Hour'])
-                    if not hours:
-                        hours = None
-                    if day == 0:
-                        work_hours['Monday'] = hours
-                    elif day == 1:
-                        work_hours['Tuesday'] = hours
-                    elif day == 2:
-                        work_hours['Wednesday'] = hours
-                    elif day == 3: 
-                        work_hours['Thursday'] = hours
-                    elif day == 4:
-                        work_hours['Friday'] = hours    
-                print(work_hours)
+                if poll.teacherpref == None:
+                    work_hours['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] = None
+                else:
+                    pref_hours = json.loads(poll.teacherpref)
+                    for day, j in enumerate(pref_hours['poll']):
+                        hours=[]
+                        for z in j:
+                            if z['Selected'] == True:
+                                hours.append(z['Hour'])
+                        if not hours:
+                            hours = None
+                        if day == 0:
+                            work_hours['Monday'] = hours
+                        elif day == 1:
+                            work_hours['Tuesday'] = hours
+                        elif day == 2:
+                            work_hours['Wednesday'] = hours
+                        elif day == 3: 
+                            work_hours['Thursday'] = hours
+                        elif day == 4:
+                            work_hours['Friday'] = hours    
+                    print(work_hours)
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': work_hours}
             def do_after():
                 classes_timetables, teachers_timetables, classrooms_timetables = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
