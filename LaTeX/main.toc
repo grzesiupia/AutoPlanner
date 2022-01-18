@@ -40,23 +40,37 @@
 \contentsline {subsection}{\numberline {5.1.9}Bootstrap}{17}{subsection.5.1.9}%
 \contentsline {section}{\numberline {5.2}Połączenie z backendem}{17}{section.5.2}%
 \contentsline {chapter}{\chapternumberline {6}Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}{19}{chapter.6}%
-\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{20}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Wstęp}{20}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{20}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{20}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Funkcja oceny}{22}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{22}{section.7.5}%
-\contentsline {chapter}{\chapternumberline {8}Instrukcja użytkowania}{25}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Strona główna}{25}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Widok szkoły}{25}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Rejestracja}{26}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Logowanie}{26}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Ankieta}{27}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Dodawanie przedmiotów}{27}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Dodawanie nauczycieli}{28}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Dodawanie sali lekcyjnych}{28}{section.8.8}%
-\contentsline {section}{\numberline {8.9}Dodawanie klas}{29}{section.8.9}%
-\contentsline {section}{\numberline {8.10}Edycja danych}{29}{section.8.10}%
-\contentsline {chapter}{\chapternumberline {9}Zakończenie}{31}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Możliwości rozwoju aplikacji}{31}{section.9.1}%
-\contentsline {chapter}{Literatura}{32}{chapter*.2}%
+\contentsline {section}{\numberline {6.1}Narzędzia i techonologie}{19}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Django}{19}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}MySQL}{20}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}MySQL Workbench}{20}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Implementacja serwera REST API}{20}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}REST}{20}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Modele}{21}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Adresy internetowe}{22}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Widoki}{23}{subsection.6.2.4}%
+\contentsline {section}{\numberline {6.3}Główne funkcjonalności}{24}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Rejestracja i logowanie}{24}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Uzupełnianie danych potrzebnych do generacji planu}{25}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Generacja oraz zwracanie planów}{25}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Baza danych MySQL}{26}{section.6.4}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{27}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Wstęp}{27}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{27}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{27}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Funkcja oceny}{29}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{29}{section.7.5}%
+\contentsline {chapter}{\chapternumberline {8}Instrukcja użytkowania}{32}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Strona główna}{32}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Widok szkoły}{32}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Rejestracja}{33}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Logowanie}{33}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Ankieta}{34}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Dodawanie przedmiotów}{34}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Dodawanie nauczycieli}{35}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Dodawanie sali lekcyjnych}{35}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Dodawanie klas}{36}{section.8.9}%
+\contentsline {section}{\numberline {8.10}Edycja danych}{36}{section.8.10}%
+\contentsline {chapter}{\chapternumberline {9}Zakończenie}{38}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Możliwości rozwoju aplikacji}{38}{section.9.1}%
+\contentsline {chapter}{Literatura}{39}{chapter*.2}%

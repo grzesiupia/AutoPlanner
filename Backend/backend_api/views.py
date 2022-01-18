@@ -221,28 +221,20 @@ def get_classes(request):
     ''' A function that returns a list of classes for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
-        #print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
             array = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
-            #print(array)
             class_list = []
             for i in array:
                 timetable_data = []
                 lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
-                # print(lessons)
                 for j in lessons:
-                    #print(j.teacheremail)
                     if j.teacheremail == "":
                         timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': ""})
-                        #print("1")
                     else:
                         teacher = Teachers.objects.get(planneremail = user_data['email'], teacheremail =  j.teacheremail)
                         timetable_data.append({'name': j.lessonname, 'number': j.lessoncount, 'teacher': teacher.teachername})
-                        #print("2")
-                    #print(timetable_data)
                 class_list.append({'name': i['classname'], 'list_of_subjects': timetable_data})
-            #print(class_list)
             response=json.dumps(class_list)
             return HttpResponse(response, content_type='text/json')
         except Exception as exc:
@@ -306,13 +298,11 @@ def generate_plan(request):
         try:
             user_data = jwt.decode(payload, None, None)
             lessons_list = Lessons.objects.filter(planneremail = user_data['email']).order_by().values('classname').distinct()
-            #print(lessons_list)
             classes = {}
             for i in lessons_list:
                 if i['classname'] is not None:
                     timetable_data = {}
                     lessons = Lessons.objects.filter(planneremail = user_data['email'], classname = i['classname'])
-                    # print(lessons)
                     for j in lessons:
                         if j.teacheremail == "":
                             timetable_data[j.lessonname] = [j.lessoncount, None]
@@ -330,7 +320,28 @@ def generate_plan(request):
             for i in teachers_list:
                 pref_subject = json.loads(i.teachsubject)
                 pref_sub_list = [n['name'] for n in pref_subject]
-                teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': {'Monday': None, 'Tuesday' : None, 'Wednesday': None, 'Thursday': None,'Friday': None}}
+                poll = Polls.objects.get(planneremail = user_data['email'], teacheremail = i.teacheremail)
+                work_hours = {}
+                pref_hours = json.loads(poll.teacherpref)
+                for day, j in enumerate(pref_hours['poll']):
+                    hours=[]
+                    for z in j:
+                        if z['Selected'] == True:
+                            hours.append(z['Hour'])
+                    if not hours:
+                        hours = None
+                    if day == 0:
+                        work_hours['Monday'] = hours
+                    elif day == 1:
+                        work_hours['Tuesday'] = hours
+                    elif day == 2:
+                        work_hours['Wednesday'] = hours
+                    elif day == 3: 
+                        work_hours['Thursday'] = hours
+                    elif day == 4:
+                        work_hours['Friday'] = hours    
+                print(work_hours)
+                teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': work_hours}
             def do_after():
                 classes_timetables, teachers_timetables, classrooms_timetables = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
                 timetable = Timetables(planneremail = user_data['email'], classestimetable = classes_timetables, teacherstimetable = teachers_timetables, classroomstimetable = classrooms_timetables)
