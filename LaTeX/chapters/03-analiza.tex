@@ -1,6 +1,6 @@
 \chapter{Analiza i porównanie możliwych rozwiązań}
 \section{Analiza problemu}
-Podstawowym problemem w automatycznym tworzeniu planu zajęć jest dobór warunków wykorzystywanym przy generacji. Warunki te można podzielić na niezbędne do utworzenia poprawnego planu oraz warunki dodatkowe, których spełnienie zwiększa użyteczność planu z punktu widzenia planisty. 
+Podstawowym problemem w automatycznym tworzeniu planu zajęć jest dobór warunków wykorzystywanych przy generacji. Warunki te można podzielić na niezbędne do utworzenia poprawnego planu oraz warunki dodatkowe, których spełnienie zwiększa użyteczność planu z punktu widzenia planisty. 
 
 Wśród warunków niezbędnych należy wyróżnić warunek braku konfliktów. Konflikt ma miejsce, gdy występuje jedna z następujących sytuacji:
 \begin{itemize}
@@ -27,21 +27,21 @@ Prime Timetables~\cite{prime} to aplikacja internetowa przeznaczona dla organiza
 \subsection{SuperSaas}
 SuperSaas~\cite{saas} to program do zarządzania szkołami i innymi instytucjami, którego głównym atutem jest wbudowany system rezerwacji. Przy pomocy konta WordPress użytkownicy aplikacji mogą umawiać terminy wizyt, a także dokonywać za nie płatności. SuperSaas cechuje niska cena oraz dostępność z poziomu przeglądarki. Duża część funkcjonalności aplikacji nie jest przeznaczona dla szkół. Pomimo możliwości wspomagania ręcznego układania planów zajęć, program nie pozwala na automatyczną ich generację, ani nawet wykrywanie konfliktów. 
 \section{Możliwe podejścia}
-Możliwe rozwiązania można podzielić w zależności od kilku aspektów. Pierwszym z nich jest wybór rodzaju aplikacji -- desktopowej, mobilnej lub internetowej. Ze względu na fakt, że korzystanie z aplikacji wymagać ma wprowadzania dużej ilości danych można założyć, że z punktu widzenia użytkownika najkorzystniejsze będzie użycie w tym celu fizycznej klawiatury. Powoduje to odrzucenie wyboru aplikacji mobilnej. Zaletami  wyboru aplikacji desktopowej jest możliwość korzystania z niej bez dostępu do internetu oraz bezpieczeństwo związane z lokalnym przechowywaniem danych. Pomimo tych korzyści rozwiązanie to nie oferuje zalet związanych z wyborem aplikacji internetowej -- dostępu z dowolnego urządzenia wyposażonego w kompatybilną przeglądarkę, braku wymagań systemowych związanych z obliczeniami i przechowywaniem danych oraz braku konieczności aktualizowania aplikacji przez użytkownika. Te czynniki jednoznacznie przesądzają o wykorzystaniu w projekcie aplikacji internetowej.
+Możliwe rozwiązania można podzielić w zależności od kilku aspektów. Pierwszym z nich jest wybór rodzaju aplikacji -- desktopowej, mobilnej lub internetowej. Ze względu na fakt, że korzystanie z aplikacji wymagać ma wprowadzania dużej ilości danych, można założyć, że z punktu widzenia użytkownika najkorzystniejsze będzie użycie w tym celu fizycznej klawiatury. Powoduje to odrzucenie wyboru aplikacji mobilnej. Zaletami  wyboru aplikacji desktopowej jest możliwość korzystania z niej bez dostępu do Internetu oraz bezpieczeństwo związane z lokalnym przechowywaniem danych. Pomimo tych korzyści rozwiązanie to nie oferuje zalet związanych z wyborem aplikacji internetowej -- dostępu z dowolnego urządzenia wyposażonego w kompatybilną przeglądarkę, braku wymagań systemowych związanych z obliczeniami i przechowywaniem danych oraz braku konieczności aktualizowania aplikacji przez użytkownika. Te czynniki jednoznacznie przesądzają o wykorzystaniu w projekcie aplikacji internetowej.
 
 Drugim aspektem, który należy rozpatrzyć jest poziom złożoności aplikacji, związany głównie z wyborem możliwych do wprowadzenia przez planistę warunków wykorzystywanych przy generacji planu. Większa liczba warunków może wiązać się z lepszą jakością planu, ale także dłuższym czasem jego generacji. Należy również rozpatrzyć stosunek nakładu pracy przeznaczonej na implementację warunku w stosunku do potencjalnego zysku dla użytkowników. Każdy dodatkowy warunek spowodowałby zmniejszenie przejrzystości interfejsu graficznego, szczególnie dla użytkowników, dla których byłby on zbędny. Biorąc pod uwagę te czynniki w projekcie wykorzystane zostaną jedynie te warunki, których obecność jest niezbędna do poprawnej generacji planu.
 
-Ostatnim ważnym do rozpatrzenia aspektem jest wybór użytkowników, którzy będą posiadać konta w systemie. Pierwszym z nich jest planista -- osoba odpowiedzialna za układanie planów. W rozwiązaniu, w których planiści nie posiadają kont, wprowadzone informację nie byłyby przechowywane w bazie w danych, co oznacza ich utratę przypadku zakończenia sesji. Konieczność posiadania przez planistę konta eliminuje ten problem i dodatkowo utrudnia ataki na stronę. Pozostali potencjalni użytkownicy to nauczyciele oraz uczniowie. W projekcie zakładamy możliwość podania przez nauczyciela swojej dyspozycyjności. Ze względu na konieczność podania przez planistów adresu e-mail każdego dodanego nauczyciela, jest to możliwe poprzez unikatowy link wysłany w wiadomości, bez obowiązku zakładania konta. Dla uczniów, ze względu na brak bezpośredniego wpływu na plan zajęć, również nie zakłada się możliwości stworzenia konta. 
+Ostatnim ważnym do rozpatrzenia aspektem jest wybór użytkowników, którzy będą posiadać konta w systemie. Pierwszym z nich jest planista -- osoba odpowiedzialna za układanie planów. W rozwiązaniu, w których planiści nie posiadają kont, wprowadzone informacje nie byłyby przechowywane w bazie w danych, co oznacza ich utratę przypadku zakończenia sesji. Konieczność posiadania przez planistę konta eliminuje ten problem i dodatkowo utrudnia ataki na stronę. Pozostali potencjalni użytkownicy to nauczyciele oraz uczniowie. W projekcie zakładamy możliwość podania przez nauczyciela swojej dyspozycyjności. Ze względu na konieczność podania przez planistów adresu e-mail każdego dodanego nauczyciela, jest to możliwe poprzez unikatowy link wysłany w wiadomości, bez obowiązku zakładania konta. Dla uczniów, ze względu na brak bezpośredniego wpływu na plan zajęć, również nie zakłada się możliwości stworzenia konta. 
 \section{Wymagania funkcjonalne i niefunkcjonalne}
 Wymagania funkcjonalne:
 \begin{itemize}
     \item możliwość rejestracji w aplikacji,
     \item możliwość logowania w aplikacji,
-    \item możliwość dodania danych przedmiotów, nauczycieli, sali i klas,
-    \item możliwość edycji danych przedmiotów, nauczycieli, sali i klas,
-    \item możliwość usunięcia danych przedmiotów, nauczycieli, sali i klas,
+    \item możliwość dodania danych przedmiotów, nauczycieli, sal i klas,
+    \item możliwość edycji danych przedmiotów, nauczycieli, sal i klas,
+    \item możliwość usunięcia danych przedmiotów, nauczycieli, sal i klas,
     \item możliwość generacji planu na podstawie podanych danych,
-     \item możliwość wyświetlania wygenerowanych planów z podziałem na plany dla klas, nauczycieli i sale.
+     \item możliwość wyświetlania wygenerowanych planów z podziałem na plany dla klas, nauczycieli i sale,
     \item możliwość przesłania do nauczycieli ankiet dyspozycyjności,
     \item możliwość wypełnienia ankiety dyspozycyjności przez nauczyciela.
 \end{itemize}
@@ -55,10 +55,13 @@ Wymagania niefunkcjonalne:
     \item szyfrowanie danych w bazie danych.
 \end{itemize}
 \section{Przypadki użycia}
+Na rysunku~\ref{rys:vuex} przedstawiono diagram przypadków użycia.
 \begin{figure}[!ht]
 \centering\includegraphics[width=\textwidth]{figures/DiagramPU}
 \caption{Diagram przypadków użycia}\label{rys:pu}
 \end{figure}
+
+
 \noindent
 \textbf{Przypadek użycia:} Rejestracja w aplikacji\\
 \textbf{Aktor główny:} Planista\\
@@ -162,7 +165,7 @@ Wymagania niefunkcjonalne:
 	\end{enumerate}
 
 \noindent
-\textbf{Przypadek użycia:} Wprowadzanie danych sali lekcyjnych\\
+\textbf{Przypadek użycia:} Wprowadzanie danych sal lekcyjnych\\
 \textbf{Aktor główny:} Planista\\
 \textbf{Scenariusz główny:}
 \begin{enumerate}
@@ -216,11 +219,11 @@ Wymagania niefunkcjonalne:
 	\end{enumerate}
 	
 \noindent
-\textbf{Przypadek użycia:} Edycja danych przedmiotów, nauczycieli, sali lub klas\\
+\textbf{Przypadek użycia:} Edycja danych przedmiotów, nauczycieli, sal lub klas\\
 \textbf{Aktor główny:} Planista\\
 \textbf{Scenariusz główny:}
 \begin{enumerate}
-	\item Planista wybiera przedmiot, nauczyciela, salę lub klasę, której dane chce edytować.
+	\item Planista wybiera przedmiot, nauczyciela, salę lub klasę, których dane chce edytować.
 	\item Aplikacja przechodzi do ekranu edycji z aktualnymi danymi wybranego przedmiotu, nauczyciela, sali lub klasy.
 	\item Planista edytuje dane.
 	\item Planista zatwierdza edycję danych.
@@ -229,18 +232,18 @@ Wymagania niefunkcjonalne:
 \end{enumerate}
 \textbf{Rozszerzenia:}
 	\begin{enumerate}
-         \item[5.A] Aplikacja zgłasza, nowe dane są nieprawidłowe, w ten sam sposób jak miało to miejsce w przypadku ich dodawania.
+         \item[5.A] Aplikacja zgłasza, że nowe dane są nieprawidłowe, w ten sam sposób jak miało to miejsce w przypadku ich dodawania.
          \begin{enumerate}
          	\item[5.A.1] Planista poprawia wpisane dane.
          \end{enumerate}
 	\end{enumerate}
 	
 \noindent
-\textbf{Przypadek użycia:} Usuwanie przedmiotów, nauczycieli, sali lub klas\\
+\textbf{Przypadek użycia:} Usuwanie przedmiotów, nauczycieli, sal lub klas\\
 \textbf{Aktor główny:} Planista\\
 \textbf{Scenariusz główny:}
 \begin{enumerate}
-	\item Planista wybiera przedmiot, nauczyciela, salę lub klasę, której dane chce edytować.
+	\item Planista wybiera przedmiot, nauczyciela, salę lub klasę, których dane chce edytować.
 	\item Aplikacja przechodzi do ekranu edycji z aktualnymi danymi wybranego przedmiotu, nauczyciela, sali lub klasy.
 	\item Planista wybiera opcję usuń przedmiot, nauczyciela, salę lub klasę.
 	\item Aplikacja usuwa przedmiot, nauczyciela, salę lub klasę z listy z lewej strony ekranu.
@@ -275,5 +278,5 @@ Wymagania niefunkcjonalne:
 	\item Planista wybiera opcję 'generuj plan'.
 	\item Aplikacja rozpoczyna generację planu i przechodzi do ekranu oczekiwania.
 	\item Aplikacja kończy generację planu i przechodzi do ekranu szkoły.
-	\item Planista przegląda wygenerowane plany z podziałem na plany klas, nauczycieli i sali lekcyjnych.
+	\item Planista przegląda wygenerowane plany z podziałem na plany klas, nauczycieli i sal lekcyjnych.
 \end{enumerate}

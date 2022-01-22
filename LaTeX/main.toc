@@ -60,17 +60,21 @@
 \contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{27}{section.7.3}%
 \contentsline {section}{\numberline {7.4}Funkcja oceny}{29}{section.7.4}%
 \contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{29}{section.7.5}%
-\contentsline {chapter}{\chapternumberline {8}Instrukcja użytkowania}{32}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Strona główna}{32}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Widok szkoły}{32}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Rejestracja}{33}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Logowanie}{33}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Ankieta}{34}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Dodawanie przedmiotów}{34}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Dodawanie nauczycieli}{35}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Dodawanie sali lekcyjnych}{35}{section.8.8}%
-\contentsline {section}{\numberline {8.9}Dodawanie klas}{36}{section.8.9}%
-\contentsline {section}{\numberline {8.10}Edycja danych}{36}{section.8.10}%
-\contentsline {chapter}{\chapternumberline {9}Zakończenie}{38}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Możliwości rozwoju aplikacji}{38}{section.9.1}%
-\contentsline {chapter}{Literatura}{39}{chapter*.2}%
+\contentsline {chapter}{\chapternumberline {8}Testowanie}{32}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Frontend}{32}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Backend}{32}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Algorytm}{32}{section.8.3}%
+\contentsline {chapter}{\chapternumberline {9}Instrukcja użytkowania}{33}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Strona główna}{33}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Widok szkoły}{33}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Rejestracja}{34}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Logowanie}{34}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Ankieta}{35}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Dodawanie przedmiotów}{35}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Dodawanie nauczycieli}{36}{section.9.7}%
+\contentsline {section}{\numberline {9.8}Dodawanie sal lekcyjnych}{36}{section.9.8}%
+\contentsline {section}{\numberline {9.9}Dodawanie klas}{37}{section.9.9}%
+\contentsline {section}{\numberline {9.10}Edycja danych}{37}{section.9.10}%
+\contentsline {chapter}{\chapternumberline {10}Zakończenie}{39}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Możliwości rozwoju aplikacji}{39}{section.10.1}%
+\contentsline {chapter}{Literatura}{40}{chapter*.2}%
