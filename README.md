@@ -21,11 +21,12 @@ The purpouse of creating this app was to make planners job easier and as overhel
   - Vue.js
 - Backend
   - Django  
+  - AWS RDS
 - Algorithm
   - Python
 - CI/CD
   - circleci
-  - AWS
+  - AWS EC2
   - 
 
 
@@ -78,6 +79,3 @@ Room for improvement:
 - Possibility of spliting groups to subject groups. (e2e)
 - Possibility of providing manual changes in generated schedule. (e2e) 
 - Statistics of generated schedule. (Frontend)
-
-To do:
-- Mark classrooms for particular subject. (e2e)
