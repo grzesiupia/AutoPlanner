@@ -29,18 +29,49 @@ Axios~\cite{axios} jest biblioteką języka JavaScript służącą do wykonywani
 \subsection{Bootstrap}
 Bootstrap~\cite{boot} jest platformą programistyczną CSS (\textit{Cascading Style Sheets}) upraszczającą projektowanie interfejsu graficznego aplikacji internetowych. Bootstrap pomaga zapewnić responsywność stron, a więc poprawne ich wyświetlanie na urządzeniach mobilnych. Przed pojawieniem się tego rozwiązania często występowała konieczność przygotowywania oddzielnych stylów dla ekranów o rożnych rozdzielczościach. Dzięki zastosowaniu platformy programistycznej elementy strony internetowej zostają przeskalowane i przemieszczone tak, aby pomieścić się na ekranie niezależnie od jego wielkości i proporcji. Dodatkowo Bootstrap pozwala na zastosowanie zaawansowanych komponentów takich jak paski nawigacji, wskaźniki postępu czy miniatury. 
 \section{Połączenie z backendem}
-Połączenie z częścią backendową aplikacji jest realizowane przy pomocy biblioteki Axios. W tym celu wykorzystywane są dwa typy zapytań HTTP. Pierwszym z nich jest zapytanie typu GET. Przykładowym zastosowaniem tego zapytania jest odbieranie danych nauczycieli~(zob.~rysunek~\ref{rys:get}). Ze względu na fakt, że zapytanie typu GET nie posiada ciała wiadomości, token uwierzytelniający JWT przesyłany jest w nagłówku. Dane zwrotne otrzymane z backendu zapisywane są w magazynie Vuex. Są tam również przechowywane informacje o powodzeniu operacji i komunikaty o błędzie, jeśli taki wystąpił.
+Połączenie z częścią backendową aplikacji jest realizowane przy pomocy biblioteki Axios. W tym celu wykorzystywane są dwa typy zapytań HTTP. Pierwszym z nich jest zapytanie typu GET. Przykładowym zastosowaniem tego zapytania jest odbieranie danych nauczycieli~(zob.~listing~\ref{lst:get}). Ze względu na fakt, że zapytanie typu GET nie posiada ciała wiadomości, token uwierzytelniający JWT przesyłany jest w nagłówku. Dane zwrotne otrzymane z backendu zapisywane są w magazynie Vuex. Są tam również przechowywane informacje o powodzeniu operacji i komunikaty o błędzie, jeśli taki wystąpił.
 
-\begin{figure}[h]
-\centering\includegraphics[width=\textwidth]{figures/get}
-\caption{Funkcja wykonująca zapytanie typu GET}\label{rys:get}
-\end{figure}
-
-Drugim rodzajem zapytania HTTP wykorzystywanym do wymiany danych z backendem jest POST. W przeciwieństwie do komunikatu typu GET, komunikat typu POST posiada ciało wiadomości. Pozwala to na przesłanie tokenu uwierzytelniające w treści komunikatu. Przykładowym zastosowaniem zapytania tego typu jest przesyłanie danych nauczyciela~(zob.~rysunek~\ref{rys:post}). Poza tokenem uwierzytelniającym, w treści komunikatu przesyłane są informacje, które mają zostać zapisane w bazie danych. W odpowiedzi na komunikat zostaje przesłana informacja o powodzeniu operacji, a w przypadku niepowodzenia także komunikat o błędzie. Te dane są zapisywane w magazynie Vuex, co umożliwia ich wykorzystanie do wyświetlania komunikatów o błędzie użytkownikowi.
-\begin{figure}[h]
-\centering\includegraphics[width=\textwidth]{figures/post}
-\caption{Funkcja wykonująca zapytanie typu POST}\label{rys:post}
-\end{figure}
+\begin{lstlisting}[caption=Funkcja wykonująca zapytanie typu GET,label={lst:get}]
+export const fetchTeachers = ({
+    commit
+},object) => {
+    axios.get("api/get/all/teachers",{ headers: { 'x-access-token': `${object.token}`}})
+        .then((response) => {
+            console.log(response)
+            commit("SET_TEACHERS", response.data)
+            commit("GET_TEACHERS_SUCCESS", true)
+        })
+        .catch(function (error) {
+            commit("GET_TEACHERS_SUCCESS", false)
+            commit("GET_TEACHERS_ERROR", error.response.data.message)
+        });
+}
+\end{lstlisting}
+Drugim rodzajem zapytania HTTP wykorzystywanym do wymiany danych z backendem jest POST. W przeciwieństwie do komunikatu typu GET, komunikat typu POST posiada ciało wiadomości. Pozwala to na przesłanie tokenu uwierzytelniające w treści komunikatu. Przykładowym zastosowaniem zapytania tego typu jest przesyłanie danych nauczyciela~(zob.~listing~\ref{lst:post}). Poza tokenem uwierzytelniającym, w treści komunikatu przesyłane są informacje, które mają zostać zapisane w bazie danych. W odpowiedzi na komunikat zostaje przesłana informacja o powodzeniu operacji, a w przypadku niepowodzenia także komunikat o błędzie. Te dane są zapisywane w magazynie Vuex, co umożliwia ich wykorzystanie do wyświetlania komunikatów o błędzie użytkownikowi.
+\begin{lstlisting}[caption=Funkcja wykonująca zapytanie typu POST, label={lst:post}]
+export const sendTeacher = ({
+    commit
+}, object) => {
+    console.log(object.token, object.name, object.email, object.list_of_subjects)
+    axios
+        .post("api/add/teacher", {
+            token: object.token,
+            name: object.name,
+            email: object.email,
+            list_of_subjects: object.list_of_subjects
+        })
+        .then(function (response) {
+            console.log(response);
+            commit("ADD_TEACHER_SUCCESS", true)
+            router.go();
+        })
+        .catch(function (error) {
+            commit("ADD_TEACHER_SUCCESS", false)
+            commit("ADD_TEACHER_ERROR", error.response.data.message)
+            
+        });
+}
+\end{lstlisting}
 
 
 
