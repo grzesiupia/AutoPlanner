@@ -37,7 +37,8 @@ jobs:
       - run:
           name: unit_test_django
           command:
-            cd Backend && manage.py test backend_api
+            cd Backend;
+            manage.py test backend_api;
       - run:
           name: unit_test_algorithm
           command:
