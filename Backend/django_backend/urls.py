@@ -20,7 +20,7 @@ from backend_api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/signup/', views.add_user),
+    path('api/auth/signup/', views.add_user, name='user'),
     path('api/auth/signin/', views.get_user),
     path('api/add/subject', views.add_subject),
     path('api/add/teacher', views.add_teacher),
