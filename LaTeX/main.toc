@@ -51,33 +51,33 @@
 \contentsline {subsection}{\numberline {6.2.4}Widoki}{23}{subsection.6.2.4}%
 \contentsline {section}{\numberline {6.3}Główne funkcjonalności}{24}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Rejestracja i logowanie}{24}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Uzupełnianie danych potrzebnych do generacji planu}{25}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.2}Uzupełnianie danych potrzebnych do generacji planu}{24}{subsection.6.3.2}%
 \contentsline {subsection}{\numberline {6.3.3}Generacja oraz zwracanie planów}{25}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Baza danych MySQL}{26}{section.6.4}%
-\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{27}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Wstęp}{27}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{27}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{27}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Funkcja oceny}{29}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{29}{section.7.5}%
-\contentsline {chapter}{\chapternumberline {8}Testowanie}{32}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Frontend}{32}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Backend}{32}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Algorytm}{32}{section.8.3}%
-\contentsline {chapter}{\chapternumberline {9}Instrukcja użytkowania}{33}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Strona główna}{33}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Widok szkoły}{33}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Rejestracja}{34}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Logowanie}{34}{section.9.4}%
-\contentsline {section}{\numberline {9.5}Ankieta}{35}{section.9.5}%
-\contentsline {section}{\numberline {9.6}Dodawanie przedmiotów}{35}{section.9.6}%
-\contentsline {section}{\numberline {9.7}Dodawanie nauczycieli}{36}{section.9.7}%
-\contentsline {section}{\numberline {9.8}Dodawanie sal lekcyjnych}{36}{section.9.8}%
-\contentsline {section}{\numberline {9.9}Dodawanie klas}{37}{section.9.9}%
-\contentsline {section}{\numberline {9.10}Edycja danych}{37}{section.9.10}%
-\contentsline {chapter}{\chapternumberline {10}Zakończenie}{39}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Możliwości rozwoju aplikacji}{39}{section.10.1}%
-\contentsline {chapter}{Literatura}{40}{chapter*.2}%
-\contentsline {appendix}{\chapternumberline {A}Załączniki}{42}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Teksty źródłowe aplikacji Autoplanner}{42}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Instrukcja uruchomienia aplikacji -- readme.txt.}{42}{section.A.2}%
+\contentsline {section}{\numberline {6.4}Baza danych MySQL}{25}{section.6.4}%
+\contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{28}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Wstęp}{28}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{28}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{28}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Funkcja oceny}{30}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{30}{section.7.5}%
+\contentsline {chapter}{\chapternumberline {8}Testowanie}{33}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Frontend}{33}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Backend}{33}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Algorytm}{33}{section.8.3}%
+\contentsline {chapter}{\chapternumberline {9}Instrukcja użytkowania}{34}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Strona główna}{34}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Widok szkoły}{34}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Rejestracja}{35}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Logowanie}{35}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Ankieta}{36}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Dodawanie przedmiotów}{36}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Dodawanie nauczycieli}{37}{section.9.7}%
+\contentsline {section}{\numberline {9.8}Dodawanie sal lekcyjnych}{37}{section.9.8}%
+\contentsline {section}{\numberline {9.9}Dodawanie klas}{38}{section.9.9}%
+\contentsline {section}{\numberline {9.10}Edycja danych}{38}{section.9.10}%
+\contentsline {chapter}{\chapternumberline {10}Zakończenie}{40}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Możliwości rozwoju aplikacji}{40}{section.10.1}%
+\contentsline {chapter}{Literatura}{41}{chapter*.2}%
+\contentsline {appendix}{\chapternumberline {A}Załączniki}{43}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Teksty źródłowe aplikacji Autoplanner}{43}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Instrukcja uruchomienia aplikacji -- readme.txt.}{43}{section.A.2}%
