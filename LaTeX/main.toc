@@ -78,3 +78,6 @@
 \contentsline {chapter}{\chapternumberline {10}Zakończenie}{39}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Możliwości rozwoju aplikacji}{39}{section.10.1}%
 \contentsline {chapter}{Literatura}{40}{chapter*.2}%
+\contentsline {appendix}{\chapternumberline {A}Załączniki}{42}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Teksty źródłowe aplikacji Autoplanner}{42}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Instrukcja uruchomienia aplikacji -- readme.txt.}{42}{section.A.2}%

@@ -1,7 +1,7 @@
 
 \chapter{Testowanie}
 \section{Frontend}
-Testy w części frondendowej aplikacji wykonywane są przy pomocy platformy programistycznej Jest. W projekcie można wyróżnić podział na dwa typy testów. Pierwszym typem są testy spójności magazynu Vuex. Przykładowym testem tego typu jest test przypisanie tokenu JWT~(zob.~listing~\ref{lst:vuextest}).
+Testy w części frondendowej aplikacji wykonywane są przy pomocy platformy programistycznej Jest. W projekcie można wyróżnić podział na dwa typy testów. Pierwszym typem są testy spójności magazynu Vuex. Przykładowym testem tego typu jest test przypisanie tokenu JWT~(zob.~listing~\ref{lst:vuextest}). Celem testu jest sprawdzenie, czy funkcje odpowiadające za zapisywanie i odczytywanie danych zostały poprawnie zdefiniowane.
 \begin{lstlisting}[caption=Test spójności magazynu Vuex,label={lst:vuextest}] 
 describe('mutations', () => {
   test('setToken', () => {
@@ -14,7 +14,7 @@ describe('mutations', () => {
   })
 \end{lstlisting}
 
-Drugim typem testów są testy interfejsu użytkownika. Przykładem takiego testu jest test przycisku, który odpowiada za zwiększanie liczby prowadzonych przez nauczyciela przedmiotów~(zob.~listing~\ref{lst:uitest}).
+Drugim typem testów są testy interfejsu użytkownika. Przykładem takiego testu jest test przycisku, który odpowiada za zwiększanie liczby prowadzonych przez nauczyciela przedmiotów~(zob.~listing~\ref{lst:uitest}). Celem testu jest sprawdzenie, czy akcja wykonana przez użytkownika, w tym przypadku symulowana, skutkuje odpowiednią zmianą zmiennych w kodzie aplikacji. 
 \begin{lstlisting}[caption=Test interfejsu użytkownika,label={lst:uitest}] 
 describe('userInput', () => {
   test('addSubject', async () => {
