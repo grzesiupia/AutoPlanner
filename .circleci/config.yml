@@ -35,9 +35,13 @@ jobs:
             sleep 1
           #  pylint $(git ls-files '*.py')
       - run:
-          name: unit_test
+          name: unit_test_django
           command:
-            sleep 1
+            cd Backend && manage.py test backend_api
+      - run:
+          name: unit_test_algorithm
+          command:
+            cd Algorithm && pytest
   build_and_test_front:
     docker:
       - image: cimg/node:17.2.0
@@ -63,26 +67,16 @@ jobs:
       - aws-cli/setup:
           aws-access-key-id: AWS_ACCESS_KEY_ID_FRONT
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY_FRONT
-      - run:  
-          name: Update node.js
-          command:
-            npm install node.js@latest
       - run:
           name: deploy_frontend
           command: |
             sudo apt-get update
-            
-            # 1 - Get the public IP of the current CircleCI runner
-            PUBLIC_IP=$(curl ipinfo.io/ip)
 
-            # 2 - SSH to the server to deploy and Perform steps to deploy
+            # SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_FRONT 'cd GroupProject; 
             git pull --rebase;
             cd Frontend;
             npm install;
-            # tmux new-session -d -s "DUMMY";
-            # sleep 5;
-            # tmux kill-server;
             tmux kill-session -t FRONTEND_SERVER
             sleep 5;
             tmux new-session -d -s "FRONTEND_SERVER";
@@ -102,18 +96,12 @@ jobs:
           name: deploy_back
           command: |
             sudo apt-get update
-            
-            # 1 - Get the public IP of the current CircleCI runner
-            PUBLIC_IP=$(curl ipinfo.io/ip)
-              
-            # 2 - SSH to the server to deploy and Perform steps to deploy
+
+            # SSH to the server to deploy and Perform steps to deploy
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS_BACK 'cd GroupProject; 
             git pull --rebase;
             python -m pip install -r requirements.txt;
             cd Backend;
-            # tmux new-session -d -s "DUMMY";
-            # sleep 5;
-            # tmux kill-server;
             tmux kill-session -t BACKEND_SERVER
             sleep 5;
             tmux new-session -d -s "BACKEND_SERVER";
