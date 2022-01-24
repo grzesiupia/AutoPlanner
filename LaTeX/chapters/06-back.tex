@@ -2,17 +2,20 @@
 \chapter{Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}
 \section{Narzędzia i techonologie}
 \subsection{Django}
-Django~\cite{Django} jest darmową, wysokopoziomową platformą programistyczną przeznaczoną do tworzenia aplikacji internetowych. Dostarcza wiele narzędzi ułatwiających szybką oraz prostą implementację. Oparta jest na wzorcu architektonicznym model-template-view~(zob.~rysunek~\ref{rys:django}). Napisana jest w języku Python. Jednymi z najważniejszych cech Django są:
+Django~\cite{Django} jest darmową, wysokopoziomową platformą programistyczną przeznaczoną do tworzenia aplikacji internetowych. Dostarcza wiele narzędzi ułatwiających szybką oraz prostą implementację. Oparta jest na wzorcu architektonicznym model-template-view~(zob.~rysunek~\ref{rys:django}). 
+
+\begin{figure}[H]
+	\centering\includegraphics[width=14cm]{figures/DjangoSchemat}
+	\caption{Schemat przepływu danych w Django~\cite{DjangoSchemat}}\label{rys:django}
+\end{figure}
+
+Napisana jest w języku Python. Jednymi z najważniejszych cech Django są:
 \begin{itemize}
 	\item łatwy i bezpieczny dostęp do bazy danych,
 	\item duża skalowalność oraz wydajność,
-	\item wbudowane zabezpieczenia przed popularnymi, atakami
+	\item wbudowane zabezpieczenia przed popularnymi atakami,
 	\item rozbudowana dokumentacja.
 \end{itemize}
-\begin{figure}[H]
-	\centering\includegraphics[width=\textwidth]{figures/DjangoSchemat}
-	\caption{Schemat przepływu danych w Django~\cite{DjangoSchemat}}\label{rys:django}
-\end{figure}
 \subsection{MySQL}
 MySQL~\cite{SQL} jest systemem służącym do zarządzania relacyjnymi bazami danych. Model relacyjny zapewnia łatwość w projektowaniu oraz implementacji. Udostępniony jest na licencji wolnego oprogramowania i dostępny jest dla wszystkich popularnych systemów operacyjnych. Bazy danych oparte na tym systemie są wstanie obsługiwać olbrzymie liczby zapytań w bardzo krótkim czasie.
 \subsection{MySQL Workbench}
@@ -20,6 +23,10 @@ MySQL Workbench~\cite{Workbench} to narzędzie do projektowania, tworzenia oraz 
 
 \section{Implementacja serwera REST API}
 \subsection{REST}
+\begin{figure}[H]
+	\centering\includegraphics[width=12cm]{figures/rest}
+	\caption{Przykładowy schemat działania REST API~\cite{SchematRest}}\label{rys:rest}
+\end{figure}
 REST ~\cite{REST} jest stylem architektonicznym wprowadzającym pewien standard komunikacyjny dla internetowych systemów informatycznych~(zob.~rysunek~\ref{rys:rest}). Jego najważniejszymi zaletami są szybkość oraz uniwersalność. Interfejsy programistyczne spełniające założenia REST mogą komunikować się z dowolnym urządzeniem sieciowym, pod warunkiem wysyłania przez nie zapytań w odpowiednim formacie. Jednymi z głównych zasad tego stylu są:
 \begin{itemize}
 	\item zastosowanie modelu klient-serwer,
@@ -27,11 +34,6 @@ REST ~\cite{REST} jest stylem architektonicznym wprowadzającym pewien standard 
 	\item wykorzystywanie pamięci cache przeglądarki w celu zapamiętywania odpowiedzi,
 	\item interfejs programistyczny jednolity dla każdej aplikacji klienckiej.
 \end{itemize}
-\begin{figure}[H]
-	\centering\includegraphics[width=\textwidth]{figures/rest}
-	\caption{Przykładowy schemat działania REST API~\cite{SchematRest}}\label{rys:rest}
-\end{figure}
-
 Zapytania zazwyczaj wysyłane są przy pomocy protokołu HTTP. Zarówno do zapytań, jak i do odpowiedzi, najczęściej wykorzystywane są metody GET oraz POST. Informacje przesyłane między klientem a serwerem muszą być precyzyjne, zwykle występują one w formacie JSON. 
 
 \subsection{Modele}
