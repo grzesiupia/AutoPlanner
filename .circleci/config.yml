@@ -76,7 +76,7 @@ jobs:
             cd Frontend;
             npm install;
             tmux new-session -d -s "DUMMY";
-            sleep 2
+            sleep 5;
             tmux kill-server;
             tmux new-session -d -s "FRONTEND_SERVER";
             tmux send-keys -t FRONTEND_SERVER "npm run serve" C-m;
@@ -105,7 +105,7 @@ jobs:
             python -m pip install requirements.txt;
             cd Backend;
             tmux new-session -d -s "DUMMY";
-            sleep 2
+            sleep 5;
             tmux kill-server;
             tmux new-session -d -s "BACKEND_SERVER";
             tmux send-keys -t BACKEND_SERVER "python3 manage.py runserver 0.0.0.0:8000" C-m;
