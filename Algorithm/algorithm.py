@@ -10,10 +10,10 @@ import time
 import numpy as np
 from joblib import Parallel, delayed
 
-from Algorithm.data_structures import School
-from Algorithm.teachers import TEACHERS, TEACHERS_OLD
-from Algorithm.groups import GROUP, GROUP_OLD
-from Algorithm.classrooms import CLASSES, CLASSES_OLD
+from .data_structures import School
+from .teachers import TEACHERS, TEACHERS_OLD
+from .groups import GROUP, GROUP_OLD
+from .classrooms import CLASSES, CLASSES_OLD
 
 
 class Schedule:
