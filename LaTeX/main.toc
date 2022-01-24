@@ -56,10 +56,10 @@
 \contentsline {section}{\numberline {6.4}Baza danych MySQL}{25}{section.6.4}%
 \contentsline {chapter}{\chapternumberline {7}Projekt i implementacja algorytmu generującego plan lekcji}{28}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Wstęp}{28}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{28}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{28}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Funkcja oceny}{30}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{30}{section.7.5}%
+\contentsline {section}{\numberline {7.2}Przygotowanie danych wejściowych}{29}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Ułożenie poprawnych planów zajęć}{29}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Funkcja oceny}{31}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Ewolucja planów zajęć}{32}{section.7.5}%
 \contentsline {chapter}{\chapternumberline {8}Testowanie}{33}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Frontend}{33}{section.8.1}%
 \contentsline {section}{\numberline {8.2}Backend}{33}{section.8.2}%

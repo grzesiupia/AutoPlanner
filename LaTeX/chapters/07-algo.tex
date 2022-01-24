@@ -5,7 +5,7 @@
 Problem ułożenia najlepszego planu zajęć jest problemem NP-zupełnym. W projekcie zostało zaimplementowane podejście ewolucyjne. Na~rysunku~\ref{rys:time_table_dia} została zobrazowana struktura generowanego planu zajęć.
 
 \begin{figure}[h]
-\centering\includegraphics[width=\textwidth]{figures/time_table_dia}
+\centering\includegraphics[width=14cm]{figures/time_table_dia}
 \caption{Struktura planu zajęć}\label{rys:time_table_dia}
 \end{figure}
 
@@ -24,7 +24,7 @@ Zagadnienie implementacji algorytmu można podzielić na cztery główne częśc
     Przygotowanie danych wejściowych jest kluczowe w działaniu algorytmu. Na podstawie danych otrzymanych od back-end, zostaje ułożona lista czteroelementowych krotek, gdzie pierwszym elementem jest nazwa klasy, drugim elementem jest nazwa przedmiotu, trzecim elementem jest nazwa nauczyciela, a czwartym elementem jest nazwa sali. Wartość elementu sali jest na początku wartością pustą null, a wartość elementu nauczyciela, jest wartością pustą null, wtedy i tylko wtedy kiedy nie został wskazany nauczyciel dla konkretnej klasy. W takiej liście znajdują się wszystkie jednostki lekcyjne występujące w całej szkole. Przykładowo jeżeli pewna klasa IIC ma mieć 5 matematyk w tygodniu z nauczycielem Jan Kowalski, to do listy dostanie dodane pięć krotek postaci (IIC, matematyka, Jan Kowalski, null). Struktura wspomnianej listy znajduje się na ~rysunku~\ref{rys:krotki}.
 
 
-\begin{figure}[]
+\begin{figure}[h]
 \begin{tabular}{llll}
 NAZWA GRUPY & NAZWA PRZEDMIOTU & NAZWA NAUCZYCIELA & NAZWA SALI \\
 IIC         & matematyka       & Jan Kowalski      & null       \\
@@ -48,9 +48,14 @@ Układanie planu zajęć przebiega następująco:
 \end{enumerate}
 Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek nie będzie pusta, to ułożony plan zajęć jest niekompletny i niepoprawny. Proces układania planu zajęć został przedstawiony na ~rysunku~\ref{rys:time_table_prep}.
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering\includegraphics[width=\textwidth]{figures/time_table_prep}
 \caption{Proces układania planu zajęć}\label{rys:time_table_prep}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering\includegraphics[width=\textwidth]{figures/alg_flow}
+\caption{Algorytm -- diagram}\label{rys:alf_flow}
 \end{figure}
 
 \section{Funkcja oceny}
@@ -73,12 +78,6 @@ Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek
 Połowa najgorzej ocenionych planów zostaje zabita. Z każdego planu zajęć, któremu udało się przeżyć, generowany jest kolejny plan. Plan, z którego został wygenerowany nowy plan, będzie nazywany w dalszej części pracy rodzicem, natomiast nowo wygenerowany plan będzie nazywany potomkiem. Lista krotek potomka, będzie zawierała tę samą kolejność co rodzic, ale losowo wybrane rekordy zamienią się w sposób pseudolosowy pozycjami w liście, taka zamiana będzie nazywana dalej mutacją. Nowo wygenerowane jednostki zostają ocenione oraz dodane do populacji, w ten sposób powstaje druga generacja planów zajęć.
 
     Czynność z poprzedniego akapitu powtarza się jeszcze g-razy, gdzie g to liczba wszystkich generacji. Działanie całego algorytmu zostało przedstawione na ~rysunku~\ref{rys:alf_flow}.
-
-
-\begin{figure}[h]
-\centering\includegraphics[width=\textwidth]{figures/alg_flow}
-\caption{Algorytm -- diagram}\label{rys:alf_flow}
-\end{figure}
 
 
 

@@ -31,13 +31,11 @@ Widok ankiety~(zob.~rysunek~\ref{rys:poll}) pozwala nauczycielowi na podanie pre
 \caption{Aplikacja internetowa -- Widok ankiet dla nauczycieli}\label{rys:poll}
 \end{figure}
 \section{Dodawanie przedmiotów}
-Widok dodawania przedmiotów~(zob.~rysunek~\ref{rys:subject}) stanowi pierwszy krok w procesie podawania danych koniecznych do wygenerowania planu zajęć. 
- 
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering\includegraphics[width=\textwidth]{figures/subject}
 \caption{Aplikacja internetowa -- Widok dodawania przedmiotów}\label{rys:subject}
 \end{figure}
-W celu dodawania przedmiotu należy podać jedynie jego nazwę. Powiązania z nauczycielami, salami lekcyjnymi i klasami będą mogły być wprowadzone w kolejnych krokach. Podanie nazw przedmiotów na początku procesu dodawania danych pozwala na to, aby w późniejszych etapach mogły być one wybierane z listy rozwijanej. Zapobiega to konieczności wielokrotnego ręcznego wprowadzania tych samych informacji i ułatwia tworzenie powiązań w bazie danych. W lewej części ekranu znajduje się lista już wprowadzonych przedmiotów. Wybranie z nich jednego powoduje przejście do ekranu edycji. Analogiczne rozwiązanie zostało zastosowane we wszystkich kolejnych ekranach dodawania danych.
+Widok dodawania przedmiotów~(zob.~rysunek~\ref{rys:subject}) stanowi pierwszy krok w procesie podawania danych koniecznych do wygenerowania planu zajęć. W celu dodawania przedmiotu należy podać jedynie jego nazwę. Powiązania z nauczycielami, salami lekcyjnymi i klasami będą mogły być wprowadzone w kolejnych krokach. Podanie nazw przedmiotów na początku procesu dodawania danych pozwala na to, aby w późniejszych etapach mogły być one wybierane z listy rozwijanej. Zapobiega to konieczności wielokrotnego ręcznego wprowadzania tych samych informacji i ułatwia tworzenie powiązań w bazie danych. W lewej części ekranu znajduje się lista już wprowadzonych przedmiotów. Wybranie z nich jednego powoduje przejście do ekranu edycji. Analogiczne rozwiązanie zostało zastosowane we wszystkich kolejnych ekranach dodawania danych.
 \section{Dodawanie nauczycieli}
 W widoku dodawania nauczycieli~(zob.~rysunek~\ref{rys:teacher}) planista ma możliwość wprowadzenia danych personelu dydaktycznego oraz jego powiązań z przedmiotami. Każdy nauczyciel musi posiadać imię i nazwisko, unikalny w skali szkoły adres e-mail oraz przynajmniej jeden prowadzony przedmiot. Ekran umożliwia dodanie kolejnych prowadzonych przedmiotów w przypadku, gdy nauczyciel prowadzi więcej niż jeden. Planista ma również możliwość wysłania ankiet dyspozycyjności ma adresy e-mail do tej pory wprowadzonych nauczycieli.
 \begin{figure}[!ht]
@@ -45,8 +43,8 @@ W widoku dodawania nauczycieli~(zob.~rysunek~\ref{rys:teacher}) planista ma moż
 \caption{Aplikacja internetowa -- Widok dodawania nauczycieli}\label{rys:teacher}
 \end{figure}
 \section{Dodawanie sal lekcyjnych}
-\begin{figure}[h]
-\centering\includegraphics[width=\textwidth]{figures/classroom}
+\begin{figure}[!ht]
+\centering\includegraphics[width=14cm]{figures/classroom}
 \caption{Aplikacja internetowa -- Widok dodawania sali lekcyjnych}\label{rys:classroom}
 \end{figure}
 Dodanie informacji o salach lekcyjnych~(zob.~rysunek~\ref{rys:classroom}) stanowi trzeci krok dodawania danych. Sala lekcyjna musi posiadać nazwę, a opcjonalnie także listę przedmiotów, które mogą być w  niej prowadzone. W przypadku, gdy nie zostanie wybrany żaden preferowany przedmiot, sala zostaje uznana za salę zwykłą, co oznacza, że będzie mógł być w niej prowadzony dowolny przedmiot.
@@ -57,11 +55,8 @@ Ostatnim etapem w procesie dodawania niezbędnych danych jest wprowadzenie param
 \caption{Aplikacja internetowa -- Widok dodawania klas}\label{rys:class}
 \end{figure}
 \section{Edycja danych}
-Dla czterech powyższych ekranów istnieją odpowiadające im ekrany edycji danych.
-
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering\includegraphics[width=\textwidth]{figures/edit}
 \caption{Aplikacja internetowa -- Widok edycji danych nauczyciela}\label{rys:edit}
 \end{figure}
-
-Ze względu na ich analogiczną budowę ich struktura zostanie omówiona na bazie widoku edycji danych nauczyciela~(zob.~rysunek~\ref{rys:edit}). Przejście do tego ekranu umożliwiają przyciski znajdujące się po prawej stronie widoku dodawania nauczycieli. Przyciski te są wciąż obecne w widoku edycji i pozwalają na przechodzenie pomiędzy danymi poszczególnych osób bez zapisywania wprowadzonych zmian. W chwili przejścia do ekranu edycji pola z danymi zostają uzupełnione pierwotnie wprowadzonymi informacjami o nauczycielu. Takie rozwiązanie ma celu zapobieganie konieczności ponownego wprowadzania wszystkich danych, w przypadku gdy tylko niektóre z nich wymagają zmian. Przyciski u dołu pozwalają na zapisanie wprowadzonych zmian, powrót do ekranu dodawania nauczycieli lub całkowite usunięcie nauczyciela z bazy danych.
+Dla czterech powyższych ekranów istnieją odpowiadające im ekrany edycji danych. Ze względu na ich analogiczną budowę ich struktura zostanie omówiona na bazie widoku edycji danych nauczyciela~(zob.~rysunek~\ref{rys:edit}). Przejście do tego ekranu umożliwiają przyciski znajdujące się po prawej stronie widoku dodawania nauczycieli. Przyciski te są wciąż obecne w widoku edycji i pozwalają na przechodzenie pomiędzy danymi poszczególnych osób bez zapisywania wprowadzonych zmian. W chwili przejścia do ekranu edycji pola z danymi zostają uzupełnione pierwotnie wprowadzonymi informacjami o nauczycielu. Takie rozwiązanie ma celu zapobieganie konieczności ponownego wprowadzania wszystkich danych, w przypadku gdy tylko niektóre z nich wymagają zmian. Przyciski u dołu pozwalają na zapisanie wprowadzonych zmian, powrót do ekranu dodawania nauczycieli lub całkowite usunięcie nauczyciela z bazy danych.
