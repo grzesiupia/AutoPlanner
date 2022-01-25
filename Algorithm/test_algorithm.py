@@ -1,11 +1,11 @@
-from .classrooms import CLASSES_OLD
-from .groups import GROUP_OLD
-from .teachers import TEACHERS_OLD
-from .algorithm import Population
-from .data_structures import School, Group, Teacher, Classroom
+from classrooms import CLASSES
+from groups import GROUP
+from teachers import TEACHERS
+from algorithm import Population
+from data_structures import School, Group, Teacher, Classroom
 
 
-def test_evolution(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLASSES_OLD):
+def test_evolution(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     population_size = 10
     num_of_generations = 100
     num_of_mutations = 20
@@ -20,7 +20,7 @@ def test_evolution(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms
     print("Evaluation before evolution is smaller than after evolution")
 
 
-def test_data_structures(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLASSES_OLD):
+def test_data_structures(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     school = School(groups_data, teachers_data, classrooms_data)
     assert len(school.groups) == len(groups_data), "Groups copied incorrectly to dict of class Group"
     assert len(school.classrooms) == len(classrooms_data), "Classrooms copied incorrectly to dict of class Classroom"
