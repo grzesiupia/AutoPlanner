@@ -37,7 +37,7 @@ Projekt powstawał w metodyce DevOps. Takie podejście pozwoliło na szybsze dos
 	\subsection{CircleCI}
 	CircleCI~\cite{circleci} jest platformą obsługującą \textit{Continous Integration and Continous Delivery} (CICD), która pomaga zespołom programistycznym szybko i pewnie wypuszczać kod poprzez możliwość tworzenia \textit{pipeline} automatyzujących proces budowania, testowania i wdrażania. Pozwala to zespołom szybko się rozwijać, łatwo skalować i budować spójne produkty.
 	\begin{itemize}
-	\item \textit{Pipeline} jest jednostką pracy najwyższego poziomu, obejmującą cały plik .circleci/config.yml projektu. Pipeline'y zawierają workflow'y, które koordynują zadania. Mają one ustalony, liniowy cykl życia i są powiązane z konkretnym aktorem. Pipeline'y uruchamiają się po wprowadzeniu zmiany do projektu, który zawiera plik konfiguracyjny CircleCI, a także mogą być zaplanowane, uruchamiane ręcznie za pomocą aplikacji CircleCI lub interfejsu API.
+	\item \textit{Pipeline} jest jednostką pracy najwyższego poziomu, obejmującą cały plik ,,.circleci/config.yml'' projektu. Pipeline'y zawierają workflow'y, które koordynują zadania. Mają one ustalony, liniowy cykl życia i są powiązane z konkretnym aktorem. Pipeline'y uruchamiają się po wprowadzeniu zmiany do projektu, który zawiera plik konfiguracyjny CircleCI, a także mogą być zaplanowane, uruchamiane ręcznie za pomocą aplikacji CircleCI lub interfejsu API.
 	\end{itemize}
 \begin{figure}[H]
 \centering\includegraphics[width=\textwidth]{figures/circleci_schema}
@@ -45,7 +45,7 @@ Projekt powstawał w metodyce DevOps. Takie podejście pozwoliło na szybsze dos
 \end{figure}
 
 	\subsection{Secure Shell}
-	Secure Shell (SSH)~\cite{ssh} to protokół zdalnej administracji, który pozwala użytkownikom kontrolować i modyfikować zdalne serwery przez Internet. Usługa ta została stworzona jako bezpieczny zamiennik dla nieszyfrowanego protokołu Telnet i wykorzystuje techniki kryptograficzne, aby zapewnić szyfrowaną komunikację ze zdalnym serwerem. Zapewnia mechanizm uwierzytelniania zdalnego użytkownika, przesyłania danych wejściowych od klienta do hosta i przekazywania danych wyjściowych z powrotem do klienta.
+	\textit{Secure Shell} (SSH)~\cite{ssh} to protokół zdalnej administracji, który pozwala użytkownikom kontrolować i modyfikować zdalne serwery przez Internet. Usługa ta została stworzona jako bezpieczny zamiennik dla nieszyfrowanego protokołu Telnet i wykorzystuje techniki kryptograficzne, aby zapewnić szyfrowaną komunikację ze zdalnym serwerem. Zapewnia mechanizm uwierzytelniania zdalnego użytkownika, przesyłania danych wejściowych od klienta do hosta i przekazywania danych wyjściowych z powrotem do klienta.
 	
 	\subsection{tmux}
 	tmux~\cite{tmux} jest multiplekserem terminali. Umożliwia tworzenie, dostęp i sterowanie wieloma terminalami z jednego ekranu. tmux może zostać odłączony od ekranu i kontynuować pracę w tle, a następnie ponownie dołączony.
@@ -68,7 +68,7 @@ System operacyjny wykorzystany na obu instancjach EC2 to \textit{Linux Ubuntu 20
 \caption{Pipeline, w którym wystąpiły błędy. Uruchomiony dla zmian wprowadzonych w branch'y innej niż \textit{main}.}
 \end{figure}
 
-	Każdy workflow składa się z zadań, na które składają się jeszcze mniejsze kroki podczas, których wywoływane mogą być polecenia shell'owe wykonywane w kontenerach docker'owych stworzonych na potrzeby wykonania danego zadania. Platforma CircleCI umożliwia tworzenie własnych obrazów Docker'owych jak i zarówno dostarcza szereg gotowych rozwiązań przygotowanych w celu ułatwienia i przyśpieszenia tworzenia pipeline'y na potrzeby małych projektów. Na potrzeby projektu inżynierskiego utworzono workflow \textit{build\_test\_deploy} składający się z 4 zadań \textit{build\_and\_test\_back, build\_and\_test\_front, deploy\_frontend} oraz \textit{deploy\_backend}. (zob. listing 4.1) 
+	Każdy workflow składa się z zadań, na które składają się jeszcze mniejsze kroki podczas, których wywoływane mogą być polecenia shell'owe wykonywane w kontenerach Docker'owych stworzonych na potrzeby wykonania danego zadania. Platforma CircleCI umożliwia tworzenie własnych obrazów Docker'owych jak i zarówno dostarcza szereg gotowych rozwiązań przygotowanych w celu ułatwienia i przyśpieszenia tworzenia pipeline'y na potrzeby małych projektów. Na potrzeby projektu inżynierskiego utworzono workflow \textit{build\_test\_deploy} składający się z 4 zadań \textit{build\_and\_test\_back, build\_and\_test\_front, deploy\_frontend} oraz \textit{deploy\_backend}. (zob. listing 4.1) 
 \begin{lstlisting}[caption=Część skryptu config.yml odpowiedzialna za określenie przebiegu workflow'u.]
 workflows:
   build_test_deploy:
@@ -152,7 +152,7 @@ build_and_test_front:
 \end{figure}
 
 \newpage
-	\item \textit{deploy\_frontend} - w tym zadaniu głównym narzędziem jest aws-cli (AWS command line interface). Pozwala on na obsługę instancji EC2 z poziomu shell'a. Pierwszym krokiem zadania jest checkout do branch'y, której zmiany wywołały wystartowanie pipeline'y. W nastepnym kroku ustawiany jest \textit{access\_key\_id} oraz \textit{secret\_access\_key} potrzebny do połączenia ssh. Dzięki wykorzystaniu zmiennych środowiskowych platformy CircleCI wartości te pozostają ukryte dla osób nie mających dostępu do projektu z poziomu platformy. Ostatnim jednak bardzo rozbudowanym krokiem jest połączenie z użyciem protokołu \textit{SSH} i wykonanie operacji deployment'u z poziomu instancji serwera. Po podłączeniu się do maszyny zdalnej wykonywane są takie czynności jak pull najnowszych zmian ze zdalnego repozytorium, reinstalacja dependencji oraz restart serwera frontend'owego. Po stronie serwera wykorzystywany jest terminal multiplexer \textit{tmux}. Dzięki otwarciu sesji w tle, jest możliwe wykonywanie innych czynności z równolegle działającym serwerem oraz utrzymanie sesji po zakończeniu sesji \textit{SSH}. (zob. listing 4.4 oraz rys. 4.7)
+	\item \textit{deploy\_frontend} - w tym zadaniu głównym narzędziem jest aws-cli (\textit{AWS command line interface}). Pozwala on na obsługę instancji EC2 z poziomu shell'a. Pierwszym krokiem zadania jest checkout do branch'y, której zmiany wywołały wystartowanie pipeline'y. W nastepnym kroku ustawiany jest \textit{access\_key\_id} oraz \textit{secret\_access\_key} potrzebny do połączenia ssh. Dzięki wykorzystaniu zmiennych środowiskowych platformy CircleCI wartości te pozostają ukryte dla osób nie mających dostępu do projektu z poziomu platformy. Ostatnim jednak bardzo rozbudowanym krokiem jest połączenie z użyciem protokołu \textit{SSH} i wykonanie operacji deployment'u z poziomu instancji serwera. Po podłączeniu się do maszyny zdalnej wykonywane są takie czynności jak pull najnowszych zmian ze zdalnego repozytorium, reinstalacja dependencji oraz restart serwera frontend'owego. Po stronie serwera wykorzystywany jest terminal multiplexer \textit{tmux}. Dzięki otwarciu sesji w tle, jest możliwe wykonywanie innych czynności z równolegle działającym serwerem oraz utrzymanie sesji po zakończeniu sesji \textit{SSH}. (zob. listing 4.4 oraz rys. 4.7)
 \begin{lstlisting}[caption=Część skryptu config.yml odpowiadająca za wykonanie zadania \textit{deploy\_frontend}.]
 deploy_frontend:
     executor: aws-cli/default
@@ -186,7 +186,7 @@ deploy_frontend:
 \end{figure}
 	
 \newpage
-	\item \textit{deploy\_backend} - podobnie jak w zadaniu \textit{deploy\_frontend} głównym narzędziem jest aws-cli. Pierwszym krokiem zadania jest checkout do branch'y, której zmiany wywołały wystartowanie pipeline'y. W nastepnym kroku ustawiany jest \textit{access\_key\_id} oraz \textit{secret\_access\_key} potrzebny do połączenia ssh. Dzięki wykorzystaniu zmiennych środowiskowych platformy CircleCI wartości te pozostają ukryte dla osób nie mających dostępu do projektu z poziomu platformy. Ostatnim jednak bardzo rozbudowanym krokiem jest połączenie z użyciem protokołu \textit{SSH} i wykonanie operacji deployment'u z poziomu instancji serwera. Po podłączeniu się do maszyny zdalnej wykonywane są takie czynności jak pull najnowszych zmian ze zdalnego repozytorium, reinstalacja requirementów oraz restart serwera backend'owego. Po stronie serwera wykorzystywany jest terminal multiplexer \textit{tmux}. (zob. listing 4.5 oraz rys. 4.8)
+	\item \textit{deploy\_backend} - podobnie jak w zadaniu \textit{deploy\_frontend} głównym narzędziem jest aws-cli. Pierwszym krokiem zadania jest checkout do branch'y, której zmiany wywołały wystartowanie pipeline'y. W nastepnym kroku ustawiany jest \textit{access\_key\_id} oraz \textit{secret\_access\_key} potrzebny do połączenia ssh. Dzięki wykorzystaniu zmiennych środowiskowych platformy CircleCI wartości te pozostają ukryte dla osób nie mających dostępu do projektu z poziomu platformy. Ostatnim jednak bardzo rozbudowanym krokiem jest połączenie z użyciem protokołu \textit{SSH} i wykonanie operacji deployment'u z poziomu instancji serwera. Po podłączeniu się do maszyny zdalnej wykonywane są takie czynności jak pull najnowszych zmian ze zdalnego repozytorium, reinstalacja requirement'ów oraz restart serwera backend'owego. Po stronie serwera wykorzystywany jest terminal multiplexer \textit{tmux}. (zob. listing 4.5 oraz rys. 4.8)
 \begin{lstlisting}[caption=Część skryptu config.yml odpowiadająca za wykonanie zadania \textit{deploy\_backend}.]
 deploy_backend:
     executor: aws-cli/default
@@ -219,4 +219,12 @@ deploy_backend:
 \caption{Przykładowy przebieg zadania \textit{deploy\_backend}. Uruchomiony dla zmian wprowadzonych w branch'y \textit{main}.}
 \end{figure}
 \end{itemize}
+
+	\subsection{Zastosowanie DevOps lifecycle od strony GitHub}
+	W celu zwiększenia jakości dostarczanych rozwiązań zastosowano następujący przebieg wdrażania. Członek zespołu chcąc wprowadzić nową funkcjonalność lub rozwinąć już istniejącą zaciąga najnowszą wersję projektu ze zdalnego repozytorium. Gdy lokalne repozytorium jest zaktualizowane, deweloper tworzy nową \textit{branch}, w której będzie wprowadzał zmiany. W momencie gdy autor chce podzielić się swoją pracą z innymi członkami zespołu push'uje swoje zmiany do zdalnego repozytorium oraz tworzy \textit{Pull Request} (PR). W takim PR można prześledzić wszystkie zmiany jakie zostały po kolei wprowadzone przez autora. Każda wprowadzona zmiana pojawiająca się w zdalnym repozytorium wywołuje uruchomienie pipeline'y na platformie CircleCI. Wynik działania zadań z uruchomionego workflow również można sprawdzić z poziomu PR. W przypadku gdy zmiany wprowadzone w ramach PR przechodzą wszystkie testy oraz nie wywołują żadnych konfliktów autor prosi o sprawdzenie i zatwierdzenie zmian przez innego członka zespołu. Gdy współpracownik zatwierdzi zmiany, może zostać wykonany merge do branch'y \textit{main}. Po wprowadzeniu zmian do \textit{main} następuje ostatni etap tj. uruchomienie pipeline'y z poziomu tej branch'y a co za tym idzie ponowne zbudowanie i przetestowanie aplikacji oraz ostatecznie \textit{deployment}.
+\begin{figure}[H]
+\centering\includegraphics[width=\textwidth]{figures/github_pr}
+\caption{Przykładowy przebieg wdrażania zmian przy pomocy \textit{Pull Request}}
+\end{figure}
+	
 	 

@@ -15,22 +15,22 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, add_user)
 
 
-class TestViews(TestCase):
+# class TestViews(TestCase):
 
-    def test_add_user_POST(self):
+#     def test_add_user_POST(self):
         
-        email = 'test1@test2@.com'
-        client = Client()
-        url = reverse('user')
+#         email = 'test1@test2@.com'
+#         client = Client()
+#         url = reverse('user')
 
-        Planners.objects.create(
-            planneremail = email,
-            login = 'test',
-            password = 'test'
-        )
+#         Planners.objects.create(
+#             planneremail = email,
+#             login = 'test',
+#             password = 'test'
+#         )
 
-        response = client.post(url, {
-            'Sukces': 'Pomyslnie dodano uzytkownika'
-        })
+#         response = client.post(url, {
+#             'Sukces': 'Pomyslnie dodano uzytkownika'
+#         })
 
-        self.assertEquals(response.status_code, 200)
+#         self.assertEquals(response.status_code, 200)

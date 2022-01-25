@@ -19,11 +19,11 @@ Widok rejestracji~(zob.~rysunek~\ref{rys:register}) umożliwia utworzenie konta 
 \caption{Aplikacja internetowa -- Widok rejestracji}\label{rys:register}
 \end{figure}
 \section{Logowanie}
-Widok logowania~(zob.~rysunek~\ref{rys:login}) pozwala na dostęp do konta i zapisanych na nim danych z dowolnego urządzenia. Do uwierzytelnienia użytkownika wykorzystywany jest adres e-mail oraz hasło podane w procesie rejestracji. Powodzenie procesu logowania powoduje otrzymanie przez aplikację tokenu JWT, zapisywanego w pamięci przeglądarki. W przypadku utraty hasła użytkownik posiada możliwość odzyskania go po podaniu adresu e-mail powiązanego z istniejącym kontem.
-\begin{figure}[h]
+\begin{figure}[!ht]
 \centering\includegraphics[width=\textwidth]{figures/login}
 \caption{Aplikacja internetowa -- Widok logowania}\label{rys:login}
 \end{figure}
+Widok logowania~(zob.~rysunek~\ref{rys:login}) pozwala na dostęp do konta i zapisanych na nim danych z dowolnego urządzenia. Do uwierzytelnienia użytkownika wykorzystywany jest adres e-mail oraz hasło podane w procesie rejestracji. Powodzenie procesu logowania powoduje otrzymanie przez aplikację tokenu JWT, zapisywanego w pamięci przeglądarki. W przypadku utraty hasła użytkownik posiada możliwość odzyskania go po podaniu adresu e-mail powiązanego z istniejącym kontem.
 \section{Ankieta}
 Widok ankiety~(zob.~rysunek~\ref{rys:poll}) pozwala nauczycielowi na podanie preferencji godzinowych pracy. W przeciwieństwie do pozostałych widoków jest on dostępny jedynie poprzez bezpośredni link wysyłany w wiadomości e-mail. Takie rozwiązanie sprawia, że jedynym użytkownikiem, od którego wymagane jest posiadanie konta jest planista. Nauczyciele jako użytkownicy bez konta są identyfikowani dzięki unikalności adresu URL.
 \begin{figure}[!ht]

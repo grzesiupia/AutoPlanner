@@ -27,5 +27,52 @@ describe('userInput', () => {
 })})
 \end{lstlisting}
 \section{Backend}
+\subsection{Testowanie manualne}
+
+Część backendowa, testowana była w dużym stopniu manualnie. Głównym narzędziemy była aplikacja Postman. Przykładowe zapytanie wraz z odpowiedzią na rysunku ~\ref{rys:postman}
+
+\begin{figure}[H]
+	\centering\includegraphics[width=\textwidth]{figures/postman}
+	\caption{Przykładowe zapytanie oraz odpowiedź w Postman}\label{rys:postman}
+\end{figure}
+
+Na zaawansowanych etapach implementacji, testy wykonywane były również z pomocą aplikacji frontendowej, dzięki czemu można była na bieżąco weryfikować integrację.
+
+\subsection{Testy automatyczne}
+Testami automatycznymi objęte zostały widoki oraz adresy URL. Do testowania widoków, wykorzystywane są testy integracyjne, natomiast do adresów testy jednostkowe. W obu przypadkach wykorzystywane są gotowe rozwiązania zaimplementowane w Django. Testy jednostkowe, sprawdzające poprawność implementacji adresów internetowych, sprawdzają czy podczas wysłania zapytania na dany adres, wywoływana jest opowiednia funkcja. Przykład implementacji takiego testu na listingu ~\ref{lst:TestJednostkowy}
+
+\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego, label={lst:TestJednostkowy}]
+	class TestUrls(SimpleTestCase):
+	
+		def test_add_user(self):
+			url = reverse('user')
+			self.assertEquals(resolve(url).func, add_user)
+\end{lstlisting}
+
+Natomiast testy integracyjne, odpowiadające za widoki, mają za zadanie sprawdzić czy widok zwrócił odpowiednią odpowiedź HTPP. Przykład takiego testu na listingu ~\ref{lst:TestIntegracyjny}
+
+\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu integracyjnego, label={lst:TestJednostkowy}]
+	class TestViews(TestCase):
+	
+		def test_add_user_POST(self):
+	
+			email = 'test1@test2@.com'
+			client = Client()
+			url = reverse('user')
+			
+			Planners.objects.create(
+			planneremail = email,
+			login = 'test',
+			password = 'test'
+			)
+			
+			response = client.post(url, {
+				'Sukces': 'Pomyslnie dodano uzytkownika'
+			})
+			
+			self.assertEquals(response.status_code, 200)
+\end{lstlisting}
+
+
 \section{Algorytm}
 
