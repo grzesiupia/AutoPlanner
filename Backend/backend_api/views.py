@@ -318,10 +318,17 @@ def generate_plan(request):
             for i in teachers_list:
                 pref_subject = json.loads(i.teachsubject)
                 pref_sub_list = [n['name'] for n in pref_subject]
-                poll = Polls.objects.get(planneremail = user_data['email'], teacheremail = i.teacheremail)
+                try:
+                    poll = Polls.objects.get(planneremail = user_data['email'], teacheremail = i.teacheremail)
+                except Polls.DoesNotExist:
+                    poll = None
                 work_hours = {}
-                if poll.teacherpref == None:
-                    work_hours['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] = None
+                if poll == None or poll.teacherpref == None:
+                    work_hours['Monday'] = None
+                    work_hours['Tuesday'] = None
+                    work_hours['Wednesday'] = None
+                    work_hours['Thursday'] = None
+                    work_hours['Friday'] = None
                 else:
                     pref_hours = json.loads(poll.teacherpref)
                     for day, j in enumerate(pref_hours['poll']):
