@@ -2,17 +2,20 @@
 \chapter{Projekt i implementacja strony serwerowej opartej na architekturze REST w technologi Django oraz bazy danych MySQL}
 \section{Narzędzia i techonologie}
 \subsection{Django}
-Django~\cite{Django} jest darmową, wysokopoziomową platformą programistyczną przeznaczoną do tworzenia aplikacji internetowych. Dostarcza wiele narzędzi ułatwiających szybką oraz prostą implementację. Oparta jest na wzorcu architektonicznym model-template-view~(zob.~rysunek~\ref{rys:django}). Napisana jest w języku Python. Jednymi z najważniejszych cech Django są:
+Django~\cite{Django} jest darmową, wysokopoziomową platformą programistyczną przeznaczoną do tworzenia aplikacji internetowych. Dostarcza wiele narzędzi ułatwiających szybką oraz prostą implementację. Oparta jest na wzorcu architektonicznym model-template-view~(zob.~rysunek~\ref{rys:django}). 
+
+\begin{figure}[H]
+	\centering\includegraphics[width=14cm]{figures/DjangoSchemat}
+	\caption{Schemat przepływu danych w Django~\cite{DjangoSchemat}}\label{rys:django}
+\end{figure}
+
+Napisana jest w języku Python. Jednymi z najważniejszych cech Django są:
 \begin{itemize}
 	\item łatwy i bezpieczny dostęp do bazy danych,
 	\item duża skalowalność oraz wydajność,
-	\item wbudowane zabezpieczenia przed popularnymi, atakami
+	\item wbudowane zabezpieczenia przed popularnymi atakami,
 	\item rozbudowana dokumentacja.
 \end{itemize}
-\begin{figure}[H]
-	\centering\includegraphics[width=\textwidth]{figures/DjangoSchemat}
-	\caption{Schemat przepływu danych w Django~\cite{DjangoSchemat}}\label{rys:django}
-\end{figure}
 \subsection{MySQL}
 MySQL~\cite{SQL} jest systemem służącym do zarządzania relacyjnymi bazami danych. Model relacyjny zapewnia łatwość w projektowaniu oraz implementacji. Udostępniony jest na licencji wolnego oprogramowania i dostępny jest dla wszystkich popularnych systemów operacyjnych. Bazy danych oparte na tym systemie są wstanie obsługiwać olbrzymie liczby zapytań w bardzo krótkim czasie.
 \subsection{MySQL Workbench}
@@ -20,6 +23,10 @@ MySQL Workbench~\cite{Workbench} to narzędzie do projektowania, tworzenia oraz 
 
 \section{Implementacja serwera REST API}
 \subsection{REST}
+\begin{figure}[H]
+	\centering\includegraphics[width=12cm]{figures/rest}
+	\caption{Przykładowy schemat działania REST API~\cite{SchematRest}}\label{rys:rest}
+\end{figure}
 REST ~\cite{REST} jest stylem architektonicznym wprowadzającym pewien standard komunikacyjny dla internetowych systemów informatycznych~(zob.~rysunek~\ref{rys:rest}). Jego najważniejszymi zaletami są szybkość oraz uniwersalność. Interfejsy programistyczne spełniające założenia REST mogą komunikować się z dowolnym urządzeniem sieciowym, pod warunkiem wysyłania przez nie zapytań w odpowiednim formacie. Jednymi z głównych zasad tego stylu są:
 \begin{itemize}
 	\item zastosowanie modelu klient-serwer,
@@ -27,11 +34,6 @@ REST ~\cite{REST} jest stylem architektonicznym wprowadzającym pewien standard 
 	\item wykorzystywanie pamięci cache przeglądarki w celu zapamiętywania odpowiedzi,
 	\item interfejs programistyczny jednolity dla każdej aplikacji klienckiej.
 \end{itemize}
-\begin{figure}[H]
-	\centering\includegraphics[width=\textwidth]{figures/rest}
-	\caption{Przykładowy schemat działania REST API~\cite{SchematRest}}\label{rys:rest}
-\end{figure}
-
 Zapytania zazwyczaj wysyłane są przy pomocy protokołu HTTP. Zarówno do zapytań, jak i do odpowiedzi, najczęściej wykorzystywane są metody GET oraz POST. Informacje przesyłane między klientem a serwerem muszą być precyzyjne, zwykle występują one w formacie JSON. 
 
 \subsection{Modele}
@@ -50,48 +52,48 @@ W projekcie znajduje się następujących siedem modeli:
 Każdy odpowiada jednej tabeli z bazy danych, pola w każdej z klas są analogiczne do kolumn w odpowiednich tabelach. Zawierają informacje takie jak np. typ danych, maksymalna długość oraz klucz główny.
 Implementacja przykładowej klasy przedstawiona na listingu ~\ref{lst:teachers}
 
-\begin{lstlisting}[caption=Implementacja klasy Teachers, label={lst:teachers}]
+\begin{lstlisting}[language=Python, caption=Implementacja klasy Teachers, label={lst:teachers}]
 	class Teachers(models.Model):
 	'''This class represents table that hold information about teachers '''
-	teacheremail = models.CharField(db_column='teacherEmail', primary_key=True, max_length=255)
-	teachername = models.CharField(db_column='teacherName', max_length=255)
-	teachsubject = models.CharField(db_column='teachSubject', max_length=255)
-	planneremail = models.CharField(db_column='plannerEmail', max_length=255)
+		teacheremail = models.CharField(db_column='teacherEmail', primary_key=True, max_length=255)
+		teachername = models.CharField(db_column='teacherName', max_length=255)
+		teachsubject = models.CharField(db_column='teachSubject', max_length=255)
+		planneremail = models.CharField(db_column='plannerEmail', max_length=255)
 	
-	class Meta:
-	managed = False
-	db_table = 'Teachers'
+		class Meta:
+		managed = False
+		db_table = 'Teachers'
 \end{lstlisting}
 
 \subsection{Adresy internetowe}
 Kolejnym elementem implementacji są adresy internetowe. W pliku ,,urls.py'' określone zostały wykorzystywane w projekcie adresy URL, oraz funkcje, które mają zostać wywołane w przypadku otrzymania od klienta zapytania na dany adres. Implementacja adresów przedstawiona została na listingu ~\ref{lst:URLs}
-\begin{lstlisting}[caption=Implementacja adresów URL, label={lst:URLs}]
+\begin{lstlisting}[language=Python, caption=Implementacja adresów URL, label={lst:URLs}]
 	urlpatterns = [
-	path('admin/', admin.site.urls),
-	path('api/auth/signup/', views.add_user),
-	path('api/auth/signin/', views.get_user),
-	path('api/add/subject', views.add_subject),
-	path('api/add/teacher', views.add_teacher),
-	path('api/add/classroom', views.add_classroom),
-	path('api/add/class', views.add_class),
-	path('api/get/all/subjects', views.get_subjects),
-	path('api/get/all/teachers', views.get_teachers),
-	path('api/get/all/classrooms', views.get_classrooms),
-	path('api/get/all/classes', views.get_classes),
-	path('api/sendEmail', views.send_email),
-	path('api/polls/<int:pollNumber>', views.add_poll_data),
-	path('api/generatePlan', views.generate_plan),
-	path('api/delete/subject', views.del_subject),
-	path('api/delete/teacher', views.del_teacher),
-	path('api/delete/classroom', views.del_classroom),
-	path('api/delete/class', views.del_class),
-	path('api/edit/subject', views.edit_subject),
-	path('api/edit/teacher', views.edit_teacher),
-	path('api/edit/classroom', views.edit_classroom),
-	path('api/edit/class', views.edit_class),
-	path('api/get/plans/class', views.get_classes_timetable),
-	path('api/get/plans/classroom', views.get_classrooms_timetable),
-	path('api/get/plans/teacher', views.get_teachers_timetable)
+		path('admin/', admin.site.urls),
+		path('api/auth/signup/', views.add_user),
+		path('api/auth/signin/', views.get_user),
+		path('api/add/subject', views.add_subject),
+		path('api/add/teacher', views.add_teacher),
+		path('api/add/classroom', views.add_classroom),
+		path('api/add/class', views.add_class),
+		path('api/get/all/subjects', views.get_subjects),
+		path('api/get/all/teachers', views.get_teachers),
+		path('api/get/all/classrooms', views.get_classrooms),
+		path('api/get/all/classes', views.get_classes),
+		path('api/sendEmail', views.send_email),
+		path('api/polls/<int:pollNumber>', views.add_poll_data),
+		path('api/generatePlan', views.generate_plan),
+		path('api/delete/subject', views.del_subject),
+		path('api/delete/teacher', views.del_teacher),
+		path('api/delete/classroom', views.del_classroom),
+		path('api/delete/class', views.del_class),
+		path('api/edit/subject', views.edit_subject),
+		path('api/edit/teacher', views.edit_teacher),
+		path('api/edit/classroom', views.edit_classroom),
+		path('api/edit/class', views.edit_class),
+		path('api/get/plans/class', views.get_classes_timetable),
+		path('api/get/plans/classroom', views.get_classrooms_timetable),
+		path('api/get/plans/teacher', views.get_teachers_timetable)
 	]
 \end{lstlisting}
 W przypadku, jeśli zapytanie przyjdzie na niezadeklarowany adres, zwrócony zostanie komunikat HTTP z kodem 404(Page Not Found).
@@ -99,52 +101,50 @@ W przypadku, jeśli zapytanie przyjdzie na niezadeklarowany adres, zwrócony zos
 \subsection{Widoki}
 Widoki to nic innego, jak funkcję języka Python wykonywane w momencie odbioru zapytania przez serwer. Kiedy klient wyśle zapytanie na dany adres, Django sprawdza, czy jest on zadeklarowany we wspomnianym wcześniej pliku ,,urls.py'', jeśli tak, to wywoływana jest odpowiednia funkcja z pliku ,,views.py'' wraz z jej parametrem którym jest samo zapytanie. Dzięki takiej parametryzacji, widok ma łatwy dostęp do otrzymanych informacji, sprawdza on czy są one prawidłowe, oraz wykonuje na nich odpowiednie działania. W tym projekcie, w większości przypadków wykonywane są operacje zapisu i odczytu z bazy danych. Do komunikacji wykorzystywane są metody GET oraz POST z protokołu HTTP.
 Implementacje przykładowych widoków obsługujacych zapytania dla danych metod HTTP przedstawione zostały na listingach ~\ref{lst:GetSubjects} oraz ~\ref{lst:AddSubject}
-\begin{lstlisting}[caption=Widok obsługujący zapytanie typu GET, label={lst:GetSubjects}]
+\begin{lstlisting}[language=Python, caption=Widok obsługujący zapytanie typu GET, label={lst:GetSubjects}]
 	@csrf_exempt
 	def get_subjects(request):
 	''' A function that returns a list of subjects for a given user  '''
-	if request.method == 'GET':
-	payload = request.headers.get('x-access-token')
-	print(payload)
-	try:
-	user_data = jwt.decode(payload, None, None)
-	array = Subjects.objects.filter(planneremail = user_data['email'])
-	subjects_list = []
-	for i in array:
-	subjects_list.append({'subject_name': i.subjectname})
-	print(subjects_list)
-	response=json.dumps(subjects_list)
-	return HttpResponse(response, content_type='text/json')
-	except Exception as exc:
-	response = json.dumps({'message': str(exc)})
-	return HttpResponse(response, content_type='text/json')
+		if request.method == 'GET':
+			payload = request.headers.get('x-access-token')
+			try:
+				user_data = jwt.decode(payload, None, None)
+				array = Subjects.objects.filter(planneremail = user_data['email'])
+				subjects_list = []
+				for i in array:
+					subjects_list.append({'subject_name': i.subjectname})
+				response=json.dumps(subjects_list)
+				return HttpResponse(response, content_type='text/json')
+			except Exception as exc:
+				response = json.dumps({'message': str(exc)})
+				return HttpResponse(response, content_type='text/json')
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Widok obsługujący zapytanie typu POST, label={lst:AddSubject}]
+\begin{lstlisting}[language=Python, caption=Widok obsługujący zapytanie typu POST, label={lst:AddSubject}]
 	@csrf_exempt
 	def add_subject(request):
 	'''Function that takes new subject request and returns response with the appropriate message,
 	depending on whether the addition of a subject was successful    '''
-	if request.method == 'POST':
-	payload = json.loads(request.body)
-	name = payload['subject_name']
-	token = payload['token']
-	try:
-	user_data = jwt.decode(token, None, None)
-	subject = Subjects(subjectname = name, planneremail = user_data["email"])
-	subject.save(force_insert = True)
-	response=json.dumps({'message': 'Pomyslnie dodano lekcje'})
-	return HttpResponse(response, content_type='text/json')
-	except Exception as exc:
-	response = json.dumps({'message': str(exc)})
-	return HttpResponse(response, content_type='text/json')
+		if request.method == 'POST':
+			payload = json.loads(request.body)
+			name = payload['subject_name']
+			token = payload['token']
+			try:
+				user_data = jwt.decode(token, None, None)
+				subject = Subjects(subjectname = name, planneremail = user_data["email"])
+				subject.save(force_insert = True)
+				response=json.dumps({'message': 'Pomyslnie dodano lekcje'})
+				return HttpResponse(response, content_type='text/json')
+			except Exception as exc:
+				response = json.dumps({'message': str(exc)})
+				return HttpResponse(response, content_type='text/json')
 \end{lstlisting}
 
 \section{Główne funkcjonalności}
 \subsection{Rejestracja i logowanie}
 Rejestracja oraz logowanie zrealizowane są za pomocą dwóch adresów, co za tym idzie również dwóch widoków, obsługujących zapytania z metodą POST. Do zarejestrowania nowego użytkownika wymagane jest podanie danych takich informacji jak adres e-mail, login oraz hasło. Funkcja obsługująca rejestrację zapisuje te dane do odpowiedniej tabeli, pod warunkiem że dany użytkownik nie istnieje już w bazie danych, a następnie zwraca odpowiedni komunikat. W przypadku logowania wymagane jest podanie adresu e-mail oraz hasła podanych przy rejestracji. Jeśli podane dane są poprawne, generowany oraz zwracany klientowi jest token (JWT). Zakodowane w nim są wszystkie dane podane przy rejestracji, co pozwala na identyfikację użytkownika przy dalszej komunikacji. Generacja JWT na listingu ~\ref{lst:JWT}. 
 
-\begin{lstlisting}[caption=Widok obsługujący zapytanie typu POST, label={lst:JWT}]
+\begin{lstlisting}[language=Python, caption=Widok obsługujący zapytanie typu POST, label={lst:JWT}]
 user = Planners.objects.get(planneremail=get_email, password=get_password)
 
 
