@@ -23,6 +23,7 @@ jobs:
       - run:
           name: Install requirements
           command:
+            echo $PYTHONPATH;
             sudo apt-get update;
             pip install --upgrade pip && pip install -r requirements.txt && pip install pylint
       - run:
