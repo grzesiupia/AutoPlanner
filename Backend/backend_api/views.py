@@ -13,7 +13,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 import jwt
 sys.path.append("..")
-
 from backend_api.models import Planners, Lessons, Teachers, Polls, Subjects, Classrooms, Timetables
 from Algorithm.algorithm import main
 
