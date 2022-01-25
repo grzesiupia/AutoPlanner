@@ -23,7 +23,11 @@ jobs:
       - run:
           name: Install requirements
           command:
-            echo $PYTHONPATH;
+            export PYTHONPATH=.;
+            export PYTHONPATH=.\Backend;
+            export PYTHONPATH=.\Algorithm;
+            export PYTHONPATH=.\Backend\backend_api;
+            export PYTHONPATH=.\Backend\django_backend;
             sudo apt-get update;
             pip install --upgrade pip && pip install -r requirements.txt && pip install pylint
       - run:
