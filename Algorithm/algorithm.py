@@ -503,33 +503,33 @@ class Population:
 
 def main(groups_data, teachers_data, classrooms_data):
     population_size = 10
-    num_of_generations = 1000
+    num_of_generations = 5000
     num_of_mutations = 20
 
-    population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    population.new_population(number_of_instances=population_size)
-    print(population.get_best_specimen().evaluation)
-    start = time.time()
-    population.evolute(num_of_generations, num_of_mutations)
-    end = time.time()
-    print(f"Nonparallel: {end - start} sec")
-    print(population.get_best_specimen().evaluation)
+    # population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    # population.new_population(number_of_instances=population_size)
+    # print(population.get_best_specimen().evaluation)
+    # start = time.time()
+    # population.evolute(num_of_generations, num_of_mutations)
+    # end = time.time()
+    # print(f"Nonparallel: {end - start} sec")
+    # print(population.get_best_specimen().evaluation)
     # population.get_best_specimen().schedule.print_group_schedule("1a")
 
-    # population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
-    # population2.new_population(number_of_instances=population_size)
-    # print(population2.get_best_specimen().evaluation)
-    # start = time.time()
-    # population2.parallel_evolute(num_of_generations, num_of_mutations)
-    # end = time.time()
-    # print(f"Parallel: {end - start} sec")
-    # print(population2.get_best_specimen().evaluation)
+    population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
+    population2.new_population(number_of_instances=population_size)
+    print(population2.get_best_specimen().evaluation)
+    start = time.time()
+    population2.parallel_evolute(num_of_generations, num_of_mutations)
+    end = time.time()
+    print(f"Parallel: {end - start} sec")
+    print(population2.get_best_specimen().evaluation)
     # population2.get_best_specimen().schedule.print_group_schedule("1a")
     # print(population2.get_best_specimen().schedule.create_teachers_time_table())
     # print(population2.get_best_specimen().schedule.create_classrooms_time_table())
     # print(population2.get_best_specimen().schedule.print_teacher_schedule("Robert Lewandowski"))
 
-    school_schedule_json, teachers_schedule_json, classrooms_schedule_json = population.get_best_specimen().schedule.convert_schedule_to_json()
+    school_schedule_json, teachers_schedule_json, classrooms_schedule_json = population2.get_best_specimen().schedule.convert_schedule_to_json()
     return school_schedule_json, teachers_schedule_json, classrooms_schedule_json
 
 
