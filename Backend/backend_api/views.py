@@ -161,14 +161,12 @@ def get_subjects(request):
     ''' A function that returns a list of subjects for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
-        print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
             array = Subjects.objects.filter(planneremail = user_data['email'])
             subjects_list = []
             for i in array:
                 subjects_list.append({'subject_name': i.subjectname})
-            print(subjects_list)
             response=json.dumps(subjects_list)
             #response.setHeader("Access-Control-Allow-Origin", "*")
             return HttpResponse(response, content_type='text/json')
@@ -181,7 +179,6 @@ def get_teachers(request):
     ''' A function that returns a list of teachers for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
-        print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
             array = Teachers.objects.filter(planneremail = user_data['email'])
@@ -200,7 +197,6 @@ def get_classrooms(request):
     ''' A function that returns a list of classrooms for a given user  '''
     if request.method == 'GET':
         payload = request.headers.get('x-access-token')
-        print(payload)
         try:
             user_data = jwt.decode(payload, None, None)
             array = Classrooms.objects.filter(planneremail = user_data['email'])
@@ -244,7 +240,6 @@ def send_email(request):
     ''' The function that sends e-mails to teachers with a link to the survey,
      returns the appropriate message depending on the success of sending the e-mails  '''
     if request.method == 'POST':
-        print(request.get_host())
         payload = json.loads(request.body)
         token = payload['token']
         try:
@@ -348,7 +343,6 @@ def generate_plan(request):
                             work_hours['Thursday'] = hours
                         elif day == 4:
                             work_hours['Friday'] = hours    
-                    print(work_hours)
                 teachers[i.teachername] = {'subject': pref_sub_list, 'work_hours': work_hours}
             def do_after():
                 classes_timetables, teachers_timetables, classrooms_timetables = main(groups_data=classes, teachers_data=teachers, classrooms_data=classrooms)
@@ -406,7 +400,6 @@ def del_classroom(request):
         token = payload['token']
         try:
             user_data = jwt.decode(token, None, None)
-            #print(user_data['email'])
             classroom = Classrooms.objects.get(planneremail = user_data['email'], classroomid = name)
             classroom.delete()
             response=json.dumps({'message': 'Pomyslnie usunieto sale'})
