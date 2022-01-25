@@ -23,8 +23,9 @@ jobs:
       - run:
           name: Install requirements
           command:
+            python __init__.py;
             sudo apt-get update;
-            pip install --upgrade pip && pip install -r requirements.txt && pip install pylint
+            pip install --upgrade pip && pip install -r requirements.txt && pip install pylint;
       - run:
           name: Format .py files
           command:
