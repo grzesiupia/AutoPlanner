@@ -364,16 +364,16 @@ class Algorithm:
                             # they are in the same classroom
                             pass
                         else:
-                            self.evaluation -= 10
+                            self.evaluation -= 25
                     else:
                         if subject == 'wf':
-                            self.evaluation -= 50
+                            self.evaluation -= 100
                         # subjects are teared decrease evaluation value
                         else:
-                            self.evaluation -= 10
+                            self.evaluation -= 50
                     # if more than 3 of type in day
                     if group_lessons_per_day_memo[group].count(subject) > 2:
-                        self.evaluation -= 15
+                        self.evaluation -= 150
                     group_lessons_per_day_memo[group].append(subject)
                     group_classrooms_per_day_memo[group].append(classroom)
                 else:
@@ -395,7 +395,7 @@ class Algorithm:
                         pass
                     else:
                         # subjects are teared decrease evaluation value
-                        self.evaluation -= 15
+                        self.evaluation -= 25
 
         hour = 0
         day = 0
@@ -501,7 +501,7 @@ class Population:
             self.parallel_reproduce(number_of_mutation)
 
 
-def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
+def main(groups_data, teachers_data, classrooms_data):
     population_size = 10
     num_of_generations = 1000
     num_of_mutations = 20
@@ -534,4 +534,4 @@ def main(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
 
 
 if __name__ == "__main__":
-    main()
+    main(GROUP, TEACHERS, CLASSES)
