@@ -1,6 +1,21 @@
 
 \chapter{Zakończenie}
 
+\section{Podsumowanie pracy}
+
+Celem pracy inżynierskiej była implementacja aplikacji internetowej służącej do generacji planów zajęć dla szkół podstawowych oraz średnich. Motywacją do podjęcia takiego tematu, był fakt, że układanie planów zajęć jest zadaniem trudnym~\cite{trudne_plany_a}~\cite{trudne_plany_b}. W dużych szkołach plan może być układany nawet miesiącami. Zautomatyzowanie procesu układania planu zajęć może zaoszczędzić pracy osobom, które za to odpowiadają. Dodatkowo pojawia się potrzeba dobrego gospodarowania czasem uczniów oraz nauczycieli, czego ręcznie układane plany zajęć nie zapewniają.
+
+Szczególna uwaga została zwrócona na to, by aplikacja wyświetlała swoją zawartość w przeglądarce w sposób czytelny oraz estetyczny. Jest to jedyna część aplikacji, z którą potencjalny klient miałby bezpośrednią styczność. Oznacza to, że wygląd zawartości wpływałby w znacznym stopniu na odbiór aplikacji przez użytkownika.
+
+Niezwykle ważne było założenie, że projekt ma powstawać w metodyce \textit{DevOps}. Czas włożony na wdrożenie praktyk \textit{DevOps} zaowocował dużą oszczędnością czasu. Fakt, że programowane rozwiązania były wdrażane automatycznie na projektowe maszyny, spowodował znaczne przyśpieszenie postępu prac. Pozwoliło to również na ograniczenie zagrożeń związanych z jednoczesną edycją kodu źródłowego przez więcej niż jedną osobę.
+
+Kluczową częścią projektu była implementacja algorytmu układającego plan zajęć. Problem ten był na tyle złożony, że sam wybór sposobu podejścia nie był trywialną częścią. Ostatecznie zdecydowano się na podejście ewolucyjne. Algorytm pozwala na ułożenie dobrych planów zajęć w szybkim czasie (w porównaniu z ręcznym układaniem planów).
+
+Działanie strony serwerowej zostało oparte na darmowej platformie programistycznej \textit{Django}. Wybór ten zapewnił bezpieczne oraz wydajne działanie całej aplikacji. Część serwerowa obsługuje wszystkie żądania klienta, sprawia to, że jej poprawne działanie było ważną częścią projektu.
+
+Wszystkie wymagania wspomniane w podrozdziale 3.4 udało się spełnić.
+
+
 \section{Możliwości rozwoju aplikacji}
 
 Do aplikacji Autoplaner może zostać w przeszłości dodana funkcjonalność generowania planów zajęć dostosowanych do warunków panujących na uczelniach. Wymagałoby to dodania możliwości swobodnego dzielenia klas na grupy oraz grup na jeszcze mniejsze podgrupy. Przykładowo kierunek studiów można podzielić na cztery grupy dziekańskie, a każdą grupę dziekańską na dwie grupy laboratoryjne. Należałoby również przyjąć sytuację, w której jedna osoba może należeć do kilku grup jednocześnie, gdzie pierwsza grupa może nie być podgrupą drugiej grupy, np. do grupy dziekańskiej i do grupy językowej.
