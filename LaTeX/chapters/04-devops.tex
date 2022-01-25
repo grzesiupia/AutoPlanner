@@ -95,7 +95,7 @@ workflows:
 
 \begin{itemize}
 \newpage
-	\item \textit{build\_and\_test\_back} - podczas tego kroku budowany jest kontener Docker'owy na bazie obrazu z przygotowanym Pythonem w wersji 3.9. Na początku tego zadania w obrębie kontenera wykonywany jest checkout na branch, której zmiany wywołały start pipeline'y. Następnie wykonywany jest krok instalujący requirement'y projektu z pliku \textit{requirements.txt}. Kolejnym krokiem jest sformatowanie plików \textit{.py} przy pomocy gotowego rozwiązania jakim jest narzędzie Black. Następny krok to sprawdzenie kodu przy pomocy lintera \textit{pylint}. Wykorzystanie tego narzędzia zwiększa jakość publikowanego kodu oraz go standaryzuje w przypadku rozwijania oprogramowania przez wiele osób. (zob. listing 4.2 oraz rys. 4.5)
+	\item \textit{build\_and\_test\_back} - podczas tego kroku budowany jest kontener Docker'owy na bazie obrazu z przygotowanym Pythonem w wersji 3.9. Na początku tego zadania w obrębie kontenera wykonywany jest checkout na branch, której zmiany wywołały start pipeline'y. Następnie wykonywany jest krok instalujący requirement'y projektu z pliku \textit{requirements.txt}. Kolejnym krokiem jest sformatowanie plików \textit{.py} przy pomocy gotowego rozwiązania jakim jest narzędzie Black. Następny krok to sprawdzenie kodu przy pomocy lintera \textit{pylint}. Wykorzystanie tego narzędzia zwiększa jakość publikowanego kodu oraz go standaryzuje w przypadku rozwijania oprogramowania przez wiele osób. Dwa ostatnie kroki odpowiedzialne są za uruchomienie testów jednostkowych backend'u oraz algorytmu. (zob. listing 4.2 oraz rys. 4.5)
 	
 \begin{lstlisting}[caption=Część skryptu config.yml odpowiadająca za wykonanie zadania \textit{build\_and\_test\_back}.]
 build_and_test_back:
@@ -116,6 +116,14 @@ build_and_test_back:
           name: pylint
           command:
             pylint $(git ls-files '*.py')
+      - run:
+          name: unit_test_django
+          command:
+            cd Backend && python manage.py test backend_api
+      - run:
+          name: unit_test_algorithm
+          command:
+            cd Algorithm && pytest
 \end{lstlisting} 
 \newpage
 \begin{figure}[H]
