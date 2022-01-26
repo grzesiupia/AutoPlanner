@@ -23,15 +23,15 @@ Przyjęte zostało, że:
 \begin{itemize}
 	\item grupa jest najmniejszą, niepodzielną jednostką szkolną (oznacza to, że w jednej grupie nie mogą znajdować się żadne inne podgrupy, dla których konieczne byłoby odzielne ułożenie planu),
 	\item sale nie mają określonego limitu uczniów,
-	\item grupy nie określonej liczby uczniów.
+	\item grupy nie mają określonej liczby uczniów.
 \end{itemize} 
 
 
 \section{Narzędzia}
 Algorytm został zaprogramowany w języku \textit{Python}. Pozwoliło to na szybkie wdrażanie zmian do kodu źródłowego algorytmu. Dużą zaletą wspomnianego języka jest jego prostota i czytelność, co w przypadku tak złożonego zagadnienia, jak algorytm generujący plany zajęć jest niezwykłe ważne. \textit{Python} automatycznie zarządza pamięcią, Programista nie musi zwracać uwagi na zagadnienia związanie np. z uwalnianiem pamięci po nieużywanych zasobach, co powoduje, że \textit{Python} jest językiem bezpieczniejszym niż np. \textit{C++}.
 
-\section{Algorytm ewolucyjny}
-Algorytm wykorzystuje podejście ewolucyjne, z wykluczeniem mechanizmu krzyżowania. Z połączenia dwóch różnych planów zajęć trudne jest utworzenie trzeciego. Dlatego też, algorytm w celu ewolucji planów zajęć, kożysta wyłącznie z mechanizmu mutacji. Oznacza to, że każdy nowowygenerowany plan zajęć posiada wyłącznie jednego rodzica.
+\section{Zastosowanie algorytmu ewolucyjnego}
+Algorytm wykorzystuje podejście ewolucyjne, z wykluczeniem mechanizmu krzyżowania. Z połączenia dwóch różnych planów zajęć trudne jest utworzenie trzeciego. Dlatego też, algorytm w celu ewolucji planów zajęć, korzysta wyłącznie z mechanizmu mutacji. Oznacza to, że każdy nowowygenerowany plan zajęć posiada wyłącznie jednego rodzica.
 
 \section{Przygotowanie danych wejściowych}
     
@@ -96,20 +96,20 @@ Połowa najgorzej ocenionych planów zostaje zabita. Z każdego planu zajęć, k
 
 \section{Wielowątkowość}
 
-Podczas implementacji algorytmu była rozważana oraz testowana możliwość zrównoleglenia części kodu. Mowa konkretnie pętli iterującej się przez każdy plan w populacji, w celu wygenerowania nowego, zmutowanego. Nie spowodowało to jednak znaczącego przyśpieszenia działania algorytmu. Biorąc pod uwagę jeszcze fakt, że algorytm ostatecznie działa na maszynie jednowątkowej, pomysł implementacji rozwiązania wielowątkowego został porzucony.
+Podczas implementacji algorytmu była rozważana oraz testowana możliwość zrównoleglenia części kodu. Mowa konkretnie pętli o iterującej się przez każdy plan w populacji, w celu wygenerowania nowego, zmutowanego. Nie spowodowało to jednak znaczącego przyśpieszenia działania algorytmu. Biorąc pod uwagę jeszcze fakt, że algorytm ostatecznie działa na maszynie jednowątkowej, pomysł implementacji rozwiązania wielowątkowego został porzucony.
 
 
 \section{Parametry}
 Algorytm przewiduje parametryzację trzech zmiennych:
 \begin{itemize}
-	\item rozmiar populacji p,
-	\item liczbę wszystkich generacji utworzonych podczas działania algorytmu g,
-	\item liczbę mutacji wprowadzonych do nowotworzonego planu zajęć m.
+	\item rozmiar populacji \textit{p},
+	\item liczbę wszystkich generacji utworzonych podczas działania algorytmu \textit{g},
+	\item liczbę mutacji wprowadzonych do nowotworzonego planu zajęć \textit{m}.
 \end{itemize}
 
-Największy wpływ na końcową ocenę końcową ma parametr g. Zakładając, że parametry p i m są stałe, to wartość parametru g zależy liniowo od czasu wykonywania algorytmu oraz logarytmicznie od końcowej oceny. Im większy parametr g, tym większa będzie końcowa ocena, ale im większa wartość g, tym mniejszy jest wzrost oceny końcowej. Ostatecznie parametry zostały ustawione następująco:
+Największy wpływ na końcową ocenę końcową ma parametr \textit{g}. Zakładając, że parametry \textit{p} i \textit{m} są stałe, to wartość parametru \textit{g} zależy liniowo od czasu wykonywania algorytmu oraz logarytmicznie od końcowej oceny. Im większy parametr \textit{g}, tym większa będzie końcowa ocena, ale im większa wartość \textit{g}, tym mniejszy jest wzrost oceny końcowej. Ostatecznie parametry zostały ustawione następująco:
 \begin{itemize}
-	\item p=10,
-	\item g=1000,
-	\item m=20.
+	\item \textit{p} = 10,
+	\item \textit{g} = 1000,
+	\item \textit{m} = 10.
 \end{itemize}
