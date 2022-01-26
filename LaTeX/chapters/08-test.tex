@@ -29,7 +29,7 @@ describe('userInput', () => {
 \section{Backend}
 \subsection{Testowanie manualne}
 
-Część backendowa, testowana była w dużym stopniu manualnie. Głównym narzędziemy była aplikacja Postman. Przykładowe zapytanie wraz z odpowiedzią na rysunku ~\ref{rys:postman}
+Część backendowa, testowana była w dużym stopniu manualnie. Głównym narzędziem była aplikacja Postman. Przykładowe zapytanie wraz z odpowiedzią pokazano na rysunku ~\ref{rys:postman}.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=\textwidth]{figures/postman1}
@@ -39,10 +39,9 @@ Część backendowa, testowana była w dużym stopniu manualnie. Głównym narz�
 Na zaawansowanych etapach implementacji, testy wykonywane były również z pomocą aplikacji frontendowej, dzięki czemu można była na bieżąco weryfikować integrację.
 
 \subsection{Testy automatyczne}
-Testami automatycznymi objęte zostały widoki oraz adresy URL. Do testowania widoków, wykorzystywane są testy integracyjne, natomiast do adresów testy jednostkowe. W obu przypadkach wykorzystywane są gotowe rozwiązania zaimplementowane w Django. Testy jednostkowe, sprawdzające poprawność implementacji adresów internetowych, sprawdzają czy podczas wysłania zapytania na dany adres, wywoływana jest opowiednia funkcja. Przykład implementacji takiego testu na listingu ~\ref{lst:TestJednostkowy}
+Testami automatycznymi objęte zostały widoki oraz adresy URL. Do testowania widoków, wykorzystywane są testy integracyjne, natomiast do adresów testy jednostkowe. W obu przypadkach wykorzystywane są gotowe rozwiązania zaimplementowane w Django. Testy jednostkowe, sprawdzające poprawność implementacji adresów internetowych, sprawdzają czy podczas wysłania zapytania na dany adres, wywoływana jest opowiednia funkcja. Przykład implementacji takiego testu na listingu ~\ref{lst:TestJednostkowyBackend}.
 
-\newpage
-\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego, label={lst:TestJednostkowy}]
+\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego, label={lst:TestJednostkowyBackend}]
 	class TestUrls(SimpleTestCase):
 	
 		def test_add_user(self):
@@ -50,9 +49,9 @@ Testami automatycznymi objęte zostały widoki oraz adresy URL. Do testowania wi
 			self.assertEquals(resolve(url).func, add_user)
 \end{lstlisting}
 
-Natomiast testy integracyjne, odpowiadające za widoki, mają za zadanie sprawdzić czy widok zwrócił odpowiednią odpowiedź HTPP. Przykład takiego testu na listingu ~\ref{lst:TestIntegracyjny}
+Natomiast testy integracyjne, odpowiadające za widoki, mają za zadanie sprawdzić czy widok zwrócił odpowiednią odpowiedź HTPP. Przykład takiego testu na listingu ~\ref{lst:TestIntegracyjnyBackend}.
 
-\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu integracyjnego, label={lst:TestJednostkowy}]
+\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu integracyjnego, label={lst:TestIntegracyjnyBackend}]
 	class TestViews(TestCase):
 	
 		def test_add_user_POST(self):
