@@ -19,15 +19,16 @@ The purpouse of creating this app was to make planners job easier and as overhel
 ## Technologies Used
 - Frontend
   - Vue.js
+  - Jest
 - Backend
   - Django  
   - AWS RDS
 - Algorithm
   - Python
+  - pytest
 - CI/CD
   - circleci
   - AWS EC2
-  - 
 
 
 ## Features

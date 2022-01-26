@@ -9,11 +9,12 @@ import json
 import time
 import numpy as np
 from joblib import Parallel, delayed
+from enum import Enum
 
-from Algorithm.data_structures import School
-from Algorithm.teachers import TEACHERS, TEACHERS_OLD
-from Algorithm.groups import GROUP, GROUP_OLD
-from Algorithm.classrooms import CLASSES, CLASSES_OLD
+from data_structures import School
+from teachers import TEACHERS, TEACHERS_OLD
+from groups import GROUP, GROUP_OLD
+from classrooms import CLASSES, CLASSES_OLD
 
 
 class Schedule:
@@ -198,6 +199,7 @@ class Algorithm:
     """
         Class Algorithm is main class of generator.
     """
+
     def __init__(self, school_instance: School):
         self.school = school_instance
         self.schedule = Schedule(school_instance.max_lessons_per_day_for_school, school_instance.classrooms_set)
@@ -275,7 +277,7 @@ class Algorithm:
         @param teacher_break_importance: points added to rating when teacher have brake in middle of lessons
         @param tough_lessons_importance: points added to rating when group have too many tough lessons per day
         """
-        self._start_evaluation_new(tough_lessons_importance)
+        self._start_evaluation(tough_lessons_importance)
 
         # Evaluation of minus points for breaks of groups
         for group_breaks in self.group_breaks_num.values():
@@ -285,20 +287,32 @@ class Algorithm:
         for teacher_breaks in self.teacher_breaks_num.values():
             self.evaluation -= teacher_breaks * teacher_break_importance
 
-    def _start_evaluation_new(self, tough_lessons_importance):
+    def _start_evaluation(self, tough_lessons_importance):
         time_table = np.array(self.schedule.time_table)
+
+        days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 
         # memo's for checking
         groups_memo = {group.name: 0 for group in self.school.groups.values()}
         teacher_memo = {teacher.name: 0 for teacher in self.school.teachers.values()}
         tough_lessons_memo = {group: 0 for group in self.school.groups}
         group_lessons_per_day_memo = {group: [] for group in groups_memo}
+        group_classrooms_per_day_memo = {group: [] for group in groups_memo}
 
         # make memo's zeros copies for fast reset
         groups_memo_zeros = copy.deepcopy(groups_memo)
         teacher_memo_zeros = copy.deepcopy(teacher_memo)
         tough_lessons_memo_zeros = copy.deepcopy(tough_lessons_memo)
         group_lessons_per_day_memo_zeros = copy.deepcopy(group_lessons_per_day_memo)
+        group_classrooms_per_day_memo_zeros = copy.deepcopy(group_classrooms_per_day_memo)
+
+        def check_teacher_accessibility(teacher):
+            if teacher in teachers_in_hour:
+                if self.school.teachers[teacher].preferred_work_hours[days[day]] is not None:
+                    if hour in self.school.teachers[teacher].preferred_work_hours[days[day]]:
+                        pass
+                    else:
+                        self.evaluation -= 100
 
         def count_teacher_breaks(teacher):
             if teacher in teachers_in_hour:
@@ -341,24 +355,33 @@ class Algorithm:
             # if there is few same subject in a day for group check if they are next to each other
             if group in lesson_hour:
                 subject = lesson_hour[group][0]
+                classroom = lesson_hour[group][2]
                 if subject in group_lessons_per_day_memo[group]:
                     if group_lessons_per_day_memo[group][hour - 1] == subject:
                         # they are next to each other no action needed
-                        pass
+                        if group_classrooms_per_day_memo[group][hour - 1] == classroom:
+                            # if there is few same subjects one by one in a day for group check if
+                            # they are in the same classroom
+                            pass
+                        else:
+                            self.evaluation -= 25
                     else:
                         if subject == 'wf':
-                            self.evaluation -= 50
+                            self.evaluation -= 100
                         # subjects are teared decrease evaluation value
                         else:
-                            self.evaluation -= 10
+                            self.evaluation -= 50
                     # if more than 3 of type in day
                     if group_lessons_per_day_memo[group].count(subject) > 2:
-                        self.evaluation -= 15
+                        self.evaluation -= 150
                     group_lessons_per_day_memo[group].append(subject)
+                    group_classrooms_per_day_memo[group].append(classroom)
                 else:
                     group_lessons_per_day_memo[group].append(subject)
+                    group_classrooms_per_day_memo[group].append(classroom)
             else:
                 group_lessons_per_day_memo[group].append("-")
+                group_classrooms_per_day_memo[group].append("-")
 
         def check_easy_lessons():
             for group in group_lessons_per_day_memo:
@@ -372,9 +395,10 @@ class Algorithm:
                         pass
                     else:
                         # subjects are teared decrease evaluation value
-                        self.evaluation -= 15
+                        self.evaluation -= 25
 
         hour = 0
+        day = 0
         for lesson in time_table.flatten():  # squash time_table to decrease time complexity
             # Reset hours, memo's (simulate day change), check tough lessons per day
 
@@ -382,6 +406,7 @@ class Algorithm:
             teachers_in_hour = [lesson_values[1] for lesson_values in lesson.values()]
             for teacher in teacher_memo:
                 count_teacher_breaks(teacher=teacher)
+                check_teacher_accessibility(teacher=teacher)
 
             # Count for groups
             for group in groups_memo:
@@ -389,17 +414,19 @@ class Algorithm:
                 check_teared_lessons_and_count(group=group, lesson_hour=lesson)
 
             hour += 1
-
             if hour == self.school.max_lessons_per_day_for_school:
                 count_tough_lessons()
                 check_easy_lessons()
 
                 # reset values
+                day += 1
                 hour = 0
                 groups_memo = copy.deepcopy(groups_memo_zeros)
                 teacher_memo = copy.deepcopy(teacher_memo_zeros)
                 tough_lessons_memo = copy.deepcopy(tough_lessons_memo_zeros)
                 group_lessons_per_day_memo = copy.deepcopy(group_lessons_per_day_memo_zeros)
+                group_classrooms_per_day_memo = copy.deepcopy(group_classrooms_per_day_memo_zeros)
+
 
     @staticmethod
     def shuffle_list_of_subjects(base_list: list, num: int):
@@ -474,9 +501,9 @@ class Population:
             self.parallel_reproduce(number_of_mutation)
 
 
-def main(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLASSES_OLD):
+def main(groups_data, teachers_data, classrooms_data):
     population_size = 10
-    num_of_generations = 1000
+    num_of_generations = 5000
     num_of_mutations = 20
 
     # population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
@@ -487,6 +514,7 @@ def main(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLAS
     # end = time.time()
     # print(f"Nonparallel: {end - start} sec")
     # print(population.get_best_specimen().evaluation)
+    # population.get_best_specimen().schedule.print_group_schedule("1a")
 
     population2 = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
     population2.new_population(number_of_instances=population_size)
@@ -496,9 +524,9 @@ def main(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLAS
     end = time.time()
     print(f"Parallel: {end - start} sec")
     print(population2.get_best_specimen().evaluation)
-    print(population2.get_best_specimen().schedule.time_table)
-    print(population2.get_best_specimen().schedule.create_teachers_time_table())
-    print(population2.get_best_specimen().schedule.create_classrooms_time_table())
+    # population2.get_best_specimen().schedule.print_group_schedule("1a")
+    # print(population2.get_best_specimen().schedule.create_teachers_time_table())
+    # print(population2.get_best_specimen().schedule.create_classrooms_time_table())
     # print(population2.get_best_specimen().schedule.print_teacher_schedule("Robert Lewandowski"))
 
     school_schedule_json, teachers_schedule_json, classrooms_schedule_json = population2.get_best_specimen().schedule.convert_schedule_to_json()
@@ -506,11 +534,4 @@ def main(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLAS
 
 
 if __name__ == "__main__":
-    main()
-
-# TODO 1.zrozumienie co tu sie dzieje z parallel
-# TODO 2.Rozwiniecie oceny o klasy, i poprawienie punktow
-
-
-# TODO 6.get dane do planu z backendu w jsonie
-# TODO 7.send grafik dla nauczyela, plan zajec klasy i calej szkoly do jsona
+    main(GROUP, TEACHERS, CLASSES)
