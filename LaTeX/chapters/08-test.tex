@@ -79,9 +79,8 @@ Natomiast testy integracyjne, odpowiadające za widoki, mają za zadanie sprawdz
 	Testy manualne algorytmu przeprowadzane były przy pomocy przykładowych danych pierwotnie przygotowanych przez grupę inżynierską oraz ostatecznie uzyskanych z przykładowej istniejącej szkoły średniej. Dzięki wykorzystaniu danych z prawdziwej szkoły powstałą możliwość porównania planów generowanych przez algorytm z planem stworzonym przez wyszkolonego planistę w szkole średniej.	Dzięki temu możliwe było zwrócenie uwagi na niedoskonałości planu wygenerowanego względem tego stworzonego przez planistę oraz wyeliminowanie ich. Dzięki takim testom manualnym plany generowane przez algorytm udało się doprowadzić do stanu co najmniej bliskiego w stosunku do planu stworzonego przez wyszkolonego planistę.
 	
 	\subsection{Testy automatyczne}	
-	Automatyczne testy jednostkowe algorytmu odbywają się przy pomocy biblioteki \textit{pytest}. Dzięki tej bibliotece testy napisane w języku python można wywóływać przy pomocy jednej komendy. Przykładowym testem jednostkowym jest sprawdzenie czy dane uzyskane z backend'u zostały prawidłowo przetworzone przez algorytm w celu ułatwienia wykonywania na nich różnych operacji. Poniższy test sprawdza, czy ilość danych przygotowanych dla Algorytmu zgadza się z ilością otrzymanych danych. (zob. listing 8.5)
-	\newpage
-	\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego sprawdzającego spójność danych, label={lst:TestJednostkowy}]
+	Automatyczne testy jednostkowe algorytmu odbywają się przy pomocy biblioteki \textit{pytest}. Dzięki tej bibliotece testy napisane w języku Python można wywóływać przy pomocy jednej komendy. Przykładowym testem jednostkowym jest sprawdzenie czy dane uzyskane z backendu zostały prawidłowo przetworzone przez algorytm w celu ułatwienia wykonywania na nich różnych operacji. Poniższy test sprawdza, czy ilość danych przygotowanych dla algorytmu zgadza się z ilością otrzymanych danych (zob.~listing~\ref{lst:test_data}).
+	\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego sprawdzającego spójność danych, label={lst:test_data}]
 	def test_data_structures(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLASSES_OLD):
     school = School(groups_data, teachers_data, classrooms_data)
     assert len(school.groups) == len(groups_data), "Groups copied incorrectly to dict of class Group"
@@ -89,9 +88,9 @@ Natomiast testy integracyjne, odpowiadające za widoki, mają za zadanie sprawdz
     assert len(school.teachers) == len(teachers_data), "Teachers copied incorrectly to dict of class Teacher"
 \end{lstlisting}
 	
-	Kolejnym przykładem automatycznego testu jednostkowego jest sprawdzenie samego procesu ewolucji. Ocena gotowego najlepszego planu z pierwszego pokolenia jest zapisywana. Następnie przeprowadzony zostaje proces ewolucji. Ocena najlepszego planu uzyskanego z ostatniego pokolenia jest zapisywana. Podczas testu sprawdzane jest czy ocena uzyskana przez plan po procesie ewolucji jest lepsza, niż planu przed rozpoczęciem ewolucji. (zob. listing 8.6)
+	Kolejnym przykładem automatycznego testu jednostkowego jest sprawdzenie samego procesu ewolucji. Ocena gotowego najlepszego planu z pierwszego pokolenia jest zapisywana. Następnie przeprowadzony zostaje proces ewolucji. Ocena najlepszego planu uzyskanego z ostatniego pokolenia jest zapisywana. Podczas testu sprawdzane jest czy ocena uzyskana przez plan po procesie ewolucji jest lepsza, niż planu przed rozpoczęciem ewolucji (zob.~listing~\ref{lst:test_evolution}).
 	
-	\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego sprawdzającego proces ewolucji, label={lst:TestJednostkowy}]
+	\begin{lstlisting}[language=Python, caption=Implementacja przykładowego testu jednostkowego sprawdzającego proces ewolucji, label={lst:test_evolution}]
 	def test_evolution(groups_data=GROUP_OLD, teachers_data=TEACHERS_OLD, classrooms_data=CLASSES_OLD):
     population_size = 10
     num_of_generations = 100
