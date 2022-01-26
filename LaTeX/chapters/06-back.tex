@@ -96,11 +96,11 @@ Kolejnym elementem implementacji są adresy internetowe. W pliku ,,urls.py'' okr
 		path('api/get/plans/teacher', views.get_teachers_timetable)
 	]
 \end{lstlisting}
-W przypadku, jeśli zapytanie przyjdzie na niezadeklarowany adres, zwrócony zostanie komunikat HTTP z kodem 404(Page Not Found).
+W przypadku, jeśli zapytanie przyjdzie na niezadeklarowany adres, zwrócony zostanie komunikat HTTP z kodem 404 (Page Not Found).
 
 \subsection{Widoki}
-Widoki to nic innego, jak funkcję języka Python wykonywane w momencie odbioru zapytania przez serwer. Kiedy klient wyśle zapytanie na dany adres, Django sprawdza, czy jest on zadeklarowany we wspomnianym wcześniej pliku ,,urls.py'', jeśli tak, to wywoływana jest odpowiednia funkcja z pliku ,,views.py'' wraz z jej parametrem którym jest samo zapytanie. Dzięki takiej parametryzacji, widok ma łatwy dostęp do otrzymanych informacji, sprawdza on czy są one prawidłowe, oraz wykonuje na nich odpowiednie działania. W tym projekcie, w większości przypadków wykonywane są operacje zapisu i odczytu z bazy danych. Do komunikacji wykorzystywane są metody GET oraz POST z protokołu HTTP.
-Implementacje przykładowych widoków obsługujacych zapytania dla danych metod HTTP przedstawione zostały na listingach ~\ref{lst:GetSubjects} oraz ~\ref{lst:AddSubject}
+Widoki to nic innego, jak funkcję języka Python wykonywane w momencie odbioru zapytania przez serwer. Kiedy klient wyśle zapytanie na dany adres, Django sprawdza, czy jest on zadeklarowany we wspomnianym wcześniej pliku ,,urls.py'', jeśli tak, to wywoływana jest odpowiednia funkcja z pliku ,,views.py'' wraz z jej parametrem, którym jest samo zapytanie. Dzięki takiej parametryzacji, widok ma łatwy dostęp do otrzymanych informacji, sprawdza on czy są one prawidłowe, oraz wykonuje na nich odpowiednie działania. W tym projekcie, w większości przypadków wykonywane są operacje zapisu i odczytu z bazy danych. Do komunikacji wykorzystywane są metody GET oraz POST z protokołu HTTP.
+Implementacje przykładowych widoków obsługujacych zapytania dla danych metod HTTP przedstawione zostały na listingach ~\ref{lst:GetSubjects} oraz ~\ref{lst:AddSubject}.
 \begin{lstlisting}[language=Python, caption=Widok obsługujący zapytanie typu GET, label={lst:GetSubjects}]
 	@csrf_exempt
 	def get_subjects(request):
@@ -172,61 +172,61 @@ Generacja oraz zwracanie planów zrealizowane są za pomocą czterech widoków. 
 Każdy z tych planów, jest zwracany za pomocą pozostałych trzech widoków.
 
 \section{Baza danych MySQL}
-Baza danych składa się z siedmiu tabel. Więszkość wykorzystywanych relacji to ``jeden do wielu''.
-Tabela przechowująca dane użytkowników (Planistów) nazywa się ``Planners''. Zawiera ona następujące kolumny:
+Baza danych składa się z siedmiu tabel. Więszkość wykorzystywanych relacji to ,,jeden do wielu''.
+Tabela przechowująca dane użytkowników (Planistów) nazywa się ,,Planners''. Zawiera ona następujące kolumny:
 \begin{itemize}
-	\item plannerEmail - adres email planisty (klucz główny),
-	\item login - nazwa planisty,
-	\item password - hasło planisty.
+	\item plannerEmail -- adres email planisty (klucz główny),
+	\item login -- nazwa planisty,
+	\item password -- hasło planisty.
 \end{itemize}
 
-Kolejne tabele zawierają informacje potrzebne algorytmowi do wygenerowania planu. Pierwszą z nich jest tabela ``Subjects''. Zawiera ona listę przedmiotów, dodanych przez danego planistę. Jest to pierwsza z relacji, która zwiera złożony klucz główny, tzn. taki który składa się z więcej niż jednej kolumny. Dane przechowywane są w następujący sposób:
+Kolejne tabele zawierają informacje potrzebne algorytmowi do wygenerowania planu. Pierwszą z nich jest tabela ,,Subjects''. Zawiera ona listę przedmiotów, dodanych przez danego planistę. Jest to pierwsza z relacji, która zwiera złożony klucz główny, tzn. taki, który składa się z więcej niż jednej kolumny. Dane przechowywane są w następujący sposób:
 \begin{itemize}
-	\item subjectName - nazwa przedmiotu (klucz główny),
-	\item plannerEmail - adres email planisty (klucz główny oraz klucz obcy).
+	\item subjectName -- nazwa przedmiotu (klucz główny),
+	\item plannerEmail -- adres email planisty (klucz główny oraz klucz obcy).
 \end{itemize}
 
-Podążając za przyjętą w projekcie kolejnością uzupełniania danych, następną tabelą jest ``Teachers'', przechowująca informacje o nauczycielach. Występują w niech następujące kolumny:
+Podążając za przyjętą w projekcie kolejnością uzupełniania danych, następną tabelą jest ,,Teachers'', przechowująca informacje o nauczycielach. Występują w niech następujące kolumny:
 \begin{itemize}
- 	\item teacherEmail - adres email nauczyciela (klucz główny),
- 	\item plannerEmail - adres email planisty (klucz główny oraz klucz obcy),
- 	\item teacherName - imie oraz nazwisko nauczyciela,
- 	\item teachSubject - przedmioty które prowadzi dany nauczyciel.
+ 	\item teacherEmail -- adres email nauczyciela (klucz główny),
+ 	\item plannerEmail -- adres email planisty (klucz główny oraz klucz obcy),
+ 	\item teacherName -- imię oraz nazwisko nauczyciela,
+ 	\item teachSubject -- przedmioty, które prowadzi dany nauczyciel.
 \end{itemize}
 
-Rekordy kolejnej tabeli zawierają informację o dostępnych salach lekcyjnych. Nazywa się ona "Classrooms". Podobnie jak dwie poprzednie, ta również zawiera klucz główny złożony z dwóch kolumn. Występują w niej następujące dane:
+Rekordy kolejnej tabeli zawierają informację o dostępnych salach lekcyjnych. Nazywa się ona ,,Classrooms''. Podobnie jak dwie poprzednie, ta również zawiera klucz główny złożony z dwóch kolumn. Występują w niej następujące dane:
 \begin{itemize}
-	\item classroomId - identyfikator sali lekcyjnej (klucz główny),
-	\item plannerEmail - adres email planisty (klucz główny oraz klucz obcy),
-	\item prefferedSubject - przedmioty, dla których dedykowana jest dana sala.
+	\item classroomId -- identyfikator sali lekcyjnej (klucz główny),
+	\item plannerEmail -- adres email planisty (klucz główny oraz klucz obcy),
+	\item prefferedSubject -- przedmioty, dla których dedykowana jest dana sala.
 \end{itemize}
 
-Ostatnią tabelą zawierającą dane wymagane do wygenerowania planu lekcji jest tabela "Lessons". Zawiera ona informacje o klasach. Jako jedyna tabela, posiada klucz główny składający się aż z trzech kolumn. Przechowywane w niej są następujące dane:
+Ostatnią tabelą zawierającą dane wymagane do wygenerowania planu lekcji jest tabela ,,Lessons''. Zawiera ona informacje o klasach. Jako jedyna tabela, posiada klucz główny składający się aż z trzech kolumn. Przechowywane w niej są następujące dane:
 \begin{itemize}
-	\item className - nazwa klasy (klucz główny),
-	\item subjectName - nazwa przedmiotu (klucz główny oraz klucz obcy),
-	\item plannerEmail - adres email planisty (klucz główny oraz klucz obcy),
-	\item lesssonCount - liczba godzin danego przedmiotu w tygodniu,
-	\item teacherEmail - adres email nauczyciela (klucz obcy).
+	\item className -- nazwa klasy (klucz główny),
+	\item subjectName -- nazwa przedmiotu (klucz główny oraz klucz obcy),
+	\item plannerEmail -- adres email planisty (klucz główny oraz klucz obcy),
+	\item lesssonCount -- liczba godzin danego przedmiotu w tygodniu,
+	\item teacherEmail -- adres email nauczyciela (klucz obcy).
 \end{itemize}
 
-Poza powyższymi tabelami, przechowywującymi informacje konieczne do wygenerowania planu, jest jeszcze taka, która zawiera informacje na temat preferowanych godzin pracy danych nauczycieli. Dane te, są opcjonalne. Tabela nosi nazwę "Polls", a jej kolumny wyglądają następująco:
+Poza powyższymi tabelami, przechowywującymi informacje konieczne do wygenerowania planu, jest jeszcze taka, która zawiera informacje na temat preferowanych godzin pracy danych nauczycieli. Dane te, są opcjonalne. Tabela nosi nazwę ,,Polls'', a jej kolumny wyglądają następująco:
 \begin{itemize}
-	\item plannerEmail - adres email planisty (klucz główny oraz klucz obcy),
-	\item teacherEmail - adres email nauczyciela (klucz główny oraz klucz obcy),
-	\item teacherPref -  dane dotyczące preferowanych godzin pracy nauczyciela,
-	\item pollId - numer ankiety, wykorzystywany do generacji odpowiedniego adresu URL.
+	\item plannerEmail -- adres email planisty (klucz główny oraz klucz obcy),
+	\item teacherEmail -- adres email nauczyciela (klucz główny oraz klucz obcy),
+	\item teacherPref --  dane dotyczące preferowanych godzin pracy nauczyciela,
+	\item pollId -- numer ankiety, wykorzystywany do generacji odpowiedniego adresu URL.
 \end{itemize}
  
-Ostania tabela w bazie danych nazywa się "Timetables". Przechowuje ona wygenerowane plany lekcji. Jej struktura wygląda następująco:
+Ostania tabela w bazie danych nazywa się ,,Timetables''. Przechowuje ona wygenerowane plany lekcji. Jej struktura wygląda następująco:
 \begin{itemize}
-	\item plannerEmail - adres email planisty (klucz główny oraz klucz obcy),
-	\item ClassesTimetable - plan lekcji z punktu widzenia klas,
-	\item TeachersTimetable -  plan lekcji z punktu widzenia nauczyciela,
-	\item ClassroomsTimetable -plan lekcji z punktu widzenia sal lekcyjnych.
+	\item plannerEmail -- adres email planisty (klucz główny oraz klucz obcy),
+	\item ClassesTimetable -- plan lekcji z punktu widzenia klas,
+	\item TeachersTimetable --  plan lekcji z punktu widzenia nauczyciela,
+	\item ClassroomsTimetable -- plan lekcji z punktu widzenia sal lekcyjnych.
 \end{itemize}
 
-Diagram związków encji opisanej bazy danych, znajduje się na rysunku ~\ref{rys:sqldiag}
+Diagram związków encji opisanej bazy danych, znajduje się na rysunku ~\ref{rys:sqldiag}.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=\textwidth]{figures/SQLdiag}
