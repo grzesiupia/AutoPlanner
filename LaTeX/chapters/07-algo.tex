@@ -62,16 +62,6 @@ Układanie planu zajęć przebiega następująco:
 \end{enumerate}
 Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek nie będzie pusta, to ułożony plan zajęć jest niekompletny i niepoprawny. Proces układania planu zajęć został przedstawiony na ~rysunku~\ref{rys:time_table_prep}.
 
-\begin{figure}[!ht]
-\centering\includegraphics[width=\textwidth]{figures/time_table_prep}
-\caption{Proces układania planu zajęć}\label{rys:time_table_prep}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering\includegraphics[width=\textwidth]{figures/alg_flow}
-\caption{Algorytm -- diagram}\label{rys:alf_flow}
-\end{figure}
-
 \section{Funkcja oceny}
 
     Funkcja oceny przyznaje planowi zajęć pewną liczbę punktów. Ocena może mieć wartość z zakresu od minus nieskończoności do 0, gdzie im wartość większa, tym lepsza ocena.
@@ -88,11 +78,21 @@ Jeżeli po zakończeniu działania procesu układania planu zajęć lista krotek
 \section{Ewolucja planów zajęć}
 
     Część ewolucyjna algorytmu wykorzystuje wszystkie poprzednie części. Na początku algorytm generuje pewną populację planów zajęć, która będzie nazywana dalej pierwszą generacją. Zawartość listy krotek jest identyczna dla każdej jednostki z populacji, ale kolejność krotek w liście jest pseudolosowo zmieniona. Dzięki takiemu rozwiązaniu, każda jednostka w populacji może wygenerować zupełnie inny plan zajęć. Za pomocą funkcji oceny, do każdego z planów zostaje przydzielona pewna liczba punktów. 
+    
+   \begin{figure}[H]
+\centering\includegraphics[width=\textwidth]{figures/time_table_prep}
+\caption{Proces układania planu zajęć}\label{rys:time_table_prep}
+\end{figure}
 
 Połowa najgorzej ocenionych planów zostaje zabita. Z każdego planu zajęć, któremu udało się przeżyć, generowany jest kolejny plan. Plan, z którego został wygenerowany nowy plan, będzie nazywany w dalszej części pracy rodzicem, natomiast nowo wygenerowany plan będzie nazywany potomkiem. Lista krotek potomka, będzie zawierała tę samą kolejność co rodzic, ale losowo wybrane rekordy zamienią się w sposób pseudolosowy pozycjami w liście, taka zamiana będzie nazywana dalej mutacją. Nowo wygenerowane jednostki zostają ocenione oraz dodane do populacji, w ten sposób powstaje druga generacja planów zajęć.
 
     Czynność z poprzedniego akapitu powtarza się jeszcze g-razy, gdzie g to liczba wszystkich generacji. Działanie całego algorytmu zostało przedstawione na ~rysunku~\ref{rys:alf_flow}.
 
+
+\begin{figure}[H]
+\centering\includegraphics[width=\textwidth]{figures/alg_flow}
+\caption{Algorytm -- diagram}\label{rys:alf_flow}
+\end{figure}
 
 \section{Wielowątkowość}
 
