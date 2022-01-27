@@ -503,8 +503,8 @@ class Population:
 
 def main(groups_data, teachers_data, classrooms_data):
     population_size = 10
-    num_of_generations = 5000
-    num_of_mutations = 20
+    num_of_generations = 1500
+    num_of_mutations = 3
 
     # population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
     # population.new_population(number_of_instances=population_size)
