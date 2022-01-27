@@ -8,7 +8,7 @@ from data_structures import School, Group, Teacher, Classroom
 def test_evolution(groups_data=GROUP, teachers_data=TEACHERS, classrooms_data=CLASSES):
     population_size = 10
     num_of_generations = 100
-    num_of_mutations = 20
+    num_of_mutations = 3
 
     population = Population(groups_data=groups_data, teachers_data=teachers_data, classrooms_data=classrooms_data)
     population.new_population(number_of_instances=population_size)
