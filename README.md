@@ -72,7 +72,7 @@ Project requirements can be found in requirements.txt file.
 
 
 ## Project Status
-Project is: _in progress_
+Project is: _MVP_
 
 
 ## Room for Improvement
